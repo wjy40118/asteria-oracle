@@ -1227,6 +1227,470 @@
       grid-template-columns: 270px minmax(480px, 1fr) 370px;
     }
 
+    .synastry-workspace {
+      display: grid;
+      grid-template-columns: 320px minmax(500px, 1fr) 380px;
+      gap: 16px;
+      padding-top: 20px;
+      align-items: stretch;
+    }
+
+    .relationship-control {
+      padding: 18px;
+    }
+
+    .relationship-person {
+      padding: 13px;
+      border: 1px solid rgba(255,255,255,.075);
+      border-radius: 12px;
+      background: rgba(255,255,255,.018);
+    }
+
+    .person-heading {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      margin-bottom: 10px;
+    }
+
+    .person-heading span {
+      width: 22px;
+      height: 22px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      border: 1px solid var(--line-strong);
+      color: var(--gold);
+      font-family: var(--mono);
+      font-size: 8px;
+    }
+
+    .person-heading strong {
+      font-family: var(--serif);
+      font-size: 13px;
+      font-weight: 500;
+    }
+
+    .person-fields {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0 8px;
+    }
+
+    .person-fields .field {
+      margin-bottom: 9px;
+    }
+
+    .person-fields .field > span {
+      font-size: 8px;
+    }
+
+    .person-fields .field input {
+      padding: 8px 9px;
+      font-size: 10px;
+    }
+
+    .relationship-link {
+      height: 34px;
+      display: grid;
+      place-items: center;
+      position: relative;
+      color: var(--gold);
+      font-family: var(--serif);
+      font-size: 18px;
+    }
+
+    .relationship-link::before,
+    .relationship-link::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      width: calc(50% - 25px);
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--line-strong));
+    }
+
+    .relationship-link::before {
+      left: 0;
+    }
+
+    .relationship-link::after {
+      right: 0;
+      transform: scaleX(-1);
+    }
+
+    .relationship-question {
+      margin-top: 13px;
+    }
+
+    .relationship-question textarea {
+      min-height: 78px;
+    }
+
+    .compatibility-stage {
+      min-height: 675px;
+      padding: 19px;
+      overflow: hidden;
+      position: relative;
+      background:
+        radial-gradient(circle at 50% 41%, rgba(101, 75, 140, .2), transparent 41%),
+        linear-gradient(150deg, rgba(18, 42, 65, .78), rgba(7, 18, 34, .88));
+    }
+
+    .compatibility-stage::before {
+      content: "";
+      position: absolute;
+      inset: 84px 7% 130px;
+      border-radius: 50%;
+      border: 1px solid rgba(232,205,157,.09);
+      pointer-events: none;
+    }
+
+    .compatibility-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+      position: relative;
+      z-index: 3;
+    }
+
+    .compatibility-head strong {
+      display: block;
+      font-family: var(--serif);
+      font-size: 21px;
+      font-weight: 500;
+    }
+
+    .compatibility-visual {
+      min-height: 390px;
+      position: relative;
+      display: grid;
+      place-items: center;
+      z-index: 2;
+    }
+
+    .pair-orbits {
+      width: min(100%, 520px);
+      height: 355px;
+      position: relative;
+    }
+
+    .pair-orbit {
+      position: absolute;
+      width: 290px;
+      height: 290px;
+      top: 34px;
+      border-radius: 50%;
+      border: 1px solid rgba(236, 206, 155, .24);
+      background:
+        radial-gradient(circle at 45% 38%, rgba(255,255,255,.06), transparent 14%),
+        radial-gradient(circle, rgba(13, 26, 43, .8), rgba(7, 13, 25, .55) 67%);
+      box-shadow: inset 0 0 50px rgba(0,0,0,.28);
+    }
+
+    .pair-orbit::before,
+    .pair-orbit::after {
+      content: "";
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .pair-orbit::before {
+      inset: 28px;
+      border: 1px dashed rgba(232, 205, 157, .14);
+    }
+
+    .pair-orbit::after {
+      left: 50%;
+      top: 50%;
+      width: 154px;
+      height: 154px;
+      transform: translate(-50%, -50%);
+      border: 1px solid rgba(255,255,255,.07);
+    }
+
+    .pair-orbit.person-a {
+      left: 2%;
+      transform: rotate(-7deg);
+    }
+
+    .pair-orbit.person-b {
+      right: 2%;
+      transform: rotate(7deg);
+      border-color: rgba(158, 196, 226, .26);
+    }
+
+    .pair-orbit-name {
+      position: absolute;
+      top: 17px;
+      left: 50%;
+      transform: translateX(-50%) rotate(var(--counter-rotate));
+      color: var(--gold-bright);
+      font-family: var(--mono);
+      font-size: 8px;
+      letter-spacing: .13em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .pair-orbit.person-b .pair-orbit-name {
+      color: #c6dcf0;
+    }
+
+    .pair-orbit-center {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 122px;
+      transform: translate(-50%, -50%) rotate(var(--counter-rotate));
+      text-align: center;
+    }
+
+    .pair-orbit-center .orbit-sun {
+      display: block;
+      color: var(--gold-bright);
+      font-family: var(--serif);
+      font-size: 20px;
+      margin-bottom: 6px;
+    }
+
+    .pair-orbit.person-b .pair-orbit-center .orbit-sun {
+      color: #cbe0ef;
+    }
+
+    .pair-orbit-center small {
+      display: block;
+      color: var(--muted);
+      font-size: 8px;
+      line-height: 1.7;
+    }
+
+    .pair-dot {
+      position: absolute;
+      width: 29px;
+      height: 29px;
+      margin: -14.5px 0 0 -14.5px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(9, 19, 33, .9);
+      color: var(--dot-color, var(--gold));
+      font-family: "Times New Roman", serif;
+      font-size: 13px;
+      box-shadow: 0 0 13px rgba(0,0,0,.36);
+      transform: rotate(var(--counter-rotate));
+    }
+
+    .relationship-score-core {
+      position: absolute;
+      left: 50%;
+      top: 178px;
+      width: 124px;
+      height: 124px;
+      transform: translate(-50%, -50%);
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      z-index: 5;
+      background:
+        radial-gradient(circle, rgba(24, 24, 43, .98) 54%, rgba(8, 12, 23, .95) 56%),
+        conic-gradient(var(--gold) calc(var(--score) * 1%), rgba(255,255,255,.07) 0);
+      border: 1px solid rgba(243, 211, 157, .34);
+      box-shadow: 0 0 38px rgba(90, 91, 146, .28);
+    }
+
+    .relationship-score-core strong {
+      display: block;
+      color: var(--gold-bright);
+      font-family: var(--serif);
+      font-size: 32px;
+      font-weight: 400;
+      line-height: 1;
+    }
+
+    .relationship-score-core span {
+      display: block;
+      margin-top: 6px;
+      color: var(--faint);
+      font-family: var(--mono);
+      font-size: 6.5px;
+      letter-spacing: .11em;
+    }
+
+    .relationship-spread {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      position: relative;
+      z-index: 3;
+    }
+
+    .relationship-card {
+      min-height: 106px;
+      padding: 10px;
+      border: 1px solid rgba(238, 207, 157, .14);
+      border-radius: 10px;
+      background:
+        linear-gradient(145deg, rgba(27, 55, 83, .6), rgba(7, 18, 32, .82));
+      transition: transform .2s, border-color .2s;
+    }
+
+    .relationship-card:hover {
+      transform: translateY(-3px);
+      border-color: rgba(238, 207, 157, .34);
+    }
+
+    .relationship-card-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      color: var(--faint);
+      font-family: var(--mono);
+      font-size: 6.5px;
+      letter-spacing: .06em;
+    }
+
+    .relationship-card-symbol {
+      display: block;
+      margin: 9px 0 6px;
+      color: var(--gold-bright);
+      font-family: var(--serif);
+      font-size: 22px;
+    }
+
+    .relationship-card strong {
+      display: block;
+      font-family: var(--serif);
+      font-size: 12px;
+      font-weight: 500;
+    }
+
+    .relationship-card small {
+      display: block;
+      margin-top: 4px;
+      color: var(--faint);
+      font-size: 7px;
+      line-height: 1.5;
+    }
+
+    .synastry-reading {
+      max-height: none;
+    }
+
+    .synastry-reading .ai-summary {
+      margin-bottom: 10px;
+    }
+
+    .compatibility-scoreline {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 0 12px;
+      border-bottom: 1px solid rgba(255,255,255,.06);
+    }
+
+    .compatibility-scoreline span {
+      color: var(--faint);
+      font-family: var(--mono);
+      font-size: 8px;
+      letter-spacing: .12em;
+    }
+
+    .compatibility-scoreline strong {
+      color: var(--gold-bright);
+      font-family: var(--serif);
+      font-size: 27px;
+      font-weight: 400;
+    }
+
+    .compatibility-scoreline strong small {
+      color: var(--faint);
+      font-family: var(--mono);
+      font-size: 8px;
+      font-weight: 400;
+    }
+
+    .compat-score-grid {
+      display: grid;
+      gap: 9px;
+      padding: 14px 0;
+      border-bottom: 1px solid rgba(255,255,255,.06);
+    }
+
+    .compat-score-row {
+      display: grid;
+      grid-template-columns: 58px 1fr 24px;
+      gap: 8px;
+      align-items: center;
+      color: var(--faint);
+      font-size: 8px;
+    }
+
+    .compat-track {
+      height: 3px;
+      overflow: hidden;
+      border-radius: 99px;
+      background: rgba(255,255,255,.07);
+    }
+
+    .compat-track i {
+      display: block;
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, rgba(154,196,225,.7), var(--gold));
+    }
+
+    .compat-score-row strong {
+      color: var(--ink);
+      font-family: var(--mono);
+      font-weight: 400;
+      text-align: right;
+    }
+
+    .advice-list {
+      display: grid;
+      gap: 8px;
+      padding: 13px 0 0;
+      margin: 0;
+      list-style: none;
+    }
+
+    .advice-list li {
+      display: grid;
+      grid-template-columns: 20px 1fr;
+      gap: 8px;
+      color: var(--muted);
+      font-size: 9px;
+      line-height: 1.7;
+    }
+
+    .advice-list li span {
+      color: var(--gold);
+      font-family: var(--mono);
+      font-size: 8px;
+    }
+
+    .advice-list li p {
+      margin: 0;
+    }
+
+    .structure-source {
+      display: block;
+      margin-top: 14px;
+      color: var(--faint);
+      font-size: 7px;
+      line-height: 1.6;
+    }
+
+    .structure-source a {
+      color: #c5d9e8;
+      text-underline-offset: 3px;
+    }
+
     .chart-stage {
       min-height: 620px;
       padding: 18px 20px;
@@ -1749,7 +2213,8 @@
         width: 210px;
       }
       .tarot-workspace,
-      .chart-workspace {
+      .chart-workspace,
+      .synastry-workspace {
         grid-template-columns: 240px minmax(420px, 1fr) 310px;
       }
       .tarot-card {
@@ -1765,17 +2230,25 @@
         padding-inline: 18px;
       }
       .topbar {
+        height: auto;
+        min-height: 78px;
         grid-template-columns: 1fr auto;
+        grid-template-rows: auto auto;
+        padding: 12px 0;
       }
       .nav {
-        position: fixed;
-        left: 50%;
-        bottom: 12px;
-        z-index: 90;
-        transform: translateX(-50%);
+        position: static;
+        grid-column: 1 / -1;
+        grid-row: 2;
+        justify-self: stretch;
+        justify-content: center;
+        width: 100%;
+        margin-top: 10px;
+        transform: none;
         background: rgba(10, 12, 22, .92);
         border-color: rgba(255,255,255,.12);
         box-shadow: 0 15px 48px rgba(0,0,0,.55);
+        overflow-x: auto;
       }
       .top-meta {
         grid-column: 2;
@@ -1794,14 +2267,16 @@
         margin-top: 15px;
       }
       .tarot-workspace,
-      .chart-workspace {
+      .chart-workspace,
+      .synastry-workspace {
         grid-template-columns: 1fr;
       }
       .control-panel {
         order: 1;
       }
       .deck-stage,
-      .chart-stage {
+      .chart-stage,
+      .compatibility-stage {
         order: 2;
       }
       .reading-panel,
@@ -1824,7 +2299,7 @@
         grid-template-columns: 1fr;
       }
       .footer {
-        margin-bottom: 70px;
+        margin-bottom: 18px;
       }
     }
 
@@ -1904,6 +2379,12 @@
         width: 112%;
         margin-left: -6%;
       }
+      .pair-orbits {
+        transform: scale(.84);
+      }
+      .relationship-spread {
+        grid-template-columns: repeat(2, 1fr);
+      }
       .spec-grid {
         grid-template-columns: 1fr;
       }
@@ -1936,6 +2417,7 @@
         <button class="active" data-view="home">今日</button>
         <button data-view="tarot">塔罗</button>
         <button data-view="chart">星盘</button>
+        <button data-view="synastry">合盘</button>
         <button data-view="spec">设计</button>
       </nav>
 
@@ -1948,12 +2430,13 @@
           <div class="eyebrow">Interactive divination / 01</div>
           <h1>把问题，<br>放进<em>星图</em>里。</h1>
           <p class="hero-copy">
-            一次抽牌，一张星盘，都从你真正想问的事开始。Asteria 不替你预言结局，
-            而是把散落在情绪里的线索重新排布，让你看见下一步可以怎样走。
+            一次抽牌，一张星盘，或两个人之间的关系合盘，都从你真正想问的事开始。
+            Asteria 不替你预言结局，而是把散落在情绪里的线索重新排布，让你看见下一步可以怎样走。
           </p>
           <div class="hero-actions">
             <button class="primary-button" data-view="tarot">抽一张牌&nbsp; ↗</button>
             <button class="ghost-button" data-view="chart">生成我的星盘&nbsp; ◎</button>
+            <button class="ghost-button" data-view="synastry">双人合盘&nbsp; ⊚</button>
           </div>
           <div class="hero-note">
             <span>免费离线演示</span>
@@ -1996,7 +2479,7 @@
 
         <div class="home-foot">
           <span>Move closer to reveal. 靠近，细节才会醒来。</span>
-          <span>Tarot / Natal chart / Reflective AI</span>
+          <span>Tarot / Natal chart / Synastry</span>
           <span>Seoul · 2026</span>
         </div>
       </section>
@@ -2092,6 +2575,91 @@
         </div>
       </section>
 
+      <section class="view workspace" id="view-synastry">
+        <header class="workspace-header">
+          <div>
+            <div class="workspace-kicker">Ritual 03 / Relationship synastry</div>
+            <h1>看见两个人之间的引力与摩擦。</h1>
+          </div>
+          <p>合盘不判断“是不是对的人”。它把两个人的表达方式、情感节奏和关系过程放在一起，寻找可以协商的位置。</p>
+        </header>
+
+        <div class="synastry-workspace">
+          <aside class="panel control-panel relationship-control">
+            <div class="panel-label">Two coordinates</div>
+            <form id="synastry-form" novalidate>
+              <div class="relationship-person">
+                <div class="person-heading"><span>A</span><strong>你的坐标</strong></div>
+                <div class="person-fields">
+                  <label class="field">
+                    <span>名字</span>
+                    <input id="syn-a-name" value="Lin" autocomplete="name">
+                  </label>
+                  <label class="field">
+                    <span>出生日期</span>
+                    <input id="syn-a-date" type="date" value="1998-08-16">
+                  </label>
+                  <label class="field">
+                    <span>出生时间</span>
+                    <input id="syn-a-time" type="time" value="21:40">
+                  </label>
+                  <label class="field">
+                    <span>出生城市</span>
+                    <input id="syn-a-city" value="Seoul">
+                  </label>
+                </div>
+              </div>
+
+              <div class="relationship-link"><span>⊗</span></div>
+
+              <div class="relationship-person">
+                <div class="person-heading"><span>B</span><strong>对方坐标</strong></div>
+                <div class="person-fields">
+                  <label class="field">
+                    <span>名字</span>
+                    <input id="syn-b-name" value="Mira" autocomplete="off">
+                  </label>
+                  <label class="field">
+                    <span>出生日期</span>
+                    <input id="syn-b-date" type="date" value="1997-03-02">
+                  </label>
+                  <label class="field">
+                    <span>出生时间</span>
+                    <input id="syn-b-time" type="time" value="08:20">
+                  </label>
+                  <label class="field">
+                    <span>出生城市</span>
+                    <input id="syn-b-city" value="Busan">
+                  </label>
+                </div>
+              </div>
+
+              <label class="field relationship-question">
+                <span>你最想理解这段关系的什么？</span>
+                <textarea id="synastry-question">我们怎样才能更好地理解彼此，而不是反复陷入同一种争执？</textarea>
+              </label>
+              <button class="primary-button wide-button" type="submit">生成双人合盘&nbsp; ⊚</button>
+              <div id="synastry-error"></div>
+            </form>
+            <p class="tiny-note">请仅在双方知情并同意的情况下输入信息。出生时间缺失时仍可比较日月，但上升与宫位仅作区间参考。</p>
+          </aside>
+
+          <section class="panel compatibility-stage">
+            <div class="compatibility-head">
+              <div>
+                <span class="panel-label" style="margin:0 0 7px;">Relationship field</span>
+                <strong id="synastry-pair-title">Lin × Mira</strong>
+              </div>
+              <span class="demo-badge">SYNASTRY / DEMO</span>
+            </div>
+            <div class="compatibility-visual" id="synastry-visual"></div>
+            <div class="relationship-spread" id="synastry-cards"></div>
+          </section>
+
+          <aside class="panel chart-reading synastry-reading" id="synastry-reading"></aside>
+        </div>
+      </section>
+
       <section class="view workspace" id="view-spec">
         <header class="workspace-header">
           <div>
@@ -2114,7 +2682,7 @@
             <article class="spec-block">
               <span class="spec-number">01 / IDEA</span>
               <h3>产品一句话</h3>
-              <p><strong>输入一个真实问题，选择塔罗或星盘，得到可回看的反思型解读。</strong> 目标用户是 18–35 岁、正在面对关系或职业不确定性的年轻人。</p>
+              <p><strong>输入一个真实问题，选择塔罗、星盘或双人合盘，得到可回看的反思型解读。</strong> 目标用户是 18–35 岁、正在面对关系或职业不确定性的年轻人。</p>
             </article>
             <article class="spec-block">
               <span class="spec-number">02 / EXAMPLE</span>
@@ -2232,6 +2800,31 @@
         { angle: 180, name: "对分", color: "#c5a7cf", text: "需要平衡的两端" }
       ];
 
+      const fractalProcesses = {
+        fool: { phase: "圆外", process: "存在本身", note: "作为背景，不急于归入任何阶段" },
+        magician: { phase: "水", process: "内在孕育", note: "让尚未表达的材料先在内部成形" },
+        "high-priestess": { phase: "水", process: "内在孕育", note: "通过静默与观察确认真正的意图" },
+        empress: { phase: "水", process: "内在孕育", note: "让感受与创造力获得生长的条件" },
+        emperor: { phase: "水", process: "内在孕育", note: "先在内部建立边界与结构" },
+        hierophant: { phase: "水", process: "内在孕育", note: "从共同信念中寻找可继承的框架" },
+        lovers: { phase: "土", process: "向外成形", note: "把价值选择转化为可见的关系行动" },
+        chariot: { phase: "土", process: "向外成形", note: "让分散的动力形成明确方向" },
+        justice: { phase: "土", process: "向外成形", note: "把事实、责任和边界放回可检验的位置" },
+        hermit: { phase: "土", process: "向外成形", note: "离开噪音后，形成自己的判断" },
+        wheel: { phase: "土", process: "向外成形", note: "接受周期变化，并调整参与方式" },
+        strength: { phase: "中轴", process: "悬置与整合", note: "在两个极端之间保持有意识的停顿" },
+        "hanged-man": { phase: "火", process: "已存在的内容", note: "现有关系模式已经成为需要重新观察的事实" },
+        death: { phase: "火", process: "已存在的内容", note: "旧阶段结束，开始为新的结构腾出空间" },
+        temperance: { phase: "火", process: "已存在的内容", note: "让不同节奏产生新的配比" },
+        devil: { phase: "火", process: "已存在的内容", note: "辨认依赖、欲望与隐含代价" },
+        tower: { phase: "火", process: "已存在的内容", note: "不稳固的结构被暴露，需要重建" },
+        star: { phase: "风", process: "内容回流", note: "让新的反馈进入关系愿景" },
+        moon: { phase: "风", process: "内容回流", note: "在模糊感受中区分事实与投射" },
+        sun: { phase: "风", process: "内容回流", note: "让真实表达被看见并被确认" },
+        judgement: { phase: "风", process: "内容回流", note: "回看旧经验，并作出新的回应" },
+        world: { phase: "风", process: "内容回流", note: "整合一个周期，再进入下一轮关系" }
+      };
+
       const spreadLabels = {
         one: ["此刻"],
         three: ["过去", "此刻", "下一步"]
@@ -2256,6 +2849,9 @@
           showAspects: true,
           showLabels: true,
           selectedPlanet: "sun",
+          data: null
+        },
+        synastry: {
           data: null
         }
       };
@@ -3250,6 +3846,359 @@
         `;
       }
 
+      function pairPoint(angle, radius) {
+        const radians = (angle - 90) * Math.PI / 180;
+        return {
+          x: 145 + Math.cos(radians) * radius,
+          y: 145 + Math.sin(radians) * radius
+        };
+      }
+
+      function seededRandom(seed) {
+        let state = seed >>> 0;
+        return () => {
+          state += 0x6D2B79F5;
+          let value = state;
+          value = Math.imul(value ^ value >>> 15, value | 1);
+          value ^= value + Math.imul(value ^ value >>> 7, value | 61);
+          return ((value ^ value >>> 14) >>> 0) / 4294967296;
+        };
+      }
+
+      function drawRelationshipCards(seedText) {
+        const random = seededRandom(hashText(seedText));
+        const cards = [...tarotCards];
+        for (let index = cards.length - 1; index > 0; index -= 1) {
+          const swapIndex = Math.floor(random() * (index + 1));
+          [cards[index], cards[swapIndex]] = [cards[swapIndex], cards[index]];
+        }
+        return cards.slice(0, 4).map((card) => ({
+          card,
+          reversed: random() > 0.68,
+          structure: fractalProcesses[card.id] || fractalProcesses.fool
+        }));
+      }
+
+      function elementAffinity(first, second) {
+        if (first === second) return 10;
+        const complementary =
+          (first === "火" && second === "风") ||
+          (first === "风" && second === "火") ||
+          (first === "土" && second === "水") ||
+          (first === "水" && second === "土");
+        if (complementary) return 14;
+        return 5;
+      }
+
+      function aspectAffinity(firstLongitude, secondLongitude) {
+        let difference = Math.abs(firstLongitude - secondLongitude);
+        if (difference > 180) difference = 360 - difference;
+        const aspects = [
+          { angle: 0, weight: 8 },
+          { angle: 60, weight: 7 },
+          { angle: 90, weight: 3 },
+          { angle: 120, weight: 10 },
+          { angle: 180, weight: 4 }
+        ];
+        const nearest = aspects
+          .map((aspect) => ({ ...aspect, orb: Math.abs(difference - aspect.angle) }))
+          .sort((a, b) => a.orb - b.orb)[0];
+        return {
+          score: Math.max(0, 1 - nearest.orb / 18),
+          aspect: nearest
+        };
+      }
+
+      function clampScore(value) {
+        return Math.max(42, Math.min(94, Math.round(value)));
+      }
+
+      function buildSynastry(birthA, birthB, question) {
+        const chartA = calculateChart(birthA);
+        const chartB = calculateChart(birthB);
+        const sunA = chartA.planetsByKey.sun;
+        const sunB = chartB.planetsByKey.sun;
+        const moonA = chartA.planetsByKey.moon;
+        const moonB = chartB.planetsByKey.moon;
+        const venusA = chartA.planetsByKey.venus;
+        const venusB = chartB.planetsByKey.venus;
+        const marsA = chartA.planetsByKey.mars;
+        const marsB = chartB.planetsByKey.mars;
+        const ascA = chartA.planetsByKey.ascendant;
+        const ascB = chartB.planetsByKey.ascendant;
+        const signA = signs[sunA.signIndex];
+        const signB = signs[sunB.signIndex];
+        const moonSignA = signs[moonA.signIndex];
+        const moonSignB = signs[moonB.signIndex];
+        const ascSignA = signs[ascA.signIndex];
+        const ascSignB = signs[ascB.signIndex];
+        const moonAspect = aspectAffinity(moonA.longitude, moonB.longitude);
+        const sunMoonCross =
+          (aspectAffinity(sunA.longitude, moonB.longitude).score +
+            aspectAffinity(sunB.longitude, moonA.longitude).score) / 2;
+        const venusAspect = aspectAffinity(venusA.longitude, venusB.longitude);
+        const marsAspect = aspectAffinity(marsA.longitude, marsB.longitude);
+        const risingAspect = aspectAffinity(ascA.longitude, ascB.longitude);
+        const emotional = clampScore(
+          56 +
+          elementAffinity(moonSignA.element, moonSignB.element) * 1.4 +
+          moonAspect.score * 14 +
+          sunMoonCross * 8
+        );
+        const rhythm = clampScore(
+          55 +
+          elementAffinity(signA.element, signB.element) * 1.4 +
+          elementAffinity(ascSignA.element, ascSignB.element) +
+          risingAspect.score * 12
+        );
+        const trust = clampScore(
+          54 +
+          venusAspect.score * 19 +
+          marsAspect.score * 10 +
+          elementAffinity(moonSignA.element, moonSignB.element)
+        );
+        const repair = clampScore(
+          57 +
+          ([moonSignA, moonSignB, ascSignA, ascSignB].filter((sign) => sign.element === "水").length * 5) +
+          (moonSignA.mode === moonSignB.mode ? 5 : 2)
+        );
+
+        const cards = drawRelationshipCards(
+          `${birthA.name}|${birthA.date}|${birthA.time}|${birthB.name}|${birthB.date}|${birthB.time}|${question}`
+        );
+        const processDiversity = new Set(cards.slice(0, 3).map((entry) => entry.structure.process)).size;
+        const score = clampScore(
+          emotional * .3 +
+          rhythm * .2 +
+          trust * .28 +
+          repair * .14 +
+          processDiversity * 2.2
+        );
+
+        const sameMoonElement = moonSignA.element === moonSignB.element;
+        const sameSunMode = signA.mode === signB.mode;
+        const nameA = birthA.name || "你";
+        const nameB = birthB.name || "对方";
+        const scoreLabel =
+          score >= 85 ? "高共鸣，也需保留差异" :
+          score >= 73 ? "互补与张力并存" :
+          score >= 61 ? "需要主动协商节奏" :
+          "差异明显，边界尤其重要";
+
+        const strengths = [
+          `${signA.name} × ${signB.name} 提供不同的行动语言`,
+          sameMoonElement
+            ? `月亮同在${moonSignA.element}元素，情绪线索较容易被辨认`
+            : `月亮分属${moonSignA.element}与${moonSignB.element}元素，能互相补足感受盲区`,
+          venusAspect.score > .55
+            ? "金星的相位支持偏好与亲密表达产生连接"
+            : "亲密表达需要更明确的询问而不是自动猜测"
+        ];
+
+        const challenges = [
+          sameSunMode
+            ? "两人可能同时坚持同一种节奏，争执时缺少自然的刹车"
+            : "行动节奏不同，一方可能把另一方的慢或快理解成不在意",
+          moonAspect.score < .55
+            ? "情绪需要不容易被即时接收到，容易用推理替代确认"
+            : "情绪连接较强，也更容易互相感染压力",
+          cards[2].structure.process === cards[3].structure.process
+            ? "关系现状与下一步处在相近过程，改变需要被刻意启动"
+            : "关系正在从一个过程转向另一个过程，旧规则需要重新协商"
+        ];
+
+        const advice = [];
+        if (emotional < 72) {
+          advice.push(`安排一次没有任务和手机的 20 分钟对话。${nameA}先复述听到的内容，再由${nameB}确认或修正。`);
+        }
+        if (trust < 74) {
+          advice.push("把“你应该懂我”改写成一个可以回答的请求，例如“我希望今晚你能先听我说完，再给建议”。");
+        }
+        if (rhythm < 72 || sameSunMode) {
+          advice.push("约定争执暂停词和恢复时间。先处理情绪安全，再讨论谁对谁错。");
+        }
+        advice.push(`把「${cards[3].card.name}」的主题放进下一次对话：${cards[3].card.reflection}`);
+        while (advice.length < 3) {
+          advice.push("每周各说一个“最近被对方照顾到的时刻”，让关系不只围绕问题运转。");
+        }
+
+        return {
+          chartA,
+          chartB,
+          birthA,
+          birthB,
+          cards,
+          question,
+          score,
+          scoreLabel,
+          components: [
+            { label: "情绪回应", value: emotional },
+            { label: "生活节奏", value: rhythm },
+            { label: "信任表达", value: trust },
+            { label: "修复空间", value: repair }
+          ],
+          strengths,
+          challenges,
+          advice: advice.slice(0, 3),
+          summary: `${nameA}的太阳在${signA.name}，${nameB}的太阳在${signB.name}；月亮分别在${moonSignA.name}与${moonSignB.name}。这段关系更像两种过程之间的协商，而不是固定匹配等级。`
+        };
+      }
+
+      function renderPairOrbit(chart, name, side, rotation) {
+        const keyPlanets = ["sun", "moon", "venus", "ascendant"];
+        const dots = keyPlanets.map((key) => {
+          const planet = chart.planetsByKey[key];
+          const point = pairPoint(planet.longitude, key === "ascendant" ? 103 : 119);
+          const left = point.x / 290 * 100;
+          const top = point.y / 290 * 100;
+          const label = planet.name === "上升" ? "上升" : `${planet.name} ${signs[planet.signIndex].name}`;
+          return `
+            <span
+              class="pair-dot"
+              title="${label}"
+              style="left:${left}%;top:${top}%;--dot-color:${planet.color};--counter-rotate:${-rotation}deg;"
+            >${planet.symbol}</span>
+          `;
+        }).join("");
+        const sun = chart.planetsByKey.sun;
+        const moon = chart.planetsByKey.moon;
+        const asc = chart.planetsByKey.ascendant;
+        return `
+          <div class="pair-orbit person-${side}" style="--counter-rotate:${-rotation}deg;">
+            <span class="pair-orbit-name">${side.toUpperCase()} / ${name || "未命名"}</span>
+            <div class="pair-orbit-center">
+              <span class="orbit-sun">${signs[sun.signIndex].symbol} ${signs[sun.signIndex].name}</span>
+              <small>☽ ${signs[moon.signIndex].name} · AC ${signs[asc.signIndex].name}</small>
+            </div>
+            ${dots}
+          </div>
+        `;
+      }
+
+      function renderSynastryVisual(data) {
+        const nameA = data.birthA.name || "你";
+        const nameB = data.birthB.name || "对方";
+        $("#synastry-pair-title").textContent = `${nameA} × ${nameB}`;
+        $("#synastry-visual").innerHTML = `
+          <div class="pair-orbits">
+            ${renderPairOrbit(data.chartA, nameA, "a", -7)}
+            ${renderPairOrbit(data.chartB, nameB, "b", 7)}
+            <div class="relationship-score-core" style="--score:${data.score};">
+              <div>
+                <strong>${data.score}</strong>
+                <span>关系共鸣</span>
+              </div>
+            </div>
+          </div>
+        `;
+        const labels = ["你带来的过程", "对方带来的过程", "关系的此刻", "可尝试的下一步"];
+        $("#synastry-cards").innerHTML = data.cards.map((entry, index) => `
+          <article class="relationship-card">
+            <div class="relationship-card-top">
+              <span>0${index + 1}</span>
+              <span>${labels[index]}</span>
+            </div>
+            <span class="relationship-card-symbol">${entry.card.symbol}</span>
+            <strong>${entry.card.name} · ${entry.reversed ? "逆位" : "正位"}</strong>
+            <small>${entry.structure.phase} / ${entry.structure.process}</small>
+          </article>
+        `).join("");
+      }
+
+      function renderSynastryReading(data) {
+        const nameA = data.birthA.name || "你";
+        const nameB = data.birthB.name || "对方";
+        const cardLines = data.cards.slice(0, 3).map((entry, index) => {
+          const direction = entry.reversed ? "向内收束" : "向外表达";
+          return `
+            <section class="analysis-section">
+              <h3>${["A · " + nameA, "B · " + nameB, "NOW · 关系结构"][index]} / ${entry.structure.phase}</h3>
+              <p>${entry.card.name}把${entry.structure.process}带进这段关系，${direction}。${entry.reversed ? entry.card.reversed : entry.card.upright}</p>
+            </section>
+          `;
+        }).join("");
+        const barMarkup = data.components.map((item) => `
+          <div class="compat-score-row">
+            <span>${item.label}</span>
+            <span class="compat-track"><i style="width:${item.value}%;"></i></span>
+            <strong>${item.value}</strong>
+          </div>
+        `).join("");
+        $("#synastry-reading").innerHTML = `
+          <div class="reading-title">
+            <h2>双人关系解读</h2>
+            <span class="demo-badge">AI DEMO</span>
+          </div>
+          <p class="ai-summary">${data.summary}</p>
+          <div class="compatibility-scoreline">
+            <span>RELATIONAL RESONANCE</span>
+            <strong>${data.score}<small> / 100</small></strong>
+          </div>
+          <section class="analysis-section">
+            <h3>${data.scoreLabel}</h3>
+            <div class="compat-score-grid">${barMarkup}</div>
+          </section>
+          ${cardLines}
+          <section class="analysis-section">
+            <h3>Available strengths</h3>
+            <p>${data.strengths.join("  ")}</p>
+          </section>
+          <section class="analysis-section">
+            <h3>Potential tension</h3>
+            <p>${data.challenges.join("  ")}</p>
+          </section>
+          <section class="analysis-section">
+            <h3>Relationship practice</h3>
+            <ol class="advice-list">
+              ${data.advice.map((item, index) => `<li><span>0${index + 1}</span><p>${item}</p></li>`).join("")}
+            </ol>
+          </section>
+          <p class="disclaimer">“共鸣指数”只用于比较本次输入，不代表关系价值、未来结果或对方的真实想法。请勿在未经同意时分析他人隐私。</p>
+          <span class="structure-source">解读结构参考 <a href="https://github.com/yihao-sun/fractal-tarot-prompt" target="_blank" rel="noreferrer">息观塔罗 · 分形结构语法</a>，CC BY-NC-SA 4.0。</span>
+        `;
+      }
+
+      function renderSynastry(data) {
+        state.synastry.data = data;
+        renderSynastryVisual(data);
+        renderSynastryReading(data);
+      }
+
+      function submitSynastry(event) {
+        event.preventDefault();
+        const birthA = {
+          name: $("#syn-a-name").value.trim(),
+          date: $("#syn-a-date").value,
+          time: $("#syn-a-time").value,
+          city: $("#syn-a-city").value.trim()
+        };
+        const birthB = {
+          name: $("#syn-b-name").value.trim(),
+          date: $("#syn-b-date").value,
+          time: $("#syn-b-time").value,
+          city: $("#syn-b-city").value.trim()
+        };
+        if (!birthA.date || !birthB.date) {
+          $("#synastry-error").innerHTML = '<div class="error-box">请填写双方出生日期。日期是生成合盘所需的最少信息。</div>';
+          return;
+        }
+        $("#synastry-error").innerHTML = "";
+        const question = $("#synastry-question").value.trim();
+        renderSynastry(buildSynastry(birthA, birthB, question));
+        showToast("双人合盘已生成。匹配度由结构指标计算，不是关系判决。");
+      }
+
+      function initSynastry() {
+        if (!$("#synastry-form")) return;
+        const birthA = { name: "Lin", date: "1998-08-16", time: "21:40", city: "Seoul" };
+        const birthB = { name: "Mira", date: "1997-03-02", time: "08:20", city: "Busan" };
+        renderSynastry(buildSynastry(
+          birthA,
+          birthB,
+          "我们怎样才能更好地理解彼此，而不是反复陷入同一种争执？"
+        ));
+      }
+
       function submitBirth(event) {
         event.preventDefault();
         const birth = {
@@ -3295,6 +4244,7 @@
       $("#shuffle-button").addEventListener("click", shuffleTarot);
       $("#reset-draw").addEventListener("click", resetTarot);
       $("#birth-form").addEventListener("submit", submitBirth);
+      $("#synastry-form").addEventListener("submit", submitSynastry);
 
       $("#aspect-toggle").addEventListener("click", () => {
         state.chart.showAspects = !state.chart.showAspects;
@@ -3314,6 +4264,7 @@
 
       initTarotDeck();
       initChart();
+      initSynastry();
       bindGatewayFisheye();
       initAmbientParticles();
       initStarTrail();
