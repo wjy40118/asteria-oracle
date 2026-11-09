@@ -2,7 +2,7 @@
 
 一个面向年轻人的反思型占卜交互原型。用户可以先抽塔罗牌，也可以输入出生日期、时间与城市生成一张探索式星盘。界面把塔罗牌和行星节点放在可拖动的鱼眼视野中：靠近指针的元素会放大，点击后右侧展开解读。
 
-**Live prototype:** 等待 Streamlit Cloud 完成账号授权后生成公开链接  
+**Live prototype:** [asteria-oracle.streamlit.app](https://asteria-oracle.streamlit.app)  
 **Repository:** [github.com/wjy40118/asteria-oracle](https://github.com/wjy40118/asteria-oracle)  
 **做法:** Streamlit + 原生 HTML / CSS / JavaScript  
 **费用:** 0 元，Demo 模式不需要 API Key
