@@ -39,6 +39,7 @@ streamlit run app.py
 ## 数据、模型和许可
 
 - 22 张大阿卡纳的名称和自写关键词保存在 `data/tarot_major_arcana.json`。
+- 星空水彩背景由项目作者提供，横向网页版本保存在 `assets/starfield-wide.webp`。
 - 本项目不使用 Rider-Waite-Smith 或其他受版权保护的牌面图像，界面中的牌背由 CSS 生成。
 - 出生星位在浏览器内根据日期、时间与城市生成，是 **确定性演示数据**，没有调用天文服务，也不是专业星历。
 - AI 解读使用离线模板完成，目的是保证 Streamlit 免费环境也能完整演示。

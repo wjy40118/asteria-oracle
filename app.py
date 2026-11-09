@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import base64
 import json
 from pathlib import Path
 
@@ -9,6 +10,7 @@ import streamlit as st
 ROOT = Path(__file__).resolve().parent
 UI_PATH = ROOT / "ui" / "index.html"
 TAROT_PATH = ROOT / "data" / "tarot_major_arcana.json"
+STARFIELD_PATH = ROOT / "assets" / "starfield-wide.webp"
 
 
 st.set_page_config(
@@ -58,9 +60,13 @@ def load_tarot_cards(path: str) -> list[dict]:
 
 def build_ui() -> str:
     cards = load_tarot_cards(str(TAROT_PATH))
+    background = base64.b64encode(STARFIELD_PATH.read_bytes()).decode("ascii")
     html = UI_PATH.read_text(encoding="utf-8")
     payload = json.dumps(cards, ensure_ascii=False)
-    return html.replace("__TAROT_DATA__", payload)
+    return (
+        html.replace("__TAROT_DATA__", payload)
+        .replace("__STARFIELD_BACKGROUND__", background)
+    )
 
 
 st.iframe(
