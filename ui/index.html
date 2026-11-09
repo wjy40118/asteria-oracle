@@ -1591,6 +1591,22 @@
       transform: translate(-50%, 0);
     }
 
+    .star-trail {
+      position: fixed;
+      inset: 0;
+      z-index: 96;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      mix-blend-mode: screen;
+      opacity: 1;
+      transition: opacity .6s ease;
+    }
+
+    .star-trail.idle {
+      opacity: 0;
+    }
+
     @media (max-width: 1180px) {
       .home {
         grid-template-columns: .9fr 1.1fr;
@@ -2022,6 +2038,7 @@
   </div>
 
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <canvas class="star-trail idle" id="star-trail" aria-hidden="true"></canvas>
 
   <script id="tarot-data" type="application/json">__TAROT_DATA__</script>
   <script>
@@ -2111,6 +2128,219 @@
       const $ = (selector, root = document) => root.querySelector(selector);
       const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
       const mod = (value, divisor) => ((value % divisor) + divisor) % divisor;
+
+      function initStarTrail() {
+        const canvas = $("#star-trail");
+        if (!canvas) return;
+
+        const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        const finePointer = window.matchMedia("(pointer: fine)").matches;
+        if (reducedMotion || !finePointer) {
+          canvas.remove();
+          return;
+        }
+
+        const context = canvas.getContext("2d");
+        const pointer = { x: 0, y: 0, previousX: 0, previousY: 0, active: false };
+        const starCount = 16;
+        const trail = Array.from({ length: starCount }, (_, index) => ({
+          x: 0,
+          y: 0,
+          vx: 0,
+          vy: 0,
+          size: 0.8 + Math.random() * 1.7,
+          phase: Math.random() * Math.PI * 2,
+          warmth: Math.random()
+        }));
+        const dust = [];
+        let width = 0;
+        let height = 0;
+        let pixelRatio = 1;
+        let animationFrame = 0;
+        let lastTime = 0;
+
+        function resizeCanvas() {
+          width = window.innerWidth;
+          height = window.innerHeight;
+          pixelRatio = Math.min(window.devicePixelRatio || 1, 2);
+          canvas.width = Math.round(width * pixelRatio);
+          canvas.height = Math.round(height * pixelRatio);
+          canvas.style.width = `${width}px`;
+          canvas.style.height = `${height}px`;
+          context.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
+        }
+
+        function placeTrailAt(x, y) {
+          trail.forEach((star, index) => {
+            star.x = x - index * 0.7;
+            star.y = y - index * 0.7;
+            star.vx = 0;
+            star.vy = 0;
+          });
+        }
+
+        function drawStar(x, y, radius, alpha, rotation = 0, color = "232, 190, 122") {
+          context.save();
+          context.translate(x, y);
+          context.rotate(rotation);
+          context.beginPath();
+          for (let point = 0; point < 8; point += 1) {
+            const distance = point % 2 === 0 ? radius : radius * 0.3;
+            const angle = point * Math.PI / 4 - Math.PI / 2;
+            const px = Math.cos(angle) * distance;
+            const py = Math.sin(angle) * distance;
+            if (point === 0) context.moveTo(px, py);
+            else context.lineTo(px, py);
+          }
+          context.closePath();
+          context.fillStyle = `rgba(${color}, ${alpha})`;
+          context.shadowColor = `rgba(${color}, ${alpha * 0.8})`;
+          context.shadowBlur = radius * 5;
+          context.fill();
+          context.restore();
+        }
+
+        function spawnDust(x, y) {
+          for (let index = 0; index < 7; index += 1) {
+            const angle = Math.random() * Math.PI * 2;
+            const speed = 0.25 + Math.random() * 0.75;
+            dust.push({
+              x,
+              y,
+              vx: Math.cos(angle) * speed,
+              vy: Math.sin(angle) * speed,
+              life: 1,
+              size: 0.8 + Math.random() * 1.8
+            });
+          }
+        }
+
+        function tick(time) {
+          const delta = Math.min(32, time - (lastTime || time));
+          lastTime = time;
+          context.clearRect(0, 0, width, height);
+
+          if (pointer.active) {
+            const halo = context.createRadialGradient(
+              pointer.x,
+              pointer.y,
+              0,
+              pointer.x,
+              pointer.y,
+              44
+            );
+            halo.addColorStop(0, "rgba(255, 226, 174, .13)");
+            halo.addColorStop(0.38, "rgba(232, 190, 122, .06)");
+            halo.addColorStop(1, "rgba(232, 190, 122, 0)");
+            context.fillStyle = halo;
+            context.beginPath();
+            context.arc(pointer.x, pointer.y, 44, 0, Math.PI * 2);
+            context.fill();
+          }
+
+          let anchorX = pointer.x;
+          let anchorY = pointer.y;
+          const step = delta / 16.67;
+          trail.forEach((star, index) => {
+            const pull = index === 0 ? 0.34 : 0.2 - index * 0.004;
+            const targetX = index === 0 ? pointer.x : anchorX;
+            const targetY = index === 0 ? pointer.y : anchorY;
+            star.vx += (targetX - star.x) * pull * step;
+            star.vy += (targetY - star.y) * pull * step;
+            star.vx *= Math.pow(0.68, step);
+            star.vy *= Math.pow(0.68, step);
+            star.x += star.vx;
+            star.y += star.vy;
+            anchorX = star.x;
+            anchorY = star.y;
+          });
+
+          context.save();
+          context.lineWidth = 0.7;
+          for (let index = 1; index < trail.length - 1; index += 1) {
+            if (index % 3 === 0) continue;
+            const alpha = Math.max(0, 0.12 - index * 0.006);
+            context.strokeStyle = `rgba(232, 205, 157, ${alpha})`;
+            context.beginPath();
+            context.moveTo(trail[index - 1].x, trail[index - 1].y);
+            context.lineTo(trail[index].x, trail[index].y);
+            context.stroke();
+          }
+          context.restore();
+
+          trail.forEach((star, index) => {
+            const twinkle = 0.62 + Math.sin(time * 0.0035 + star.phase) * 0.28;
+            const alpha = pointer.active ? Math.max(0, (0.78 - index * 0.038) * twinkle) : 0;
+            const radius = star.size * (1 + Math.max(0, 1 - index / 7) * 0.55);
+            const color = star.warmth > 0.28 ? "232, 190, 122" : "196, 207, 235";
+            drawStar(
+              star.x,
+              star.y,
+              radius,
+              alpha,
+              time * 0.0008 + star.phase,
+              color
+            );
+          });
+
+          for (let index = dust.length - 1; index >= 0; index -= 1) {
+            const particle = dust[index];
+            particle.x += particle.vx * step;
+            particle.y += particle.vy * step;
+            particle.vx *= Math.pow(0.95, step);
+            particle.vy *= Math.pow(0.95, step);
+            particle.life -= 0.025 * step;
+            if (particle.life <= 0) {
+              dust.splice(index, 1);
+              continue;
+            }
+            drawStar(
+              particle.x,
+              particle.y,
+              particle.size * particle.life,
+              particle.life * 0.7,
+              time * 0.002,
+              "255, 226, 176"
+            );
+          }
+
+          animationFrame = requestAnimationFrame(tick);
+        }
+
+        window.addEventListener("resize", resizeCanvas, { passive: true });
+        window.addEventListener("pointermove", (event) => {
+          const distance = Math.hypot(
+            event.clientX - pointer.previousX,
+            event.clientY - pointer.previousY
+          );
+          pointer.x = event.clientX;
+          pointer.y = event.clientY;
+          pointer.previousX = event.clientX;
+          pointer.previousY = event.clientY;
+          if (!pointer.active || distance > 90) {
+            placeTrailAt(event.clientX, event.clientY);
+          }
+          pointer.active = true;
+          canvas.classList.remove("idle");
+        }, { passive: true });
+
+        window.addEventListener("pointerdown", (event) => {
+          spawnDust(event.clientX, event.clientY);
+        }, { passive: true });
+
+        document.documentElement.addEventListener("mouseleave", () => {
+          pointer.active = false;
+          canvas.classList.add("idle");
+        });
+
+        resizeCanvas();
+        placeTrailAt(window.innerWidth * 0.5, window.innerHeight * 0.5);
+        animationFrame = requestAnimationFrame(tick);
+
+        window.addEventListener("pagehide", () => {
+          cancelAnimationFrame(animationFrame);
+        }, { once: true });
+      }
 
       function showToast(message) {
         const toast = $("#toast");
@@ -2734,6 +2964,7 @@
       initTarotDeck();
       initChart();
       bindGatewayFisheye();
+      initStarTrail();
     })();
   </script>
 </body>
