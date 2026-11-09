@@ -1,0 +1,2740 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#070812">
+  <title>Asteria · 星象手册</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500;600&family=Noto+Serif+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #070812;
+      --bg-2: #0b0d1b;
+      --panel: rgba(15, 18, 34, 0.78);
+      --panel-solid: #0f1222;
+      --line: rgba(232, 205, 157, 0.18);
+      --line-strong: rgba(232, 205, 157, 0.38);
+      --gold: #e8be7a;
+      --gold-bright: #ffd99a;
+      --rose: #d9a8af;
+      --blue: #9bb9dc;
+      --ink: #eee8dc;
+      --muted: #9b9caf;
+      --faint: #6d6f83;
+      --danger: #f08c8c;
+      --serif: "Noto Serif SC", "Songti SC", STSong, serif;
+      --sans: "DM Sans", "Noto Sans SC", "PingFang SC", sans-serif;
+      --mono: "DM Mono", "SFMono-Regular", Consolas, monospace;
+      --ease: cubic-bezier(.2, .75, .2, 1);
+      --shadow: 0 24px 90px rgba(0, 0, 0, 0.46);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-width: 320px;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 58% 18%, rgba(81, 64, 126, 0.24), transparent 28%),
+        radial-gradient(circle at 13% 72%, rgba(46, 64, 100, 0.18), transparent 30%),
+        linear-gradient(180deg, #070812 0%, #090b17 58%, #060710 100%);
+      font-family: var(--sans);
+      font-weight: 300;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: 10;
+      pointer-events: none;
+      opacity: 0.16;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.18'/%3E%3C/svg%3E");
+      mix-blend-mode: soft-light;
+    }
+
+    button,
+    input,
+    textarea {
+      font: inherit;
+    }
+
+    button {
+      color: inherit;
+    }
+
+    button:focus-visible,
+    input:focus-visible,
+    textarea:focus-visible {
+      outline: 1px solid var(--gold-bright);
+      outline-offset: 3px;
+    }
+
+    .app {
+      position: relative;
+      width: min(100%, 1600px);
+      min-height: 100vh;
+      margin: 0 auto;
+      padding: 0 30px 22px;
+    }
+
+    .topbar {
+      height: 78px;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      border-bottom: 1px solid var(--line);
+      position: relative;
+      z-index: 20;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      width: fit-content;
+      background: none;
+      border: 0;
+      padding: 0;
+      cursor: pointer;
+      text-align: left;
+    }
+
+    .brand-mark {
+      width: 34px;
+      height: 34px;
+      display: grid;
+      place-items: center;
+      border: 1px solid var(--line-strong);
+      border-radius: 50%;
+      color: var(--gold-bright);
+      font-family: var(--serif);
+      font-size: 16px;
+      box-shadow: inset 0 0 18px rgba(232, 190, 122, 0.09);
+      position: relative;
+    }
+
+    .brand-mark::after {
+      content: "";
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: var(--gold);
+      top: 4px;
+      right: 3px;
+    }
+
+    .brand-name {
+      display: flex;
+      align-items: baseline;
+      gap: 9px;
+      letter-spacing: 0.02em;
+    }
+
+    .brand-name strong {
+      font-family: var(--serif);
+      font-size: 18px;
+      font-weight: 500;
+    }
+
+    .brand-name span {
+      color: var(--faint);
+      font-family: var(--mono);
+      font-size: 9px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    .nav {
+      display: flex;
+      gap: 4px;
+      padding: 4px;
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.025);
+      backdrop-filter: blur(12px);
+    }
+
+    .nav button {
+      border: 0;
+      border-radius: 999px;
+      background: transparent;
+      color: var(--faint);
+      padding: 9px 16px;
+      cursor: pointer;
+      font-size: 12px;
+      transition: color .25s, background .25s;
+    }
+
+    .nav button:hover {
+      color: var(--ink);
+    }
+
+    .nav button.active {
+      color: var(--ink);
+      background: rgba(232, 190, 122, 0.12);
+      box-shadow: inset 0 0 0 1px rgba(232, 190, 122, 0.16);
+    }
+
+    .top-meta {
+      justify-self: end;
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      color: var(--faint);
+      font-family: var(--mono);
+      font-size: 9px;
+      letter-spacing: 0.1em;
+    }
+
+    .live-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: #a8d8bc;
+      box-shadow: 0 0 12px rgba(168, 216, 188, 0.7);
+    }
+
+    .view {
+      display: none;
+      animation: viewIn .55s var(--ease);
+    }
+
+    .view.active {
+      display: block;
+    }
+
+    #view-home.view.active {
+      display: grid;
+    }
+
+    @keyframes viewIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .home {
+      min-height: 780px;
+      grid-template-columns: minmax(360px, .84fr) minmax(520px, 1.16fr);
+      gap: 30px;
+      align-items: center;
+      padding: 34px 0 28px;
+    }
+
+    .hero {
+      position: relative;
+      z-index: 3;
+      padding: 44px 0 20px clamp(0px, 2vw, 34px);
+    }
+
+    .eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: var(--gold);
+      font-family: var(--mono);
+      font-size: 10px;
+      font-weight: 400;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 32px;
+      height: 1px;
+      background: var(--gold);
+      opacity: .65;
+    }
+
+    .hero h1 {
+      max-width: 640px;
+      margin: 24px 0 20px;
+      font-family: var(--serif);
+      font-size: clamp(54px, 6.2vw, 92px);
+      font-weight: 400;
+      line-height: 1.04;
+      letter-spacing: -.045em;
+    }
+
+    .hero h1 em {
+      color: var(--gold-bright);
+      font-style: normal;
+      display: inline-block;
+      position: relative;
+    }
+
+    .hero h1 em::after {
+      content: "";
+      position: absolute;
+      left: 5%;
+      right: -4%;
+      bottom: -7px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      opacity: .7;
+    }
+
+    .hero-copy {
+      max-width: 480px;
+      margin: 0;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.95;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 30px;
+    }
+
+    .primary-button,
+    .ghost-button,
+    .micro-button {
+      border-radius: 999px;
+      cursor: pointer;
+      transition: transform .2s var(--ease), border-color .2s, background .2s, color .2s;
+    }
+
+    .primary-button {
+      padding: 13px 20px;
+      color: #15111a;
+      background: linear-gradient(135deg, #f1d3a1, #d8a45f);
+      border: 1px solid rgba(255, 235, 203, 0.5);
+      box-shadow: 0 10px 34px rgba(232, 190, 122, 0.17);
+      font-weight: 500;
+      font-size: 13px;
+    }
+
+    .ghost-button {
+      padding: 13px 20px;
+      color: var(--ink);
+      background: rgba(255, 255, 255, 0.025);
+      border: 1px solid var(--line);
+      font-size: 13px;
+    }
+
+    .primary-button:hover,
+    .ghost-button:hover,
+    .micro-button:hover {
+      transform: translateY(-2px);
+      border-color: var(--line-strong);
+    }
+
+    .hero-note {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-top: 26px;
+      color: var(--faint);
+      font-size: 10px;
+      letter-spacing: .03em;
+    }
+
+    .hero-note span {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .hero-note span::before {
+      content: "✦";
+      color: var(--gold);
+      font-size: 7px;
+    }
+
+    .gateway-stage {
+      position: relative;
+      min-height: 640px;
+      isolation: isolate;
+      cursor: crosshair;
+    }
+
+    .gateway-stage::before {
+      content: "";
+      position: absolute;
+      width: 540px;
+      height: 540px;
+      left: 50%;
+      top: 47%;
+      transform: translate(-50%, -50%);
+      background: radial-gradient(circle, rgba(135, 103, 176, 0.18), rgba(45, 42, 87, 0.07) 38%, transparent 69%);
+      filter: blur(12px);
+      z-index: -1;
+    }
+
+    .orbit {
+      position: absolute;
+      border: 1px solid rgba(232, 205, 157, 0.13);
+      border-radius: 50%;
+      left: 50%;
+      top: 47%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+    }
+
+    .orbit.one { width: 520px; height: 520px; }
+    .orbit.two { width: 390px; height: 390px; border-style: dashed; opacity: .8; }
+    .orbit.three { width: 250px; height: 250px; border-color: rgba(255,255,255,.08); }
+
+    .orbit::before,
+    .orbit::after {
+      content: "";
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--gold);
+      box-shadow: 0 0 18px rgba(232, 190, 122, .75);
+    }
+
+    .orbit.one::before { left: 87px; top: 20px; }
+    .orbit.one::after { right: 27px; bottom: 128px; background: var(--blue); }
+    .orbit.two::before { right: 20px; top: 98px; background: var(--rose); }
+    .orbit.two::after { left: 117px; bottom: 0; }
+
+    .axial-line {
+      position: absolute;
+      left: 50%;
+      top: 47%;
+      width: 610px;
+      height: 1px;
+      transform: translate(-50%, -50%) rotate(-18deg);
+      background: linear-gradient(90deg, transparent, rgba(232, 205, 157, .16), transparent);
+      pointer-events: none;
+    }
+
+    .axial-line.second {
+      transform: translate(-50%, -50%) rotate(68deg);
+      width: 530px;
+      opacity: .7;
+    }
+
+    .center-orb {
+      position: absolute;
+      left: 50%;
+      top: 47%;
+      width: 142px;
+      height: 142px;
+      transform: translate(-50%, -50%);
+      border-radius: 50%;
+      border: 1px solid rgba(232, 205, 157, 0.32);
+      background:
+        radial-gradient(circle at 42% 35%, rgba(255, 232, 190, .45), transparent 9%),
+        radial-gradient(circle at 50% 50%, #1b1831, #0a0c17 68%);
+      box-shadow: 0 0 50px rgba(119, 90, 160, .22), inset 0 0 40px rgba(0,0,0,.6);
+      display: grid;
+      place-items: center;
+      pointer-events: none;
+    }
+
+    .center-orb span {
+      color: var(--gold-bright);
+      font-family: var(--serif);
+      font-size: 31px;
+      animation: breathe 5s ease-in-out infinite;
+    }
+
+    @keyframes breathe {
+      0%, 100% { opacity: .66; transform: scale(.95); }
+      50% { opacity: 1; transform: scale(1.05); }
+    }
+
+    .signal-node {
+      position: absolute;
+      color: var(--faint);
+      font-family: var(--serif);
+      font-size: 12px;
+      letter-spacing: .1em;
+      pointer-events: none;
+      transition: color .18s, opacity .18s;
+      will-change: transform;
+    }
+
+    .signal-node::before {
+      content: "";
+      display: inline-block;
+      width: 3px;
+      height: 3px;
+      margin-right: 8px;
+      border-radius: 50%;
+      background: currentColor;
+      vertical-align: middle;
+    }
+
+    .gateway-card {
+      position: absolute;
+      width: 244px;
+      padding: 18px;
+      border-radius: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.11);
+      background:
+        linear-gradient(145deg, rgba(255,255,255,.07), rgba(255,255,255,.015)),
+        rgba(12, 14, 28, .66);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(18px);
+      text-align: left;
+      cursor: pointer;
+      transform-origin: center;
+      transition: border-color .25s, background .25s, box-shadow .25s;
+      will-change: transform;
+      overflow: hidden;
+    }
+
+    .gateway-card:hover {
+      border-color: rgba(232, 205, 157, .42);
+      background:
+        linear-gradient(145deg, rgba(255,255,255,.09), rgba(255,255,255,.02)),
+        rgba(16, 18, 35, .8);
+      box-shadow: 0 30px 100px rgba(0, 0, 0, .55);
+    }
+
+    .gateway-card::after {
+      content: "";
+      position: absolute;
+      inset: auto -30px -60px auto;
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(232, 190, 122, .2), transparent 68%);
+      pointer-events: none;
+    }
+
+    .gateway-card.tarot-gate {
+      left: 7%;
+      top: 24%;
+      transform: rotate(-5deg);
+    }
+
+    .gateway-card.chart-gate {
+      right: 4%;
+      bottom: 18%;
+      transform: rotate(4deg);
+    }
+
+    .gateway-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: var(--faint);
+      font-family: var(--mono);
+      font-size: 9px;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+    }
+
+    .gateway-icon {
+      width: 54px;
+      height: 54px;
+      margin: 25px 0 22px;
+      border-radius: 50%;
+      border: 1px solid var(--line-strong);
+      display: grid;
+      place-items: center;
+      color: var(--gold-bright);
+      font-size: 25px;
+      background: radial-gradient(circle, rgba(232,190,122,.12), transparent 70%);
+    }
+
+    .gateway-card h2 {
+      margin: 0 0 7px;
+      font-family: var(--serif);
+      font-size: 24px;
+      font-weight: 500;
+    }
+
+    .gateway-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.7;
+    }
+
+    .gateway-arrow {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 24px;
+      color: var(--gold);
+      font-size: 10px;
+      font-family: var(--mono);
+      letter-spacing: .09em;
+    }
+
+    .gateway-arrow::before {
+      content: "";
+      width: 30px;
+      height: 1px;
+      background: var(--gold);
+    }
+
+    .home-foot {
+      border-top: 1px solid var(--line);
+      display: grid;
+      grid-template-columns: 1fr auto auto;
+      gap: 42px;
+      padding-top: 17px;
+      color: var(--faint);
+      font-family: var(--mono);
+      font-size: 8px;
+      letter-spacing: .13em;
+      text-transform: uppercase;
+    }
+
+    .workspace {
+      padding: 30px 0 18px;
+    }
+
+    .workspace-header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 30px;
+      padding: 4px 0 24px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .workspace-kicker {
+      color: var(--gold);
+      font-family: var(--mono);
+      font-size: 9px;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+    }
+
+    .workspace-header h1 {
+      margin: 8px 0 0;
+      font-family: var(--serif);
+      font-size: clamp(30px, 3.2vw, 48px);
+      font-weight: 400;
+      letter-spacing: -.025em;
+    }
+
+    .workspace-header p {
+      max-width: 430px;
+      margin: 0 0 5px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.7;
+      text-align: right;
+    }
+
+    .tarot-workspace,
+    .chart-workspace {
+      display: grid;
+      grid-template-columns: 270px minmax(480px, 1fr) 350px;
+      gap: 16px;
+      padding-top: 20px;
+      align-items: stretch;
+    }
+
+    .panel {
+      border: 1px solid rgba(255, 255, 255, 0.075);
+      border-radius: 18px;
+      background: linear-gradient(150deg, rgba(255,255,255,.035), rgba(255,255,255,.008));
+      backdrop-filter: blur(12px);
+    }
+
+    .control-panel {
+      padding: 20px;
+      align-self: start;
+    }
+
+    .panel-label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 18px;
+      color: var(--faint);
+      font-family: var(--mono);
+      font-size: 8px;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+    }
+
+    .panel-label::before {
+      content: "";
+      width: 5px;
+      height: 5px;
+      border: 1px solid var(--gold);
+      transform: rotate(45deg);
+    }
+
+    .field {
+      display: block;
+      margin-bottom: 16px;
+    }
+
+    .field > span {
+      display: block;
+      margin-bottom: 7px;
+      color: var(--muted);
+      font-size: 10px;
+    }
+
+    .field input,
+    .field textarea {
+      display: block;
+      width: 100%;
+      color: var(--ink);
+      border: 1px solid rgba(255,255,255,.09);
+      border-radius: 10px;
+      background: rgba(0, 0, 0, .16);
+      padding: 11px 12px;
+      font-size: 12px;
+      line-height: 1.55;
+      transition: border-color .2s, background .2s;
+    }
+
+    .field input {
+      color-scheme: dark;
+    }
+
+    .field textarea {
+      min-height: 104px;
+      resize: vertical;
+    }
+
+    .field input:focus,
+    .field textarea:focus {
+      border-color: var(--line-strong);
+      background: rgba(0, 0, 0, .27);
+      outline: none;
+    }
+
+    .segmented {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5px;
+      padding: 4px;
+      border-radius: 11px;
+      border: 1px solid rgba(255,255,255,.07);
+      background: rgba(0, 0, 0, .15);
+    }
+
+    .segmented button {
+      border: 0;
+      border-radius: 7px;
+      padding: 9px 8px;
+      color: var(--faint);
+      background: transparent;
+      font-size: 10px;
+      cursor: pointer;
+    }
+
+    .segmented button.active {
+      color: var(--gold-bright);
+      background: rgba(232, 190, 122, .11);
+    }
+
+    .wide-button {
+      width: 100%;
+      margin-top: 3px;
+    }
+
+    .tiny-note {
+      margin: 14px 0 0;
+      color: var(--faint);
+      font-size: 9px;
+      line-height: 1.75;
+    }
+
+    .deck-stage {
+      min-height: 570px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      padding: 25px 20px 22px;
+    }
+
+    .deck-stage::before {
+      content: "";
+      position: absolute;
+      width: 520px;
+      height: 520px;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -48%);
+      border-radius: 50%;
+      border: 1px solid rgba(232, 205, 157, .1);
+      box-shadow:
+        0 0 0 58px rgba(255,255,255,.012),
+        0 0 0 59px rgba(232, 205, 157, .05),
+        0 0 0 136px rgba(255,255,255,.008),
+        0 0 0 137px rgba(232, 205, 157, .035);
+      pointer-events: none;
+    }
+
+    .deck-stage::after {
+      content: "✦";
+      position: absolute;
+      left: 50%;
+      top: 49%;
+      transform: translate(-50%, -50%);
+      color: rgba(232, 190, 122, .14);
+      font-family: var(--serif);
+      font-size: 64px;
+      pointer-events: none;
+    }
+
+    .deck-counter {
+      z-index: 3;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--faint);
+      font-family: var(--mono);
+      font-size: 9px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .deck-counter strong {
+      color: var(--gold);
+      font-weight: 400;
+    }
+
+    .deck {
+      position: relative;
+      width: min(100%, 560px);
+      height: 370px;
+      z-index: 2;
+      perspective: 1000px;
+      touch-action: none;
+    }
+
+    .deck.shuffling .tarot-card {
+      animation: shuffle .72s var(--ease) both;
+    }
+
+    .deck.shuffling .tarot-card:nth-child(3n) { animation-delay: .04s; }
+    .deck.shuffling .tarot-card:nth-child(3n + 1) { animation-delay: .08s; }
+
+    @keyframes shuffle {
+      0% { opacity: .4; transform: translate(0, 0) rotate(0) scale(.92); }
+      38% { opacity: 1; transform: translate(var(--shuffle-x), -24px) rotate(var(--shuffle-r)) scale(1.04); }
+      100% { opacity: 1; transform: translate(0, 0) rotate(0) scale(1); }
+    }
+
+    .tarot-card {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 132px;
+      height: 218px;
+      margin-left: -66px;
+      margin-top: -109px;
+      padding: 0;
+      border: 1px solid rgba(232, 205, 157, .36);
+      border-radius: 12px;
+      background:
+        radial-gradient(circle at 50% 34%, rgba(232, 190, 122, .16), transparent 30%),
+        repeating-linear-gradient(45deg, transparent 0 8px, rgba(232, 205, 157, .035) 8px 9px),
+        #111427;
+      box-shadow: 0 20px 55px rgba(0,0,0,.45);
+      cursor: pointer;
+      transform-origin: 50% 128%;
+      transform: rotate(var(--angle)) translateY(var(--lift)) scale(var(--lens-scale, 1));
+      transition: box-shadow .22s, border-color .22s, filter .22s;
+      will-change: transform;
+      overflow: hidden;
+    }
+
+    .tarot-card::before {
+      content: "";
+      position: absolute;
+      inset: 7px;
+      border: 1px solid rgba(232, 205, 157, .19);
+      border-radius: 8px;
+      pointer-events: none;
+    }
+
+    .tarot-card::after {
+      content: "✦";
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      color: rgba(255, 220, 166, .76);
+      font-family: var(--serif);
+      font-size: 28px;
+      text-shadow: 0 0 20px rgba(232,190,122,.34);
+    }
+
+    .card-back-ring {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 78px;
+      height: 78px;
+      border: 1px solid rgba(232, 205, 157, .2);
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .tarot-card:hover {
+      z-index: 30 !important;
+      border-color: rgba(255, 221, 168, .75);
+      box-shadow: 0 25px 80px rgba(0,0,0,.7), 0 0 32px rgba(232,190,122,.11);
+    }
+
+    .tarot-card.drawn {
+      opacity: .2;
+      pointer-events: none;
+      filter: blur(1px);
+    }
+
+    .deck-actions {
+      z-index: 4;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .deck-hint {
+      color: var(--faint);
+      font-size: 9px;
+      letter-spacing: .03em;
+    }
+
+    .reading-panel {
+      padding: 20px;
+      min-height: 570px;
+      max-height: 642px;
+      overflow-y: auto;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(232,190,122,.22) transparent;
+    }
+
+    .reading-empty {
+      min-height: 510px;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      padding: 30px;
+    }
+
+    .reading-empty-symbol {
+      width: 88px;
+      height: 88px;
+      margin: 0 auto 20px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      color: var(--gold);
+      border: 1px solid var(--line);
+      background: radial-gradient(circle, rgba(232,190,122,.08), transparent 68%);
+      font-family: var(--serif);
+      font-size: 28px;
+      animation: breathe 5s ease-in-out infinite;
+    }
+
+    .reading-empty h3 {
+      margin: 0 0 8px;
+      font-family: var(--serif);
+      font-size: 18px;
+      font-weight: 500;
+    }
+
+    .reading-empty p {
+      max-width: 230px;
+      margin: 0 auto;
+      color: var(--faint);
+      font-size: 10px;
+      line-height: 1.8;
+    }
+
+    .reading-title {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .reading-title h2 {
+      margin: 0;
+      font-family: var(--serif);
+      font-size: 19px;
+      font-weight: 500;
+    }
+
+    .demo-badge {
+      padding: 5px 7px;
+      border: 1px solid rgba(232,190,122,.2);
+      border-radius: 999px;
+      color: var(--gold);
+      background: rgba(232,190,122,.05);
+      font-family: var(--mono);
+      font-size: 7px;
+      letter-spacing: .1em;
+    }
+
+    .drawn-card-list {
+      display: grid;
+      gap: 8px;
+      padding: 16px 0 6px;
+    }
+
+    .drawn-card {
+      display: grid;
+      grid-template-columns: 36px 1fr auto;
+      gap: 10px;
+      align-items: center;
+      padding: 10px;
+      border: 1px solid rgba(255,255,255,.06);
+      border-radius: 10px;
+      background: rgba(255,255,255,.018);
+    }
+
+    .drawn-card-symbol {
+      width: 34px;
+      height: 34px;
+      display: grid;
+      place-items: center;
+      border: 1px solid var(--line);
+      border-radius: 50%;
+      color: var(--gold-bright);
+      font-size: 17px;
+    }
+
+    .drawn-card strong {
+      display: block;
+      margin-bottom: 2px;
+      font-family: var(--serif);
+      font-size: 13px;
+      font-weight: 500;
+    }
+
+    .drawn-card small {
+      color: var(--faint);
+      font-size: 8px;
+    }
+
+    .position-tag {
+      color: var(--faint);
+      font-family: var(--mono);
+      font-size: 7px;
+      letter-spacing: .08em;
+    }
+
+    .reading-summary {
+      margin-top: 16px;
+      padding: 16px;
+      border-left: 1px solid var(--gold);
+      background: linear-gradient(90deg, rgba(232,190,122,.055), transparent);
+    }
+
+    .reading-summary-label {
+      color: var(--gold);
+      font-family: var(--mono);
+      font-size: 8px;
+      letter-spacing: .13em;
+    }
+
+    .reading-summary p {
+      margin: 9px 0 0;
+      font-family: var(--serif);
+      font-size: 13px;
+      line-height: 1.9;
+    }
+
+    .card-explanations {
+      margin-top: 12px;
+    }
+
+    .card-explanation {
+      padding: 13px 0;
+      border-bottom: 1px solid rgba(255,255,255,.055);
+    }
+
+    .card-explanation:last-child {
+      border-bottom: 0;
+    }
+
+    .card-explanation h4 {
+      margin: 0 0 6px;
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--gold-bright);
+    }
+
+    .card-explanation p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 10px;
+      line-height: 1.75;
+    }
+
+    .reflection {
+      margin-top: 15px;
+      padding: 13px;
+      border: 1px solid rgba(255,255,255,.07);
+      border-radius: 10px;
+      background: rgba(255,255,255,.018);
+    }
+
+    .reflection span {
+      color: var(--faint);
+      font-family: var(--mono);
+      font-size: 7px;
+      letter-spacing: .12em;
+    }
+
+    .reflection p {
+      margin: 7px 0 0;
+      font-family: var(--serif);
+      font-size: 12px;
+      line-height: 1.75;
+    }
+
+    .disclaimer {
+      margin: 18px 0 0;
+      color: var(--faint);
+      font-size: 8px;
+      line-height: 1.7;
+    }
+
+    .chart-workspace {
+      grid-template-columns: 270px minmax(480px, 1fr) 370px;
+    }
+
+    .chart-stage {
+      min-height: 620px;
+      padding: 18px 20px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .chart-stage::before {
+      content: "";
+      position: absolute;
+      width: 540px;
+      height: 540px;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      background: radial-gradient(circle, rgba(97,80,148,.12), transparent 67%);
+      pointer-events: none;
+    }
+
+    .chart-stage-head {
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .person-coordinate {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--muted);
+      font-family: var(--mono);
+      font-size: 8px;
+      letter-spacing: .05em;
+    }
+
+    .person-coordinate::before {
+      content: "";
+      width: 18px;
+      height: 18px;
+      border: 1px solid var(--line);
+      border-radius: 50%;
+    }
+
+    .chart-tools {
+      display: flex;
+      gap: 6px;
+    }
+
+    .micro-button {
+      padding: 7px 10px;
+      border: 1px solid rgba(255,255,255,.08);
+      background: rgba(255,255,255,.025);
+      color: var(--faint);
+      font-size: 8px;
+    }
+
+    .micro-button.active {
+      border-color: rgba(232,190,122,.26);
+      color: var(--gold);
+      background: rgba(232,190,122,.06);
+    }
+
+    .chart-holder {
+      position: relative;
+      width: min(100%, 570px);
+      aspect-ratio: 1 / 1;
+      margin: auto;
+      z-index: 2;
+    }
+
+    .chart-holder svg {
+      width: 100%;
+      height: 100%;
+      overflow: visible;
+    }
+
+    .wheel-line {
+      fill: none;
+      stroke: rgba(232, 205, 157, .16);
+      stroke-width: .85;
+    }
+
+    .wheel-line.strong {
+      stroke: rgba(232, 205, 157, .34);
+    }
+
+    .wheel-tick {
+      stroke: rgba(232, 205, 157, .2);
+      stroke-width: .7;
+    }
+
+    .zodiac-label {
+      fill: #7e8094;
+      font-family: "Noto Serif SC", serif;
+      font-size: 9px;
+      letter-spacing: .08em;
+    }
+
+    .zodiac-symbol {
+      fill: rgba(232, 205, 157, .65);
+      font-family: "Times New Roman", serif;
+      font-size: 13px;
+    }
+
+    .aspect-line {
+      stroke-width: .7;
+      opacity: .35;
+      transition: opacity .2s, stroke-width .2s;
+    }
+
+    .aspect-line.hidden {
+      opacity: 0;
+    }
+
+    .planet-node {
+      position: absolute;
+      width: 38px;
+      height: 38px;
+      margin: -19px 0 0 -19px;
+      border: 1px solid rgba(232, 205, 157, .2);
+      border-radius: 50%;
+      background: rgba(10, 12, 24, .86);
+      display: grid;
+      place-items: center;
+      color: var(--node-color, var(--gold-bright));
+      font-family: "Times New Roman", serif;
+      font-size: 16px;
+      cursor: pointer;
+      z-index: 4;
+      box-shadow: 0 0 0 4px rgba(7,8,18,.7);
+      transform: translate(var(--fisheye-x, 0), var(--fisheye-y, 0)) scale(var(--fisheye-scale, 1));
+      transition: border-color .2s, background .2s;
+      will-change: transform;
+    }
+
+    .planet-node::after {
+      content: attr(data-label);
+      position: absolute;
+      left: 50%;
+      top: 44px;
+      transform: translateX(-50%);
+      color: var(--faint);
+      font-family: var(--mono);
+      font-size: 7px;
+      white-space: nowrap;
+    }
+
+    .planet-node:hover,
+    .planet-node.selected {
+      border-color: var(--gold);
+      background: rgba(31, 28, 43, .95);
+      z-index: 8;
+    }
+
+    .chart-center {
+      position: absolute;
+      width: 136px;
+      height: 136px;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      background:
+        radial-gradient(circle at 38% 34%, rgba(255, 240, 207, .16), transparent 18%),
+        radial-gradient(circle, rgba(34,29,51,.95), rgba(8,9,18,.98) 70%);
+      border: 1px solid rgba(232, 205, 157, .2);
+      z-index: 3;
+      pointer-events: none;
+    }
+
+    .chart-center strong {
+      display: block;
+      color: var(--gold-bright);
+      font-family: var(--serif);
+      font-size: 18px;
+      font-weight: 500;
+    }
+
+    .chart-center span {
+      display: block;
+      margin-top: 4px;
+      color: var(--faint);
+      font-family: var(--mono);
+      font-size: 7px;
+      letter-spacing: .12em;
+    }
+
+    .chart-warning {
+      z-index: 3;
+      margin: 0 auto;
+      padding: 9px 12px;
+      border: 1px solid rgba(240, 140, 140, .16);
+      border-radius: 8px;
+      color: #cba3a3;
+      background: rgba(240, 140, 140, .035);
+      font-size: 8px;
+      line-height: 1.6;
+      text-align: center;
+    }
+
+    .big-three {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 7px;
+      margin-top: 16px;
+    }
+
+    .big-three-item {
+      padding: 10px 8px;
+      border: 1px solid rgba(255,255,255,.06);
+      border-radius: 9px;
+      background: rgba(255,255,255,.018);
+      text-align: center;
+    }
+
+    .big-three-item span {
+      display: block;
+      margin-bottom: 3px;
+      color: var(--faint);
+      font-family: var(--mono);
+      font-size: 7px;
+      letter-spacing: .08em;
+    }
+
+    .big-three-item strong {
+      color: var(--gold-bright);
+      font-family: var(--serif);
+      font-size: 13px;
+      font-weight: 500;
+    }
+
+    .chart-reading {
+      padding: 20px;
+      min-height: 620px;
+      max-height: 700px;
+      overflow-y: auto;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(232,190,122,.22) transparent;
+    }
+
+    .chart-reading h2 {
+      margin: 0;
+      font-family: var(--serif);
+      font-size: 20px;
+      font-weight: 500;
+    }
+
+    .chart-reading .reading-title {
+      margin-bottom: 15px;
+    }
+
+    .ai-summary {
+      margin: 0;
+      color: var(--muted);
+      font-family: var(--serif);
+      font-size: 12px;
+      line-height: 1.95;
+    }
+
+    .analysis-section {
+      padding: 14px 0;
+      border-bottom: 1px solid rgba(255,255,255,.055);
+    }
+
+    .analysis-section:last-child {
+      border-bottom: 0;
+    }
+
+    .analysis-section h3 {
+      margin: 0 0 7px;
+      color: var(--gold);
+      font-family: var(--mono);
+      font-size: 8px;
+      font-weight: 400;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+    }
+
+    .analysis-section p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 10px;
+      line-height: 1.8;
+    }
+
+    .focus-chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 10px;
+    }
+
+    .focus-chip {
+      padding: 5px 8px;
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 999px;
+      color: var(--faint);
+      font-size: 8px;
+    }
+
+    .aspect-list {
+      display: grid;
+      gap: 7px;
+      margin-top: 11px;
+    }
+
+    .aspect-row {
+      display: grid;
+      grid-template-columns: 46px 1fr auto;
+      gap: 8px;
+      align-items: center;
+      padding: 8px;
+      border-radius: 8px;
+      background: rgba(255,255,255,.018);
+      color: var(--faint);
+      font-size: 8px;
+    }
+
+    .aspect-row strong {
+      color: var(--ink);
+      font-weight: 400;
+    }
+
+    .aspect-orbit {
+      height: 1px;
+      background: linear-gradient(90deg, rgba(232,190,122,.5), rgba(155,185,220,.22));
+    }
+
+    .error-box {
+      margin: 10px 0 0;
+      padding: 9px 10px;
+      border: 1px solid rgba(240,140,140,.2);
+      border-radius: 8px;
+      color: #eda3a3;
+      background: rgba(240,140,140,.04);
+      font-size: 9px;
+      line-height: 1.6;
+    }
+
+    .method-workspace {
+      padding-top: 24px;
+    }
+
+    .method-intro {
+      display: grid;
+      grid-template-columns: 1.3fr .7fr;
+      gap: 20px;
+      align-items: end;
+      margin-bottom: 24px;
+    }
+
+    .method-intro h2 {
+      max-width: 820px;
+      margin: 0;
+      font-family: var(--serif);
+      font-size: clamp(28px, 4vw, 54px);
+      font-weight: 400;
+      line-height: 1.25;
+      letter-spacing: -.04em;
+    }
+
+    .method-intro p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 11px;
+      line-height: 1.85;
+    }
+
+    .spec-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      border-top: 1px solid var(--line);
+      border-left: 1px solid var(--line);
+    }
+
+    .spec-block {
+      min-height: 200px;
+      padding: 22px;
+      border-right: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      background: linear-gradient(150deg, rgba(255,255,255,.022), transparent);
+    }
+
+    .spec-number {
+      color: var(--gold);
+      font-family: var(--mono);
+      font-size: 9px;
+      letter-spacing: .12em;
+    }
+
+    .spec-block h3 {
+      margin: 16px 0 9px;
+      font-family: var(--serif);
+      font-size: 18px;
+      font-weight: 500;
+    }
+
+    .spec-block p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 10px;
+      line-height: 1.8;
+    }
+
+    .spec-block strong {
+      color: var(--ink);
+      font-weight: 400;
+    }
+
+    .spec-flow {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 5px;
+      margin-top: 12px;
+    }
+
+    .spec-flow span {
+      padding: 5px 7px;
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 999px;
+      color: var(--faint);
+      font-size: 7px;
+    }
+
+    .spec-flow i {
+      color: var(--gold);
+      font-size: 7px;
+      font-style: normal;
+    }
+
+    .footer {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 21px 0 0;
+      margin-top: 26px;
+      border-top: 1px solid var(--line);
+      color: var(--faint);
+      font-family: var(--mono);
+      font-size: 7px;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 32px;
+      z-index: 100;
+      transform: translate(-50%, 16px);
+      opacity: 0;
+      pointer-events: none;
+      padding: 10px 15px;
+      border: 1px solid rgba(232,190,122,.3);
+      border-radius: 999px;
+      color: var(--ink);
+      background: rgba(20, 18, 31, .92);
+      box-shadow: 0 15px 44px rgba(0,0,0,.5);
+      font-size: 10px;
+      transition: opacity .2s, transform .2s;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translate(-50%, 0);
+    }
+
+    @media (max-width: 1180px) {
+      .home {
+        grid-template-columns: .9fr 1.1fr;
+      }
+      .gateway-card {
+        width: 210px;
+      }
+      .tarot-workspace,
+      .chart-workspace {
+        grid-template-columns: 240px minmax(420px, 1fr) 310px;
+      }
+      .tarot-card {
+        width: 116px;
+        height: 194px;
+        margin-left: -58px;
+        margin-top: -97px;
+      }
+    }
+
+    @media (max-width: 940px) {
+      .app {
+        padding-inline: 18px;
+      }
+      .topbar {
+        grid-template-columns: 1fr auto;
+      }
+      .nav {
+        position: fixed;
+        left: 50%;
+        bottom: 12px;
+        z-index: 90;
+        transform: translateX(-50%);
+        background: rgba(10, 12, 22, .92);
+        border-color: rgba(255,255,255,.12);
+        box-shadow: 0 15px 48px rgba(0,0,0,.55);
+      }
+      .top-meta {
+        grid-column: 2;
+      }
+      .home {
+        grid-template-columns: 1fr;
+        padding-top: 15px;
+      }
+      .hero {
+        padding: 32px 0 0;
+      }
+      .gateway-stage {
+        min-height: 600px;
+      }
+      .home-foot {
+        margin-top: 15px;
+      }
+      .tarot-workspace,
+      .chart-workspace {
+        grid-template-columns: 1fr;
+      }
+      .control-panel {
+        order: 1;
+      }
+      .deck-stage,
+      .chart-stage {
+        order: 2;
+      }
+      .reading-panel,
+      .chart-reading {
+        order: 3;
+        max-height: none;
+      }
+      .workspace-header {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 10px;
+      }
+      .workspace-header p {
+        text-align: left;
+      }
+      .spec-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .method-intro {
+        grid-template-columns: 1fr;
+      }
+      .footer {
+        margin-bottom: 70px;
+      }
+    }
+
+    @media (max-width: 620px) {
+      .app {
+        padding-inline: 13px;
+      }
+      .topbar {
+        height: 66px;
+      }
+      .brand-name span,
+      .top-meta span {
+        display: none;
+      }
+      .nav button {
+        padding: 8px 11px;
+        font-size: 10px;
+      }
+      .hero h1 {
+        font-size: clamp(45px, 14vw, 64px);
+      }
+      .hero-note {
+        flex-wrap: wrap;
+      }
+      .gateway-stage {
+        min-height: 590px;
+        transform: scale(.95);
+      }
+      .orbit.one {
+        width: 420px;
+        height: 420px;
+      }
+      .orbit.two {
+        width: 320px;
+        height: 320px;
+      }
+      .gateway-card {
+        width: 195px;
+        padding: 15px;
+      }
+      .gateway-card.tarot-gate {
+        left: 0;
+        top: 20%;
+      }
+      .gateway-card.chart-gate {
+        right: 0;
+        bottom: 11%;
+      }
+      .gateway-icon {
+        width: 44px;
+        height: 44px;
+        margin: 18px 0;
+      }
+      .gateway-card h2 {
+        font-size: 20px;
+      }
+      .home-foot {
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+      }
+      .home-foot span:last-child {
+        display: none;
+      }
+      .deck {
+        height: 340px;
+      }
+      .tarot-card {
+        width: 96px;
+        height: 164px;
+        margin-left: -48px;
+        margin-top: -82px;
+      }
+      .deck-stage {
+        min-height: 500px;
+      }
+      .chart-holder {
+        width: 112%;
+        margin-left: -6%;
+      }
+      .spec-grid {
+        grid-template-columns: 1fr;
+      }
+      .spec-block {
+        min-height: auto;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: .01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <button class="brand" data-view="home" aria-label="返回首页">
+        <span class="brand-mark">✶</span>
+        <span class="brand-name"><strong>Asteria</strong><span>Astral field notes</span></span>
+      </button>
+
+      <nav class="nav" aria-label="主导航">
+        <button class="active" data-view="home">今日</button>
+        <button data-view="tarot">塔罗</button>
+        <button data-view="chart">星盘</button>
+        <button data-view="spec">设计</button>
+      </nav>
+
+      <div class="top-meta"><i class="live-dot"></i><span>DEMO MODE</span><span>·</span><span>OFFLINE</span></div>
+    </header>
+
+    <main>
+      <section class="view active home" id="view-home">
+        <div class="hero">
+          <div class="eyebrow">Interactive divination / 01</div>
+          <h1>把问题，<br>放进<em>星图</em>里。</h1>
+          <p class="hero-copy">
+            一次抽牌，一张星盘，都从你真正想问的事开始。Asteria 不替你预言结局，
+            而是把散落在情绪里的线索重新排布，让你看见下一步可以怎样走。
+          </p>
+          <div class="hero-actions">
+            <button class="primary-button" data-view="tarot">抽一张牌&nbsp; ↗</button>
+            <button class="ghost-button" data-view="chart">生成我的星盘&nbsp; ◎</button>
+          </div>
+          <div class="hero-note">
+            <span>免费离线演示</span>
+            <span>约 90 秒完成</span>
+            <span>不做确定性预测</span>
+          </div>
+        </div>
+
+        <div class="gateway-stage" id="gateway-stage">
+          <div class="orbit one"></div>
+          <div class="orbit two"></div>
+          <div class="orbit three"></div>
+          <div class="axial-line"></div>
+          <div class="axial-line second"></div>
+          <div class="center-orb"><span>✦</span></div>
+          <span class="signal-node" style="left:39%;top:4%">意图</span>
+          <span class="signal-node" style="left:80%;top:14%">时机</span>
+          <span class="signal-node" style="left:90%;top:52%">关系</span>
+          <span class="signal-node" style="left:72%;top:87%">方向</span>
+          <span class="signal-node" style="left:30%;top:91%">边界</span>
+          <span class="signal-node" style="left:7%;top:62%">行动</span>
+          <span class="signal-node" style="left:8%;top:15%">情绪</span>
+
+          <button class="gateway-card tarot-gate" data-view="tarot">
+            <span class="gateway-top"><span>Ritual 01</span><span>22 cards</span></span>
+            <span class="gateway-icon">☾</span>
+            <h2>先抽一张牌</h2>
+            <p>带着一个具体问题进入牌阵。让图像、象征与直觉把模糊处照亮。</p>
+            <span class="gateway-arrow">开始抽牌</span>
+          </button>
+
+          <button class="gateway-card chart-gate" data-view="chart">
+            <span class="gateway-top"><span>Ritual 02</span><span>Birth map</span></span>
+            <span class="gateway-icon">⊕</span>
+            <h2>读你的星盘</h2>
+            <p>输入出生日期、时间与地点，从日月升与行星关系中生成一段 AI 解读。</p>
+            <span class="gateway-arrow">生成星盘</span>
+          </button>
+        </div>
+
+        <div class="home-foot">
+          <span>Move closer to reveal. 靠近，细节才会醒来。</span>
+          <span>Tarot / Natal chart / Reflective AI</span>
+          <span>Seoul · 2026</span>
+        </div>
+      </section>
+
+      <section class="view workspace" id="view-tarot">
+        <header class="workspace-header">
+          <div>
+            <div class="workspace-kicker">Ritual 01 / Tarot</div>
+            <h1>抽一张牌，照亮问题的侧面。</h1>
+          </div>
+          <p>先写下真正困扰你的那一句。牌不会替你做决定，但能提供一个从未尝试的观察角度。</p>
+        </header>
+
+        <div class="tarot-workspace">
+          <aside class="panel control-panel">
+            <div class="panel-label">Set your question</div>
+            <label class="field">
+              <span>你此刻想问什么？</span>
+              <textarea id="tarot-question">最近我该把注意力放回哪里？</textarea>
+            </label>
+            <div class="field">
+              <span>牌阵</span>
+              <div class="segmented" id="spread-choice">
+                <button data-spread="one" class="active">单牌 · 一个焦点</button>
+                <button data-spread="three">三牌 · 时间线</button>
+              </div>
+            </div>
+            <button class="primary-button wide-button" id="shuffle-button">洗牌&nbsp; ✦</button>
+            <p class="tiny-note">抽牌使用浏览器内的随机数生成器。每次刷新后，牌序与正逆位会重新生成。</p>
+          </aside>
+
+          <section class="panel deck-stage">
+            <div class="deck-counter">FOCUSED DECK <strong id="draw-count">0 / 1</strong> <span>牌面向下</span></div>
+            <div class="deck" id="tarot-deck" aria-label="塔罗牌牌堆"></div>
+            <div class="deck-actions">
+              <span class="deck-hint" id="deck-hint">先洗牌，再点击一张牌。</span>
+              <button class="ghost-button" id="reset-draw" style="padding:9px 13px;font-size:10px;">重新开始</button>
+            </div>
+          </section>
+
+          <aside class="panel reading-panel" id="tarot-reading"></aside>
+        </div>
+      </section>
+
+      <section class="view workspace" id="view-chart">
+        <header class="workspace-header">
+          <div>
+            <div class="workspace-kicker">Ritual 02 / Natal chart</div>
+            <h1>从出生坐标，看见你的内在气候。</h1>
+          </div>
+          <p>星盘提供一种理解自己的语言。这里的行星位置用于交互与设计演示，不替代专业天文或医疗建议。</p>
+        </header>
+
+        <div class="chart-workspace">
+          <aside class="panel control-panel">
+            <div class="panel-label">Birth coordinates</div>
+            <form id="birth-form" novalidate>
+              <label class="field">
+                <span>你的名字</span>
+                <input id="birth-name" value="Lin" autocomplete="name">
+              </label>
+              <label class="field">
+                <span>出生日期</span>
+                <input id="birth-date" type="date" value="1998-08-16">
+              </label>
+              <label class="field">
+                <span>出生时间（可留空）</span>
+                <input id="birth-time" type="time" value="21:40">
+              </label>
+              <label class="field">
+                <span>出生城市</span>
+                <input id="birth-city" value="Seoul" autocomplete="address-level2">
+              </label>
+              <button class="primary-button wide-button" type="submit">生成星盘&nbsp; ◎</button>
+              <div id="birth-error"></div>
+            </form>
+            <p class="tiny-note">没有出生时间时，日月位置仍会保留，上升星座改为区间提示。城市只用于演示当地时间。</p>
+          </aside>
+
+          <section class="panel chart-stage">
+            <div class="chart-stage-head">
+              <div class="person-coordinate" id="chart-coordinate">Lin · 1998.08.16 · 21:40</div>
+              <div class="chart-tools">
+                <button class="micro-button active" id="aspect-toggle">主要相位</button>
+                <button class="micro-button" id="label-toggle">符号说明</button>
+              </div>
+            </div>
+            <div class="chart-holder" id="chart-holder"></div>
+            <div id="chart-warning"></div>
+          </section>
+
+          <aside class="panel chart-reading" id="chart-reading"></aside>
+        </div>
+      </section>
+
+      <section class="view workspace" id="view-spec">
+        <header class="workspace-header">
+          <div>
+            <div class="workspace-kicker">Final project / Design spec</div>
+            <h1>一个小而完整的设计命题。</h1>
+          </div>
+          <p>界面是可交互原型。评分重点是产品定义、流程与取舍，不是占卜本身的真实性。</p>
+        </header>
+
+        <div class="method-workspace">
+          <div class="method-intro">
+            <h2>把“算命”重做成一次有边界、可回看的自我整理。</h2>
+            <p>
+              Asteria 面向不确定时期的年轻成年人。它把塔罗与出生星盘放在同一个探索界面里，
+              用鱼眼放大帮助用户靠近一条线索，再用 AI 将象征翻译成可执行的反思问题。
+            </p>
+          </div>
+
+          <div class="spec-grid">
+            <article class="spec-block">
+              <span class="spec-number">01 / IDEA</span>
+              <h3>产品一句话</h3>
+              <p><strong>输入一个真实问题，选择塔罗或星盘，得到可回看的反思型解读。</strong> 目标用户是 18–35 岁、正在面对关系或职业不确定性的年轻人。</p>
+            </article>
+            <article class="spec-block">
+              <span class="spec-number">02 / EXAMPLE</span>
+              <h3>具体输入与输出</h3>
+              <p>输入“我该不该换工作？”并抽到 <strong>隐者 · 正位</strong>。输出会指出信息过载，建议先进行 7 天低干扰观察，并给出一个可回答的反思问题。</p>
+            </article>
+            <article class="spec-block">
+              <span class="spec-number">03 / SCREEN</span>
+              <h3>主屏幕</h3>
+              <p>左侧设定意图，中间是鱼眼牌阵或星盘，右侧解释随选择变化。靠近元素时放大，点击后固定细节。</p>
+            </article>
+            <article class="spec-block">
+              <span class="spec-number">04 / FLOW</span>
+              <h3>用户流程</h3>
+              <div class="spec-flow">
+                <span>打开</span><i>→</i><span>选仪式</span><i>→</i><span>输入问题</span><i>→</i><span>洗牌/生成</span><i>→</i><span>探索</span><i>→</i><span>保存</span>
+              </div>
+              <p style="margin-top:10px;">边界情况：日期为空时阻止生成；出生时间缺失时显示“上升星座为区间估计”；无法生成解读时回退到本地牌义与反思问题。</p>
+            </article>
+            <article class="spec-block">
+              <span class="spec-number">05 / DATA</span>
+              <h3>数据与许可</h3>
+              <p>22 张大阿卡纳的名称与关键词随项目打包。<strong>不使用受版权保护的牌面图片。</strong> 出生坐标仅用于演示，不写入数据库；后续接入 NASA/JPL 可公开数据时需注明来源。</p>
+            </article>
+            <article class="spec-block">
+              <span class="spec-number">06 / AI</span>
+              <h3>模型与提示词</h3>
+              <p>首选本地开源 <strong>Qwen2.5-3B-Instruct</strong>。提示词要求：引用用户问题、区分象征与事实、输出“观察 / 张力 / 行动 / 反思”，禁止做确定性预测。</p>
+            </article>
+            <article class="spec-block">
+              <span class="spec-number">07 / SYSTEM</span>
+              <h3>系统结构</h3>
+              <p>GitHub 保存代码与资料；Streamlit Cloud 运行界面；浏览器 JavaScript 负责鱼眼与动画；离线模板保证无模型时仍有输出；Colab/Hugging Face 是可选的本地模型环境。</p>
+            </article>
+            <article class="spec-block">
+              <span class="spec-number">08 / RISK</span>
+              <h3>风险与边界</h3>
+              <p>不预测死亡、疾病、投资结果或他人隐私；不替代心理咨询与医疗。对不确定计算明确标注。所有解读保留“你可以不同意”的退出空间。</p>
+            </article>
+            <article class="spec-block">
+              <span class="spec-number">09 / COST</span>
+              <h3>零付费方案</h3>
+              <p>演示模式使用离线模板，Streamlit Community Cloud 免费托管。只有在用户主动启用时，才连接自托管的开源模型，因此不依赖付费 API。</p>
+            </article>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <span>Asteria / Reflective divination prototype</span>
+      <span>Designed for uncertainty, not certainty.</span>
+      <span>Not medical, legal, or financial advice.</span>
+    </footer>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script id="tarot-data" type="application/json">__TAROT_DATA__</script>
+  <script>
+    (() => {
+      "use strict";
+
+      const tarotCards = JSON.parse(document.getElementById("tarot-data").textContent);
+      const signs = [
+        { name: "白羊", symbol: "♈", element: "火", mode: "开创" },
+        { name: "金牛", symbol: "♉", element: "土", mode: "固定" },
+        { name: "双子", symbol: "♊", element: "风", mode: "变动" },
+        { name: "巨蟹", symbol: "♋", element: "水", mode: "开创" },
+        { name: "狮子", symbol: "♌", element: "火", mode: "固定" },
+        { name: "处女", symbol: "♍", element: "土", mode: "变动" },
+        { name: "天秤", symbol: "♎", element: "风", mode: "开创" },
+        { name: "天蝎", symbol: "♏", element: "水", mode: "固定" },
+        { name: "射手", symbol: "♐", element: "火", mode: "变动" },
+        { name: "摩羯", symbol: "♑", element: "土", mode: "开创" },
+        { name: "水瓶", symbol: "♒", element: "风", mode: "固定" },
+        { name: "双鱼", symbol: "♓", element: "水", mode: "变动" }
+      ];
+
+      const signCopy = {
+        "白羊": "直接、行动先行。你依靠速度和勇气确认方向，也需要为反应留出缓冲。",
+        "金牛": "稳定、感官敏锐。你用持续性和可触摸的成果建立安全感，但改变时需要更长的适应期。",
+        "双子": "好奇、语言灵活。你通过提问与交换信息理解世界，容易同时被太多方向吸引。",
+        "巨蟹": "敏感、重视归属。你会先感受气氛再做判断，保护重要关系是行动的核心。",
+        "狮子": "坦白、需要被看见。你愿意为热爱投入，也容易把自我价值与外界回应绑在一起。",
+        "处女": "细致、善于校准。你通过改善细节获得掌控感，需要警惕把修正变成持续自我批评。",
+        "天秤": "重视关系与比例。你能看见多方立场，但决定前需要分清公平与讨好。",
+        "天蝎": "投入、洞察深。你愿意靠近复杂与真实，信任一旦建立就会投入全部注意力。",
+        "射手": "向外、追求意义。你需要空间与远景来保持动力，但也要让愿景落到具体步骤。",
+        "摩羯": "长期、结构导向。你通过承担与积累建立信任，需要允许自己不以成果衡量全部价值。",
+        "水瓶": "独立、系统思考。你习惯从更大的图景看问题，也可能用理性隔开真实的情绪需要。",
+        "双鱼": "共情、想象力强。你能吸收环境里的微妙信息，边界与日常节奏会保护你的敏感。"
+      };
+
+      const planetMeta = [
+        { key: "sun", name: "太阳", symbol: "☉", color: "#ffd38d", role: "核心动力" },
+        { key: "moon", name: "月亮", symbol: "☽", color: "#c9c8e2", role: "情绪需要" },
+        { key: "mercury", name: "水星", symbol: "☿", color: "#b4cbe4", role: "思考与表达" },
+        { key: "venus", name: "金星", symbol: "♀", color: "#d9abb9", role: "关系与偏好" },
+        { key: "mars", name: "火星", symbol: "♂", color: "#d77f76", role: "行动与冲突" },
+        { key: "jupiter", name: "木星", symbol: "♃", color: "#e4b875", role: "扩张与信念" },
+        { key: "saturn", name: "土星", symbol: "♄", color: "#c7bca1", role: "结构与责任" },
+        { key: "uranus", name: "天王星", symbol: "♅", color: "#95c8c4", role: "变化与独立" },
+        { key: "neptune", name: "海王星", symbol: "♆", color: "#95a7dd", role: "想象与边界" },
+        { key: "pluto", name: "冥王星", symbol: "♇", color: "#9b819e", role: "深层转化" }
+      ];
+
+      const aspectTypes = [
+        { angle: 0, name: "合相", color: "#e8be7a", text: "集中与放大" },
+        { angle: 60, name: "六分", color: "#9fc9b3", text: "可调用的机会" },
+        { angle: 90, name: "四分", color: "#d58f88", text: "需要协调的张力" },
+        { angle: 120, name: "三分", color: "#9bb9dc", text: "自然流动的才能" },
+        { angle: 180, name: "对分", color: "#c5a7cf", text: "需要平衡的两端" }
+      ];
+
+      const spreadLabels = {
+        one: ["此刻"],
+        three: ["过去", "此刻", "下一步"]
+      };
+
+      const state = {
+        view: "home",
+        tarot: {
+          spread: "one",
+          shuffled: false,
+          deck: [],
+          drawn: [],
+          fanCount: 15
+        },
+        chart: {
+          birth: {
+            name: "Lin",
+            date: "1998-08-16",
+            time: "21:40",
+            city: "Seoul"
+          },
+          showAspects: true,
+          showLabels: true,
+          selectedPlanet: "sun",
+          data: null
+        }
+      };
+
+      const $ = (selector, root = document) => root.querySelector(selector);
+      const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
+      const mod = (value, divisor) => ((value % divisor) + divisor) % divisor;
+
+      function showToast(message) {
+        const toast = $("#toast");
+        toast.textContent = message;
+        toast.classList.add("show");
+        clearTimeout(showToast.timer);
+        showToast.timer = setTimeout(() => toast.classList.remove("show"), 2200);
+      }
+
+      function switchView(view) {
+        state.view = view;
+        $$(".view").forEach((section) => {
+          section.classList.toggle("active", section.id === `view-${view}`);
+        });
+        $$(".nav button").forEach((button) => {
+          button.classList.toggle("active", button.dataset.view === view);
+        });
+        window.scrollTo({ top: 0, behavior: "smooth" });
+        if (view === "tarot") requestAnimationFrame(bindDeckFisheye);
+        if (view === "chart") requestAnimationFrame(renderChart);
+        if (view === "home") requestAnimationFrame(bindGatewayFisheye);
+      }
+
+      function shuffledCopy(items) {
+        const copy = [...items];
+        for (let index = copy.length - 1; index > 0; index -= 1) {
+          const swapIndex = Math.floor(Math.random() * (index + 1));
+          [copy[index], copy[swapIndex]] = [copy[swapIndex], copy[index]];
+        }
+        return copy;
+      }
+
+      function initTarotDeck() {
+        const deck = shuffledCopy(tarotCards)
+          .slice(0, state.tarot.fanCount)
+          .map((card) => ({ card, reversed: Math.random() > 0.73 }));
+        state.tarot.deck = deck;
+        state.tarot.drawn = [];
+        state.tarot.shuffled = false;
+        renderTarotDeck();
+        renderTarotReading();
+      }
+
+      function renderTarotDeck() {
+        const deckElement = $("#tarot-deck");
+        const count = state.tarot.spread === "one" ? 1 : 3;
+        const center = (state.tarot.fanCount - 1) / 2;
+        deckElement.innerHTML = state.tarot.deck.map((entry, index) => {
+          const angle = (index - center) * 6.2;
+          const lifted = Math.abs(index - center) * 2.3;
+          const drawn = state.tarot.drawn.some((item) => item.index === index);
+          return `
+            <button
+              class="tarot-card${drawn ? " drawn" : ""}"
+              data-card-index="${index}"
+              aria-label="牌堆中的第 ${index + 1} 张牌"
+              style="--angle:${angle}deg;--lift:${lifted}px;--shuffle-x:${angle * 2.1}px;--shuffle-r:${angle * 0.7}deg;z-index:${index};"
+            >
+              <span class="card-back-ring"></span>
+            </button>
+          `;
+        }).join("");
+        deckElement.style.transform = state.tarot.spread === "three" ? "scale(.9)" : "";
+        $("#draw-count").textContent = `${state.tarot.drawn.length} / ${count}`;
+        $("#deck-hint").textContent = state.tarot.shuffled
+          ? (state.tarot.drawn.length < count ? "把指针移到牌上，点击感应最强的一张。" : "牌已选定。右侧是这次解读。")
+          : "先洗牌，再点击一张牌。";
+        $$(".tarot-card", deckElement).forEach((card) => {
+          card.addEventListener("click", () => drawTarotCard(Number(card.dataset.cardIndex)));
+        });
+        bindDeckFisheye();
+      }
+
+      function shuffleTarot() {
+        if (state.tarot.drawn.length) {
+          state.tarot.drawn = [];
+        }
+        const deckElement = $("#tarot-deck");
+        deckElement.classList.add("shuffling");
+        state.tarot.deck = shuffledCopy(tarotCards)
+          .slice(0, state.tarot.fanCount)
+          .map((card) => ({ card, reversed: Math.random() > 0.73 }));
+        state.tarot.shuffled = false;
+        setTimeout(() => {
+          deckElement.classList.remove("shuffling");
+          state.tarot.shuffled = true;
+          renderTarotDeck();
+          renderTarotReading();
+          showToast("牌序已经落定，选一张你被吸引的牌。");
+        }, 760);
+      }
+
+      function drawTarotCard(index) {
+        if (!state.tarot.shuffled) {
+          showToast("先洗牌，给问题一个重新排列的机会。");
+          return;
+        }
+        const limit = state.tarot.spread === "one" ? 1 : 3;
+        if (state.tarot.drawn.length >= limit) {
+          showToast("这个牌阵已经完成。可以重新开始。");
+          return;
+        }
+        if (state.tarot.drawn.some((item) => item.index === index)) {
+          return;
+        }
+        state.tarot.drawn.push({ ...state.tarot.deck[index], index });
+        renderTarotDeck();
+        renderTarotReading();
+        if (state.tarot.drawn.length === limit) {
+          showToast("牌阵完成。先读 Overall，再逐张靠近。");
+        }
+      }
+
+      function resetTarot() {
+        state.tarot.drawn = [];
+        state.tarot.shuffled = false;
+        state.tarot.deck = shuffledCopy(tarotCards)
+          .slice(0, state.tarot.fanCount)
+          .map((card) => ({ card, reversed: Math.random() > 0.73 }));
+        renderTarotDeck();
+        renderTarotReading();
+      }
+
+      function tarotMeaning(entry) {
+        return entry.reversed ? entry.card.reversed : entry.card.upright;
+      }
+
+      function renderTarotReading() {
+        const reading = $("#tarot-reading");
+        if (!state.tarot.drawn.length) {
+          const hasShuffled = state.tarot.shuffled;
+          reading.innerHTML = `
+            <div class="reading-empty">
+              <div>
+                <div class="reading-empty-symbol">${hasShuffled ? "✦" : "☾"}</div>
+                <h3>${hasShuffled ? "牌已经准备好" : "意图先于牌面"}</h3>
+                <p>${hasShuffled ? "点击左侧牌堆中的牌。右侧会先给出整体指向，再展开每一张的细节。" : "写下一个真实、具体的问题，然后洗牌。越清楚的问题，越容易照亮下一步。"}</p>
+              </div>
+            </div>
+          `;
+          return;
+        }
+
+        const labels = spreadLabels[state.tarot.spread];
+        const question = $("#tarot-question").value.trim() || "此刻最重要的事";
+        const cardsMarkup = state.tarot.drawn.map((entry, index) => `
+          <div class="drawn-card">
+            <span class="drawn-card-symbol">${entry.card.symbol}</span>
+            <span>
+              <strong>${entry.card.name} · ${entry.reversed ? "逆位" : "正位"}</strong>
+              <small>${entry.card.keywords.join(" / ")}</small>
+            </span>
+            <span class="position-tag">${labels[index]}</span>
+          </div>
+        `).join("");
+
+        const explanations = state.tarot.drawn.map((entry, index) => `
+          <article class="card-explanation">
+            <h4>${labels[index]} · ${entry.card.name}</h4>
+            <p>${tarotMeaning(entry)}</p>
+          </article>
+        `).join("");
+
+        const first = state.tarot.drawn[0];
+        const last = state.tarot.drawn[state.tarot.drawn.length - 1];
+        let synthesis;
+        if (state.tarot.drawn.length === 1) {
+          synthesis = `关于“${question}”，${first.card.name}把焦点放回${first.card.theme}。${tarotMeaning(first)} 这不代表事情只能这样发生，而是一个值得观察的侧面。`;
+        } else {
+          synthesis = `从${first.card.name}到${last.card.name}，牌阵没有给出“是或否”，而是把“${question}”重新描述成一段可参与的转变。先允许旧状态结束，再为下一步选择一个小而具体的动作。`;
+        }
+
+        const reflection = state.tarot.drawn.length === 1
+          ? first.card.reflection
+          : last.card.reflection;
+
+        reading.innerHTML = `
+          <div class="reading-title">
+            <h2>你的解读</h2>
+            <span class="demo-badge">OFFLINE AI</span>
+          </div>
+          <div class="drawn-card-list">${cardsMarkup}</div>
+          <div class="reading-summary">
+            <div class="reading-summary-label">WHAT THE SPREAD NOTICES</div>
+            <p>${synthesis}</p>
+          </div>
+          <div class="card-explanations">${explanations}</div>
+          <div class="reflection">
+            <span>ONE QUESTION TO KEEP</span>
+            <p>${reflection}</p>
+          </div>
+          <p class="disclaimer">塔罗在这里是一种反思工具。它不预测确定结果，也不替你承担决定。</p>
+        `;
+      }
+
+      function bindGatewayFisheye() {
+        const stage = $("#gateway-stage");
+        if (!stage) return;
+        const cards = $$(".gateway-card", stage);
+        const signals = $$(".signal-node", stage);
+        stage.onpointermove = (event) => {
+          const rect = stage.getBoundingClientRect();
+          const x = event.clientX - rect.left;
+          const y = event.clientY - rect.top;
+          cards.forEach((card) => {
+            const cardRect = card.getBoundingClientRect();
+            const cardX = cardRect.left - rect.left + cardRect.width / 2;
+            const cardY = cardRect.top - rect.top + cardRect.height / 2;
+            const distance = Math.hypot(x - cardX, y - cardY);
+            const force = Math.max(0, 1 - distance / 235);
+            const baseRotate = card.classList.contains("tarot-gate") ? -5 : 4;
+            card.style.transform = `rotate(${baseRotate}deg) translate(${(x - cardX) * force * 0.018}px, ${(y - cardY) * force * 0.018}px) scale(${1 + force * 0.075})`;
+            card.style.opacity = String(0.86 + force * 0.14);
+          });
+          signals.forEach((signal) => {
+            const signalRect = signal.getBoundingClientRect();
+            const signalX = signalRect.left - rect.left + signalRect.width / 2;
+            const signalY = signalRect.top - rect.top + signalRect.height / 2;
+            const distance = Math.hypot(x - signalX, y - signalY);
+            const force = Math.max(0, 1 - distance / 125);
+            signal.style.transform = `translate(${(x - signalX) * force * 0.075}px, ${(y - signalY) * force * 0.075}px) scale(${1 + force * 0.55})`;
+            signal.style.color = force > 0.18 ? "rgba(232, 190, 122, .92)" : "var(--faint)";
+          });
+        };
+        stage.onpointerleave = () => {
+          cards.forEach((card) => {
+            const baseRotate = card.classList.contains("tarot-gate") ? -5 : 4;
+            card.style.transform = `rotate(${baseRotate}deg)`;
+            card.style.opacity = "1";
+          });
+          signals.forEach((signal) => {
+            signal.style.transform = "";
+            signal.style.color = "";
+          });
+        };
+      }
+
+      function bindDeckFisheye() {
+        const deck = $("#tarot-deck");
+        if (!deck) return;
+        const cards = $$(".tarot-card", deck);
+        deck.onpointermove = (event) => {
+          const rect = deck.getBoundingClientRect();
+          const x = event.clientX - rect.left;
+          const y = event.clientY - rect.top;
+          cards.forEach((card) => {
+            const cardRect = card.getBoundingClientRect();
+            const cardX = cardRect.left - rect.left + cardRect.width / 2;
+            const cardY = cardRect.top - rect.top + cardRect.height / 2;
+            const distance = Math.hypot(x - cardX, y - cardY);
+            const force = Math.max(0, 1 - distance / 145);
+            card.style.setProperty("--lens-scale", String(1 + force * 0.16));
+            card.style.filter = `brightness(${0.82 + force * 0.3})`;
+          });
+        };
+        deck.onpointerleave = () => {
+          cards.forEach((card) => {
+            card.style.setProperty("--lens-scale", "1");
+            card.style.filter = "";
+          });
+        };
+      }
+
+      function formatDate(dateString) {
+        return dateString.replaceAll("-", ".");
+      }
+
+      function hashText(text) {
+        let hash = 2166136261;
+        for (let i = 0; i < text.length; i += 1) {
+          hash ^= text.charCodeAt(i);
+          hash = Math.imul(hash, 16777619);
+        }
+        return Math.abs(hash);
+      }
+
+      function dayOfYear(date) {
+        const start = Date.UTC(date.getUTCFullYear(), 0, 0);
+        const current = Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate());
+        return Math.floor((current - start) / 86400000);
+      }
+
+      function calculateChart(birth) {
+        const date = new Date(`${birth.date}T00:00:00Z`);
+        const [hourText, minuteText] = (birth.time || "12:00").split(":");
+        const hour = Number(hourText || 12);
+        const minute = Number(minuteText || 0);
+        const timeFraction = (hour + minute / 60) / 24;
+        const days = (date.getTime() - Date.UTC(2000, 0, 6, 18, 14)) / 86400000;
+        const cityHash = hashText(birth.city.trim().toLowerCase());
+        const cityOffset = ((cityHash % 1000) / 1000 - 0.5) * 4;
+        const sun = mod((dayOfYear(date) - 80 + timeFraction) * 360 / 365.2422, 360);
+        const moon = mod(218.316 + days * 13.176396, 360);
+        const mercury = mod(sun + 27 * Math.sin(days / 9.3), 360);
+        const venus = mod(sun + 48 * Math.sin(days / 17.6), 360);
+        const mars = mod(355.45 + days * .524, 360);
+        const jupiter = mod(34.35 + days * .083, 360);
+        const saturn = mod(50.08 + days * .0335, 360);
+        const uranus = mod(314.05 + days * .0117, 360);
+        const neptune = mod(304.35 + days * .006, 360);
+        const pluto = mod(238.93 + days * .004, 360);
+        const ascendant = mod(90 + hour * 15 + minute * .25 + cityOffset, 360);
+        const longitudes = { sun, moon, mercury, venus, mars, jupiter, saturn, uranus, neptune, pluto };
+        const planets = planetMeta.map((meta) => ({
+          ...meta,
+          longitude: longitudes[meta.key],
+          signIndex: Math.floor(longitudes[meta.key] / 30),
+          degree: longitudes[meta.key] % 30
+        }));
+        planets.push({
+          key: "ascendant",
+          name: "上升",
+          symbol: "AC",
+          color: "#f0d39f",
+          role: "外在节奏",
+          longitude: ascendant,
+          signIndex: Math.floor(ascendant / 30),
+          degree: ascendant % 30
+        });
+
+        const pairs = [];
+        const coreKeys = ["sun", "moon", "mercury", "venus", "mars", "jupiter", "saturn", "ascendant"];
+        const core = planets.filter((planet) => coreKeys.includes(planet.key));
+        for (let i = 0; i < core.length; i += 1) {
+          for (let j = i + 1; j < core.length; j += 1) {
+            let difference = Math.abs(core[i].longitude - core[j].longitude);
+            if (difference > 180) difference = 360 - difference;
+            const scored = aspectTypes.map((aspect) => ({
+              ...aspect,
+              orb: Math.abs(difference - aspect.angle)
+            })).sort((a, b) => a.orb - b.orb)[0];
+            if (scored.orb <= 7) {
+              pairs.push({
+                a: core[i],
+                b: core[j],
+                aspect: scored,
+                orb: scored.orb
+              });
+            }
+          }
+        }
+        pairs.sort((a, b) => a.orb - b.orb);
+
+        return {
+          birth,
+          planets,
+          planetsByKey: Object.fromEntries(planets.map((planet) => [planet.key, planet])),
+          aspects: pairs.slice(0, 5)
+        };
+      }
+
+      function polarPoint(angle, radius, center = 250) {
+        const radians = (angle - 90) * Math.PI / 180;
+        return {
+          x: center + radius * Math.cos(radians),
+          y: center + radius * Math.sin(radians)
+        };
+      }
+
+      function renderWheelSvg(chart) {
+        const ticking = [];
+        for (let index = 0; index < 120; index += 1) {
+          const longAngle = index * 3;
+          const inner = index % 10 === 0 ? 201 : index % 5 === 0 ? 208 : 212;
+          const outer = 218;
+          const start = polarPoint(longAngle, inner);
+          const end = polarPoint(longAngle, outer);
+          ticking.push(`<line class="wheel-tick" x1="${start.x}" y1="${start.y}" x2="${end.x}" y2="${end.y}"></line>`);
+        }
+
+        const signLabels = signs.map((sign, index) => {
+          const point = polarPoint(index * 30 + 15, 236);
+          return `
+            <text class="zodiac-symbol" x="${point.x}" y="${point.y}" text-anchor="middle" dominant-baseline="middle">${sign.symbol}</text>
+            <text class="zodiac-label" x="${point.x}" y="${point.y + 16}" text-anchor="middle" dominant-baseline="middle">${sign.name}</text>
+          `;
+        }).join("");
+
+        const aspectLines = state.chart.showAspects ? chart.aspects.map((aspect) => {
+          const start = polarPoint(aspect.a.longitude, 172);
+          const end = polarPoint(aspect.b.longitude, 172);
+          return `<line class="aspect-line" x1="${start.x}" y1="${start.y}" x2="${end.x}" y2="${end.y}" stroke="${aspect.aspect.color}"></line>`;
+        }).join("") : "";
+
+        return `
+          <svg viewBox="0 0 500 500" role="img" aria-label="出生星盘图">
+            <defs>
+              <radialGradient id="wheelCenter" cx="45%" cy="38%" r="65%">
+                <stop offset="0%" stop-color="#1d1a31" stop-opacity=".88"></stop>
+                <stop offset="100%" stop-color="#090a14" stop-opacity=".94"></stop>
+              </radialGradient>
+            </defs>
+            <circle cx="250" cy="250" r="238" fill="url(#wheelCenter)"></circle>
+            <circle class="wheel-line strong" cx="250" cy="250" r="226"></circle>
+            <circle class="wheel-line" cx="250" cy="250" r="218"></circle>
+            <circle class="wheel-line" cx="250" cy="250" r="190"></circle>
+            <circle class="wheel-line" cx="250" cy="250" r="172"></circle>
+            <circle class="wheel-line" cx="250" cy="250" r="96"></circle>
+            <circle class="wheel-line" cx="250" cy="250" r="92" stroke-dasharray="2 7"></circle>
+            ${ticking.join("")}
+            ${signLabels}
+            ${[0, 30, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330].map((degree) => {
+              const start = polarPoint(degree, 172);
+              const end = polarPoint(degree, 218);
+              return `<line class="wheel-tick" x1="${start.x}" y1="${start.y}" x2="${end.x}" y2="${end.y}"></line>`;
+            }).join("")}
+            ${aspectLines}
+            <circle cx="250" cy="250" r="87" fill="none" stroke="rgba(232,190,122,.1)" stroke-width=".7"></circle>
+          </svg>
+        `;
+      }
+
+      function renderPlanetNodes(chart) {
+        return chart.planets.map((planet) => {
+          const radius = planet.key === "ascendant" ? 119 : 148;
+          const point = polarPoint(planet.longitude, radius);
+          const left = point.x / 500 * 100;
+          const top = point.y / 500 * 100;
+          const label = state.chart.showLabels ? `${planet.name} ${Math.floor(planet.degree)}°` : "";
+          return `
+            <button
+              class="planet-node${state.chart.selectedPlanet === planet.key ? " selected" : ""}"
+              data-planet="${planet.key}"
+              data-label="${label}"
+              aria-label="${planet.name}，${signs[planet.signIndex].name}座"
+              style="left:${left}%;top:${top}%;--node-color:${planet.color};"
+            >${planet.symbol}</button>
+          `;
+        }).join("");
+      }
+
+      function renderChart() {
+        if (!state.chart.data) return;
+        const chart = state.chart.data;
+        const holder = $("#chart-holder");
+        const sun = chart.planetsByKey.sun;
+        const moon = chart.planetsByKey.moon;
+        const asc = chart.planetsByKey.ascendant;
+        holder.innerHTML = `
+          ${renderWheelSvg(chart)}
+          ${renderPlanetNodes(chart)}
+          <div class="chart-center">
+            <div>
+              <strong>${chart.birth.name || "你"}</strong>
+              <span>${signs[sun.signIndex].symbol} SUN<br>${signs[asc.signIndex].symbol} RISING</span>
+            </div>
+          </div>
+        `;
+        $("#chart-coordinate").textContent = `${chart.birth.name || "未命名"} · ${formatDate(chart.birth.date)} · ${chart.birth.time || "时间未知"} · ${chart.birth.city || "地点未知"}`;
+        const warning = !chart.birth.time
+          ? `<div class="chart-warning">出生时间缺失：上升星座按中午 12:00 推算，仅显示为区间提示。</div>`
+          : !chart.birth.city
+            ? `<div class="chart-warning">未填写出生城市：暂按 UTC+9 与首尔经度近似。</div>`
+            : "";
+        $("#chart-warning").innerHTML = warning;
+        $$(".planet-node", holder).forEach((node) => {
+          node.addEventListener("click", () => {
+            state.chart.selectedPlanet = node.dataset.planet;
+            renderChart();
+            renderChartReading();
+          });
+        });
+        bindChartFisheye(holder);
+        renderChartReading();
+      }
+
+      function bindChartFisheye(holder) {
+        const nodes = $$(".planet-node", holder);
+        holder.onpointermove = (event) => {
+          const rect = holder.getBoundingClientRect();
+          const x = event.clientX - rect.left;
+          const y = event.clientY - rect.top;
+          nodes.forEach((node) => {
+            const nodeRect = node.getBoundingClientRect();
+            const nodeX = nodeRect.left - rect.left + nodeRect.width / 2;
+            const nodeY = nodeRect.top - rect.top + nodeRect.height / 2;
+            const distance = Math.hypot(x - nodeX, y - nodeY);
+            const force = Math.max(0, 1 - distance / 95);
+            node.style.setProperty("--fisheye-scale", String(1 + force * 0.68));
+            node.style.setProperty("--fisheye-x", `${(x - nodeX) * force * 0.08}px`);
+            node.style.setProperty("--fisheye-y", `${(y - nodeY) * force * 0.08}px`);
+          });
+        };
+        holder.onpointerleave = () => {
+          nodes.forEach((node) => {
+            node.style.setProperty("--fisheye-scale", "1");
+            node.style.setProperty("--fisheye-x", "0");
+            node.style.setProperty("--fisheye-y", "0");
+          });
+        };
+      }
+
+      function describePlanet(planet) {
+        const sign = signs[planet.signIndex];
+        return `${planet.name}落在${sign.name}座。${signCopy[sign.name]} 在星盘里，这更像是一种${planet.role}的表达方式。`;
+      }
+
+      function renderChartReading() {
+        const chart = state.chart.data;
+        if (!chart) return;
+        const sun = chart.planetsByKey.sun;
+        const moon = chart.planetsByKey.moon;
+        const asc = chart.planetsByKey.ascendant;
+        const selected = chart.planetsByKey[state.chart.selectedPlanet] || sun;
+        const selectedSign = signs[selected.signIndex];
+        const sunSign = signs[sun.signIndex];
+        const moonSign = signs[moon.signIndex];
+        const ascSign = signs[asc.signIndex];
+        const dominantElement = [sunSign.element, moonSign.element, ascSign.element]
+          .sort((a, b) => [sunSign.element, moonSign.element, ascSign.element].filter((value) => value === b).length -
+            [sunSign.element, moonSign.element, ascSign.element].filter((value) => value === a).length)[0];
+        const aspectsMarkup = chart.aspects.length
+          ? chart.aspects.slice(0, 3).map((aspect) => `
+              <div class="aspect-row">
+                <span>${aspect.aspect.name} ${aspect.orb.toFixed(1)}°</span>
+                <span class="aspect-orbit"></span>
+                <strong>${aspect.a.name} · ${aspect.b.name}</strong>
+              </div>
+            `).join("")
+          : `<div class="aspect-row"><span>松散</span><span class="aspect-orbit"></span><strong>主要行星之间没有紧密相位</strong></div>`;
+
+        const summary = `你的太阳在${sunSign.name}，月亮在${moonSign.name}，上升在${ascSign.name}。这条组合把“${sunSign.mode}的行动感”与“${moonSign.element}元素的感受方式”放在一起。你不需要用同一种速度处理所有事。`;
+        $("#chart-reading").innerHTML = `
+          <div class="reading-title">
+            <h2>星盘解读</h2>
+            <span class="demo-badge">AI DEMO</span>
+          </div>
+          <p class="ai-summary">${summary}</p>
+          <div class="big-three">
+            <div class="big-three-item"><span>SUN</span><strong>${sunSign.symbol} ${sunSign.name}</strong></div>
+            <div class="big-three-item"><span>MOON</span><strong>${moonSign.symbol} ${moonSign.name}</strong></div>
+            <div class="big-three-item"><span>RISING</span><strong>${ascSign.symbol} ${ascSign.name}</strong></div>
+          </div>
+          <section class="analysis-section">
+            <h3>Focus · ${selected.name}</h3>
+            <p>${describePlanet(selected)}</p>
+            <div class="focus-chip-row">
+              <span class="focus-chip">${selectedSign.element}元素</span>
+              <span class="focus-chip">${selectedSign.mode}模式</span>
+              <span class="focus-chip">${Math.floor(selected.degree)}° ${selectedSign.name}</span>
+            </div>
+          </section>
+          <section class="analysis-section">
+            <h3>Natural rhythm</h3>
+            <p>你最容易自然调用的能量偏向<strong style="color:var(--ink);font-weight:400">${dominantElement}元素</strong>。它既是资源，也可能成为默认反应。遇到卡顿时，试着从相反元素借一个动作：火用直接表达，土用具体步骤，风用新视角，水用慢一点感受。</p>
+          </section>
+          <section class="analysis-section">
+            <h3>Main aspects</h3>
+            <div class="aspect-list">${aspectsMarkup}</div>
+          </section>
+          <section class="analysis-section">
+            <h3>A grounded next step</h3>
+            <p>把这个星盘当作一面镜子，而不是一张说明书。选一个你最近反复遇到的场景，记录当时的反应，再问自己：这是${selectedSign.element}元素的自然表达，还是我唯一会用的方式？</p>
+          </section>
+          <p class="disclaimer">星盘计算与 AI 文案为设计演示。请勿将内容用于医疗、法律、投资或重大人生决策。</p>
+        `;
+      }
+
+      function submitBirth(event) {
+        event.preventDefault();
+        const birth = {
+          name: $("#birth-name").value.trim(),
+          date: $("#birth-date").value,
+          time: $("#birth-time").value,
+          city: $("#birth-city").value.trim()
+        };
+        if (!birth.date) {
+          $("#birth-error").innerHTML = '<div class="error-box">请先填写出生日期。日期是生成星盘所需的最少信息。</div>';
+          return;
+        }
+        $("#birth-error").innerHTML = "";
+        state.chart.birth = birth;
+        state.chart.data = calculateChart(birth);
+        state.chart.selectedPlanet = "sun";
+        renderChart();
+        showToast("星盘已重新排列。靠近行星会放大细节。");
+      }
+
+      function initChart() {
+        state.chart.data = calculateChart(state.chart.birth);
+        renderChart();
+      }
+
+      $$("[data-view]").forEach((button) => {
+        button.addEventListener("click", () => switchView(button.dataset.view));
+      });
+
+      $$("#spread-choice button").forEach((button) => {
+        button.addEventListener("click", () => {
+          state.tarot.spread = button.dataset.spread;
+          $$("#spread-choice button").forEach((choice) => {
+            choice.classList.toggle("active", choice === button);
+          });
+          state.tarot.drawn = [];
+          state.tarot.shuffled = false;
+          renderTarotDeck();
+          renderTarotReading();
+        });
+      });
+
+      $("#shuffle-button").addEventListener("click", shuffleTarot);
+      $("#reset-draw").addEventListener("click", resetTarot);
+      $("#birth-form").addEventListener("submit", submitBirth);
+
+      $("#aspect-toggle").addEventListener("click", () => {
+        state.chart.showAspects = !state.chart.showAspects;
+        $("#aspect-toggle").classList.toggle("active", state.chart.showAspects);
+        renderChart();
+      });
+
+      $("#label-toggle").addEventListener("click", () => {
+        state.chart.showLabels = !state.chart.showLabels;
+        $("#label-toggle").classList.toggle("active", state.chart.showLabels);
+        renderChart();
+      });
+
+      $("#tarot-question").addEventListener("input", () => {
+        if (state.tarot.drawn.length) renderTarotReading();
+      });
+
+      initTarotDeck();
+      initChart();
+      bindGatewayFisheye();
+    })();
+  </script>
+</body>
+</html>
