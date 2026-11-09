@@ -18,13 +18,13 @@ You may use this Software, including for any commercial purpose, so long as you 
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-## 息观塔罗 · 分形结构语法
+## Xiguan Tarot · Fractal Structural Grammar
 
-The relationship spread, neutral process vocabulary and interpretation structure in Asteria are adapted from **息观塔罗 · 分形结构语法**.
+The relationship spread, neutral process vocabulary and interpretation structure in Asteria are adapted from **Xiguan Tarot · Fractal Structural Grammar**.
 
 Source: https://github.com/yihao-sun/fractal-tarot-prompt  
-Author: 孙翊豪/太翊豪 (yihao-sun)  
-Copyright (c) 2026 孙翊豪/太翊豪  
+Author: Sun Yihao / Tai Yihao (yihao-sun)  
+Copyright (c) 2026 Sun Yihao / Tai Yihao  
 License: [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)
 
 This adaptation is noncommercial and indicates that the original material was modified for a two-person relationship spread. The adapted tarot interpretation structure is shared under CC BY-NC-SA 4.0. It does not predict outcomes and does not replace professional advice.

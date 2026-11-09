@@ -1,193 +1,184 @@
-# Asteria · 星象手册
+# Asteria · Design Spec
 
-## 1. 一句话与一段话
+## 1. Idea
 
-**一句话:** Asteria 是一个把塔罗抽牌、出生星盘与双人合盘放进同一张可探索星图的反思型占卜应用。
+**One sentence:** Asteria is a reflective divination app that brings tarot, birth charts and two-person synastry into one explorable star map.
 
-**Idea in one paragraph:** Asteria 面向 18–35 岁、正在面对关系或职业不确定性的年轻人。用户带着一个具体问题进入应用，可以选择抽塔罗牌、输入生日与出生地生成个人星盘，或输入双方出生信息生成双人合盘；应用把牌面、行星、相位与关系过程组织成一张可近距离探索的星图，再用 AI 将象征翻译成“观察到什么、哪里存在张力、下一步可以做什么”的反思。双人合盘不会替用户判断关系好坏，而是给出可解释的匹配维度与修复建议。
+**One paragraph:** Asteria is for people aged 18–35 who are navigating uncertainty in relationships, work or identity. A user enters one concrete question, then chooses a tarot spread, a personal birth chart or a two-person synastry. The app organizes cards, planets, aspects and relational processes into a visual field that can be explored up close. AI then translates the symbols into observations, tensions, possible actions and reflection questions. The product matters because common divination tools compress a complex situation into good, bad or certain; Asteria preserves the ritual while keeping judgment with the user.
 
-## 2. 一个具体例子
+## 2. Concrete example
 
-### 输入
+### Tarot
 
-- 问题：我该不该换工作？
-- 模式：单牌
-- 操作：洗牌后点击一张牌
-- 抽牌结果：**隐者 · 正位**
+- Question: “Should I change jobs?”
+- Mode: One card.
+- Draw: **The Hermit · Upright**.
+- Output: “Information overload is not the same as a lack of direction. Take a seven-day low-noise review and record the first feeling that appears whenever work comes to mind. On day seven, ask whether the desire to leave comes from a long-term value mismatch or short-term exhaustion.”
 
-### 用户看到的输出
+### Two-person synastry
 
-> **此刻 · 隐者。** 你需要的不是更多意见，而是一个能安静消化的空间。把问题带去散步、写作或独处。  
->  
-> **下一步:** 先做 7 天低干扰观察，每天记录一次“想到工作时最先出现的感受”。第 7 天再问自己：离开的愿望来自长期价值不一致，还是短期疲惫？  
->  
-> **保留一个问题:** 你需要独处多久，又准备在什么时候回到真实关系里？
+- Person A: `Lin · 1998-08-16 · 21:40 · Seoul`
+- Person B: `Mira · 1997-03-02 · 08:20 · Busan`
+- Question: “How can we understand each other better instead of repeating the same argument?”
+- Output: A **70 / 100** relational resonance score; separate scores for emotional response, pace, trust and repair; four process cards; and advice such as a 20-minute task-free conversation, turning expectations into answerable requests, and agreeing on a pause-and-return phrase during conflict.
 
-星盘示例输入：`1998-08-16 21:40 Seoul`。演示输出会显示日月升、三个主要相位、可点击的行星节点，以及一段不超过屏幕一页的综合解读。
+## 3. Screen design
 
-合盘示例输入：`Lin 1998-08-16 21:40 Seoul × Mira 1997-03-02 08:20 Busan`，问题为“我们怎样才能更好地理解彼此，而不是反复陷入同一种争执？”演示输出为 **68 / 100** 的关系共鸣指数、四项分项分数、四张过程牌，以及“20 分钟无任务对话”“把期待改写为请求”“约定争执暂停与恢复时间”三条建议。
+### Home
 
-## 3. 屏幕设计
+- A central star map introduces tarot, birth charts and synastry.
+- Pointer movement enlarges nearby cards and keywords.
+- Primary actions make all three rituals visible immediately.
 
-### 首页
+### Tarot
 
-- 中央星图与两扇入口卡组成主要视觉。
-- “抽一张牌”与“生成我的星盘”分别进入两条仪式流程。
-- 指针靠近卡片或“情绪、意图、关系”等关键词时，局部放大，离开后自然退场。
+- Left: question and one-card/three-card spread.
+- Center: clickable fisheye deck with shuffle animation.
+- Right: card list, overall signal, individual meanings and a reflection question.
 
-### 塔罗页
+### Birth chart
 
-- 左栏：写下具体问题，并选择单牌或三牌。
-- 中间：扇形牌堆。鱼眼放大帮助用户在重叠的牌中建立注意力。
-- 右栏：抽牌后依次显示 Overall、每张牌解释和一个反思问题。
+- Left: name, date, time and city.
+- Center: zodiac wheel, planets and major aspects.
+- Right: Sun, Moon, Rising, selected-planet detail and a grounded next step.
 
-### 星盘页
+### Synastry
 
-- 左栏：姓名、出生日期、出生时间、城市。
-- 中间：12 星座轮盘、行星节点和主要相位。
-- 右栏：太阳、月亮、上升摘要；点击任一行星后，解读聚焦到该行星。
+- Left: birth information and relationship question for both people.
+- Center: overlapping person fields, relational resonance score and four process cards.
+- Right: readable relationship summary, four score dimensions, strengths, tensions and three practical suggestions.
+- Consent and non-prediction language remain visible.
 
-### 双人合盘页
+### Design page
 
-- 左栏：双方姓名、出生日期、时间、城市和关系问题；双方信息均需知情同意。
-- 中间：两个交叠的星位轨道、关系共鸣指数和四张过程牌。
-- 右栏：总分、情绪回应、生活节奏、信任表达、修复空间，以及三条具体感情建议。
-- 解读参考“息观塔罗 · 分形结构语法”：关注过程位置与结构张力，不追求传统吉凶判断。
+- The nine assignment requirements are compressed into browsable cards for presentation.
 
-### 设计页
+## 4. User flow
 
-- 将作业要求的九项内容压缩为可浏览卡片，方便演示时直接解释设计取舍。
+### Tarot
 
-## 4. 用户流程
+1. Open Asteria.
+2. Choose Tarot.
+3. Enter a concrete question.
+4. Choose one card or three cards.
+5. Shuffle.
+6. Choose from the deck.
+7. Read the overall signal, card meanings and reflection question.
 
-塔罗流程：
+### Birth chart
 
-1. 打开首页。
-2. 选择“抽一张牌”。
-3. 输入一个具体问题。
-4. 选择单牌或三牌。
-5. 点击洗牌。
-6. 在牌堆中选择牌。
-7. 阅读整体指向、逐张解释与反思问题。
-8. 返回首页或重新抽牌。
+1. Choose Chart.
+2. Enter birth data.
+3. Generate the chart.
+4. Move near planets to reveal focus.
+5. Click a planet to hold its interpretation.
+6. Read the integrated chart summary.
 
-星盘流程：
+### Synastry
 
-1. 打开首页。
-2. 选择“生成我的星盘”。
-3. 输入出生日期、时间与城市。
-4. 点击生成。
-5. 指针靠近行星查看鱼眼放大，点击行星固定细节。
-6. 阅读 AI 综合解读。
-7. 修改出生信息并重新生成。
+1. Choose Synastry.
+2. Enter both profiles with consent.
+3. Enter the relationship question.
+4. Generate the synastry.
+5. Review the overall resonance score and four dimensions.
+6. Read both people's processes and the relationship's current process.
+7. Choose one relationship practice for a real conversation.
 
-双人合盘流程：
+### Error and edge cases
 
-1. 打开首页，选择“双人合盘”。
-2. 输入双方出生信息与关系问题。
-3. 点击生成。
-4. 查看关系共鸣指数与四项分项。
-5. 阅读双方的四个过程窗口。
-6. 选择一条建议带回真实对话。
+- Missing birth date: block generation and explain that a date is the minimum information.
+- Missing birth time: keep Sun and Moon, but label Rising and house-based statements as estimates.
+- Missing city: approximate with UTC+9 and Seoul longitude.
+- Model unavailable: use offline tarot and chart templates.
+- Synastry score is not a relationship success probability and cannot reveal another person's private thoughts.
 
-错误与边界情况：
+## 5. Data
 
-- 出生日期为空：阻止生成，并提示“日期是生成星盘所需的最少信息”。
-- 出生时间缺失：保留日月位置，提示上升星座按中午推算，仅作为区间估计。
-- 城市为空：提示暂按 UTC+9 与首尔经度近似。
-- 任一方出生日期为空：阻止合盘，提示日期是最少必要信息。
-- 合盘指数只用于本次输入的相对比较，不等于关系成功率或对方真实想法。
-- 模型不可用：自动回退到本地牌义与离线解读模板。
-- 用户问题过于模糊：界面提示使用更具体的场景，但不阻止抽牌。
-
-## 5. 数据
-
-| 数据 | 来源 | 收集方式 | 许可与处理 |
+| Data | Source | Collection | License and handling |
 |---|---|---|---|
-| 22 张大阿卡纳名称 | 公开领域塔罗传统 | 手工整理为 JSON | 名称本身不受本项目限制 |
-| 中文关键词与解读 | 本项目原创改写 | 人工编写 | 与代码一起以 MIT 许可发布 |
-| 牌面图像 | 不使用第三方牌面 | CSS 生成牌背 | 避免 Rider-Waite-Smith 等图像版权风险 |
-| 出生日期、时间、城市 | 用户主动输入 | 浏览器表单 | 不写入数据库，不持久化 |
-| 星位演示数据 | 浏览器内确定性计算 | JavaScript | 仅用于交互设计原型，不宣称专业星历 |
-| AI 文案 | 离线模板；可选自托管开源模型 | 根据牌义、行星与星座字段生成 | 无付费 API，无用户数据外传 |
-| 双人合盘结构 | 息观塔罗 · 分形结构语法 | 改写为四窗口关系牌阵与中性过程语言 | CC BY-NC-SA 4.0，署名原作者 |
+| 22 Major Arcana names, keywords and reflections | Public-domain tarot tradition plus project-authored English copy | Manually maintained JSON | Released with this project |
+| Card artwork | No third-party card art | CSS-generated card backs | Avoids artwork copyright issues |
+| Birth date, time and city | User input | Browser form | Not stored in a database |
+| Demo chart positions | Deterministic browser calculations | JavaScript | Clearly labeled as a design demo |
+| Relationship scores | Local scoring from chart elements and process cards | Browser calculation | Relative to this input only |
+| AI text | Offline templates; optional self-hosted open-source model | Local prompt + templates | No paid API required |
+| Tarot process structure | Fractal Tarot Prompt | Adapted into a four-window relational spread | CC BY-NC-SA 4.0; attribution required |
+| Particle interaction | React Bits Particles | Ported to framework-free Canvas | MIT + Commons Clause notice retained |
 
-如果未来接入 NASA/JPL 或其他天文数据，需要逐项核对公开数据的使用条款并在界面注明来源。当前版本不会把演示计算结果描述为真实星历。
+## 6. AI and prompts
 
-## 6. AI 与提示词
+### Model target
 
-### 模型选择
+- Default: offline template for free Streamlit deployment.
+- Optional open-source model: **Qwen2.5-3B-Instruct**.
+- Paid API is not required for the main flow.
 
-- 默认：**离线模板**。用于 Streamlit 免费部署和课堂演示。
-- 可选开源模型：**Qwen2.5-3B-Instruct**。体量较小，可在 Colab、Hugging Face Space 或本地 GPU 运行。
-- 不依赖 Claude 或任何付费 API 才能完成主流程。
-
-### 核心提示词
+### Key prompt
 
 ```text
-你是 Asteria 的反思型占卜文案助手。
+You are Asteria's reflective divination writing assistant.
 
-输入：
-- 用户问题：{user_question}
-- 结果类型：{tarot_or_natal}
-- 象征数据：{cards_or_planet_positions}
-- 用户选择的关注点：{focus}
+Input:
+- User question: {user_question}
+- Result type: {tarot_or_natal_or_synastry}
+- Symbol data: {cards_or_planet_positions}
+- Focus: {focus}
 
-任务：
-1. 用一句不超过 45 字的中文复述用户的问题，不得增加事实。
-2. 将输出分为四个小节：观察、张力、可以尝试的行动、留给用户的问题。
-3. 每次解读必须引用至少一个具体象征（牌名、行星、星座或相位）。
-4. 明确区分“象征提供的一个视角”与“现实中的确定事实”。
-5. 行动建议必须小、具体、在普通人一周内可完成。
-6. 不预测死亡、疾病、怀孕、投资回报、诉讼结果或他人的隐私。
-7. 不替代医疗、心理、法律、财务建议。若问题涉及自伤或紧急危险，停止解读并建议联系当地紧急服务。
-8. 不使用“命中注定、一定会、必然、注定失败”等确定性措辞。
-9. 输出中文，总长度 120–220 字，不使用 Markdown 表格。
+1. Restate the question in one sentence without adding facts.
+2. Output Observation, Tension, Action and Reflection.
+3. Cite at least one concrete symbol.
+4. Separate symbolic perspective from confirmed reality.
+5. Give small actions that can be completed within one week.
+6. Never predict death, illness, pregnancy, investment results, legal outcomes or another person's private thoughts.
+7. Do not replace medical, psychological, legal or financial advice.
+8. Avoid fixed language such as “destined,” “certain,” “guaranteed” or “doomed.”
+9. Use English and keep the response concise.
 
-如果象征数据不完整，直接说明缺少什么，并提供一个基于现有信息的有限解读。
+For synastry:
+- Label both people without assuming the requester is Person A.
+- Describe both processes before describing the interaction.
+- Explain what components form the resonance score.
+- Never call the score a relationship success probability.
+- Give suggestions that both people can perform.
 ```
 
-## 7. 系统结构
+## 7. System structure
 
 ```text
-用户浏览器
-  ├─ 首页、塔罗、星盘、设计说明
-  ├─ 鱼眼交互与洗牌动画
-  └─ 出生信息表单
+Browser
+  ├─ Home / Tarot / Chart / Synastry / Design
+  ├─ Fisheye interaction and particle field
+  └─ Birth-data forms and local reading templates
           │
           ▼
 Streamlit Cloud
-  ├─ app.py：加载界面与牌义数据
-  ├─ ui/index.html：交互界面
-  └─ data/tarot_major_arcana.json：22 张牌义
+  ├─ app.py loads the interface
+  ├─ ui/index.html contains the interaction
+  ├─ data/tarot_major_arcana_en.json contains card text
+  └─ assets/starfield-wide.webp provides the background
           │
-          ├─ Demo 路径：离线模板直接生成解读
-          └─ 可选模型路径：Colab / Hugging Face 开源模型
+          ├─ Demo path: offline templates
+          └─ Optional model path: Qwen on Colab / Hugging Face
 ```
 
-开源工具：
+Tools: GitHub, Streamlit Community Cloud, Colab and Hugging Face.
 
-- GitHub：版本管理、牌义数据、设计文档。
-- Streamlit Community Cloud：免费公开演示。
-- Colab：可选模型调试与实验记录。
-- Hugging Face：可选模型权重托管。
+## 8. Risks and limits
 
-## 8. 风险与限制
+- Divination can amplify anxiety or confirmation bias. The interface uses process language, reflection questions and disclaimers.
+- Birth positions are demo calculations and not professional ephemeris data.
+- Birth information is sensitive. The current prototype does not persist form data.
+- Synastry can encourage assumptions about another person. Both people must consent, and the app must not imply access to private thoughts.
+- A percentage score can be over-trusted. The interface explains its dimensions and says it is not a relationship verdict.
+- AI can produce overly specific advice. Prompts restrict certainty, and offline templates provide a controlled fallback.
+- Card and sign descriptions are generalized and may ignore class, gender, culture and individual context.
+- The interface respects reduced-motion preferences and removes the custom star cursor on touch devices.
 
-- 占卜内容可能放大焦虑或确认偏误。界面必须使用“一个视角”“反思问题”等非确定性语言。
-- 星盘演示计算不是专业星历，不能用于天文、航海、科学计算或严肃占星咨询。
-- 出生信息属于敏感个人数据。当前版本只在浏览器会话中使用，不写入数据库。
-- AI 可能生成过度具体或不适用的建议。提示词限制输出范围，但仍需显示免责声明。
-- 用户可能把产品当作心理治疗。应用不诊断、不处理危机，并在涉及自伤时提示联系当地紧急服务。
-- 双人合盘可能引发确认偏误或一方偷看另一方隐私。界面要求双方知情同意，并明确指数不是关系判决。
-- 牌义和星座描述采用类型化语言，可能忽略阶层、性别、文化和个人经验差异。
-- 界面通过鱼眼效果引导注意力，也要防止动画导致眩晕；系统尊重 `prefers-reduced-motion`。
+## 9. Cost plan
 
-## 9. 成本计划
-
-- Streamlit Community Cloud：免费公开应用。
-- GitHub 公共仓库：免费。
-- 牌义 JSON、界面代码和演示数据：随仓库发布，无调用成本。
-- Demo AI：离线模板，0 元。
-- 可选开源模型：用户自行在 Colab 免费额度、Hugging Face 免费 CPU 或本地设备运行。
-- 不设置付费 API Key 为必需条件，因此课堂访问和演示不会因额度耗尽而失效。
+- GitHub public repository: free.
+- Streamlit Community Cloud: free public hosting.
+- Demo readings: offline templates at $0.
+- Particles, card backs and chart UI: local code with no API calls.
+- Optional open-source model: user-provided Colab or local compute.
+- No paid API key is required to complete the classroom demonstration.

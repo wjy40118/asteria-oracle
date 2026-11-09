@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#070812">
-  <title>Asteria · 星象手册</title>
+  <title>Asteria · Astral Field Notes</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500;600&family=Noto+Serif+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -1583,6 +1583,33 @@
 
     .synastry-reading .ai-summary {
       margin-bottom: 10px;
+      color: #e4e0d7;
+      font-size: 15px;
+      line-height: 1.85;
+    }
+
+    .synastry-reading .analysis-section h3 {
+      margin-bottom: 9px;
+      font-size: 9px;
+    }
+
+    .synastry-reading .analysis-section p {
+      color: #d5d3dc;
+      font-size: 13px;
+      line-height: 1.8;
+    }
+
+    .synastry-reading .advice-list li {
+      color: #ddd9d2;
+      font-size: 12.5px;
+      line-height: 1.75;
+    }
+
+    .synastry-reading .disclaimer,
+    .synastry-reading .structure-source {
+      color: #b8bac8;
+      font-size: 9.5px;
+      line-height: 1.65;
     }
 
     .compatibility-scoreline {
@@ -1627,7 +1654,7 @@
       gap: 8px;
       align-items: center;
       color: var(--faint);
-      font-size: 8px;
+      font-size: 9px;
     }
 
     .compat-track {
@@ -2408,17 +2435,17 @@
 <body>
   <div class="app">
     <header class="topbar">
-      <button class="brand" data-view="home" aria-label="返回首页">
+      <button class="brand" data-view="home" aria-label="Return home">
         <span class="brand-mark">✶</span>
         <span class="brand-name"><strong>Asteria</strong><span>Astral field notes</span></span>
       </button>
 
-      <nav class="nav" aria-label="主导航">
-        <button class="active" data-view="home">今日</button>
-        <button data-view="tarot">塔罗</button>
-        <button data-view="chart">星盘</button>
-        <button data-view="synastry">合盘</button>
-        <button data-view="spec">设计</button>
+      <nav class="nav" aria-label="Primary navigation">
+        <button class="active" data-view="home">Today</button>
+        <button data-view="tarot">Tarot</button>
+        <button data-view="chart">Chart</button>
+        <button data-view="synastry">Synastry</button>
+        <button data-view="spec">Design</button>
       </nav>
 
       <div class="top-meta"><i class="live-dot"></i><span>DEMO MODE</span><span>·</span><span>OFFLINE</span></div>
@@ -2428,20 +2455,20 @@
       <section class="view active home" id="view-home">
         <div class="hero">
           <div class="eyebrow">Interactive divination / 01</div>
-          <h1>把问题，<br>放进<em>星图</em>里。</h1>
+          <h1>Place your question<br>inside the <em>star map</em>.</h1>
           <p class="hero-copy">
-            一次抽牌，一张星盘，或两个人之间的关系合盘，都从你真正想问的事开始。
-            Asteria 不替你预言结局，而是把散落在情绪里的线索重新排布，让你看见下一步可以怎样走。
+            A tarot draw, a birth chart, or a relationship synastry all begin with the question you actually need to ask.
+            Asteria does not predict your ending. It rearranges scattered emotional clues so you can see a possible next step.
           </p>
           <div class="hero-actions">
-            <button class="primary-button" data-view="tarot">抽一张牌&nbsp; ↗</button>
-            <button class="ghost-button" data-view="chart">生成我的星盘&nbsp; ◎</button>
-            <button class="ghost-button" data-view="synastry">双人合盘&nbsp; ⊚</button>
+            <button class="primary-button" data-view="tarot">Draw a card&nbsp; ↗</button>
+            <button class="ghost-button" data-view="chart">Create my chart&nbsp; ◎</button>
+            <button class="ghost-button" data-view="synastry">Two-person synastry&nbsp; ⊚</button>
           </div>
           <div class="hero-note">
-            <span>免费离线演示</span>
-            <span>约 90 秒完成</span>
-            <span>不做确定性预测</span>
+            <span>Free offline demo</span>
+            <span>About 90 seconds</span>
+            <span>No fixed predictions</span>
           </div>
         </div>
 
@@ -2452,33 +2479,33 @@
           <div class="axial-line"></div>
           <div class="axial-line second"></div>
           <div class="center-orb"><span>✦</span></div>
-          <span class="signal-node" style="left:39%;top:4%">意图</span>
-          <span class="signal-node" style="left:80%;top:14%">时机</span>
-          <span class="signal-node" style="left:90%;top:52%">关系</span>
-          <span class="signal-node" style="left:72%;top:87%">方向</span>
-          <span class="signal-node" style="left:30%;top:91%">边界</span>
-          <span class="signal-node" style="left:7%;top:62%">行动</span>
-          <span class="signal-node" style="left:8%;top:15%">情绪</span>
+          <span class="signal-node" style="left:39%;top:4%">INTENT</span>
+          <span class="signal-node" style="left:80%;top:14%">TIMING</span>
+          <span class="signal-node" style="left:90%;top:52%">RELATION</span>
+          <span class="signal-node" style="left:72%;top:87%">DIRECTION</span>
+          <span class="signal-node" style="left:30%;top:91%">BOUNDARY</span>
+          <span class="signal-node" style="left:7%;top:62%">ACTION</span>
+          <span class="signal-node" style="left:8%;top:15%">EMOTION</span>
 
           <button class="gateway-card tarot-gate" data-view="tarot">
             <span class="gateway-top"><span>Ritual 01</span><span>22 cards</span></span>
             <span class="gateway-icon">☾</span>
-            <h2>先抽一张牌</h2>
-            <p>带着一个具体问题进入牌阵。让图像、象征与直觉把模糊处照亮。</p>
-            <span class="gateway-arrow">开始抽牌</span>
+            <h2>Draw a card first</h2>
+            <p>Enter the spread with one concrete question. Let image, symbol and intuition illuminate the unclear edge.</p>
+            <span class="gateway-arrow">Begin the draw</span>
           </button>
 
           <button class="gateway-card chart-gate" data-view="chart">
             <span class="gateway-top"><span>Ritual 02</span><span>Birth map</span></span>
             <span class="gateway-icon">⊕</span>
-            <h2>读你的星盘</h2>
-            <p>输入出生日期、时间与地点，从日月升与行星关系中生成一段 AI 解读。</p>
-            <span class="gateway-arrow">生成星盘</span>
+            <h2>Read your chart</h2>
+            <p>Enter your birth date, time and place to generate an AI reading from your Sun, Moon, Rising and planetary aspects.</p>
+            <span class="gateway-arrow">Generate chart</span>
           </button>
         </div>
 
         <div class="home-foot">
-          <span>Move closer to reveal. 靠近，细节才会醒来。</span>
+          <span>Move closer to reveal. Detail awakens at the edge of attention.</span>
           <span>Tarot / Natal chart / Synastry</span>
           <span>Seoul · 2026</span>
         </div>
@@ -2488,35 +2515,35 @@
         <header class="workspace-header">
           <div>
             <div class="workspace-kicker">Ritual 01 / Tarot</div>
-            <h1>抽一张牌，照亮问题的侧面。</h1>
+            <h1>Draw a card. Illuminate one side of the question.</h1>
           </div>
-          <p>先写下真正困扰你的那一句。牌不会替你做决定，但能提供一个从未尝试的观察角度。</p>
+          <p>Write the sentence that is actually troubling you. The cards will not decide for you, but they can offer an angle you have not tried.</p>
         </header>
 
         <div class="tarot-workspace">
           <aside class="panel control-panel">
             <div class="panel-label">Set your question</div>
             <label class="field">
-              <span>你此刻想问什么？</span>
-              <textarea id="tarot-question">最近我该把注意力放回哪里？</textarea>
+              <span>What do you need to ask right now?</span>
+              <textarea id="tarot-question">Where should I return my attention right now?</textarea>
             </label>
             <div class="field">
-              <span>牌阵</span>
+              <span>Spread</span>
               <div class="segmented" id="spread-choice">
-                <button data-spread="one" class="active">单牌 · 一个焦点</button>
-                <button data-spread="three">三牌 · 时间线</button>
+                <button data-spread="one" class="active">One card · One focus</button>
+                <button data-spread="three">Three cards · Timeline</button>
               </div>
             </div>
-            <button class="primary-button wide-button" id="shuffle-button">洗牌&nbsp; ✦</button>
-            <p class="tiny-note">抽牌使用浏览器内的随机数生成器。每次刷新后，牌序与正逆位会重新生成。</p>
+            <button class="primary-button wide-button" id="shuffle-button">Shuffle&nbsp; ✦</button>
+            <p class="tiny-note">Cards use the browser's random generator. Refreshing creates a new order and orientation.</p>
           </aside>
 
           <section class="panel deck-stage">
-            <div class="deck-counter">FOCUSED DECK <strong id="draw-count">0 / 1</strong> <span>牌面向下</span></div>
-            <div class="deck" id="tarot-deck" aria-label="塔罗牌牌堆"></div>
+            <div class="deck-counter">FOCUSED DECK <strong id="draw-count">0 / 1</strong> <span>FACE DOWN</span></div>
+            <div class="deck" id="tarot-deck" aria-label="Tarot deck"></div>
             <div class="deck-actions">
-              <span class="deck-hint" id="deck-hint">先洗牌，再点击一张牌。</span>
-              <button class="ghost-button" id="reset-draw" style="padding:9px 13px;font-size:10px;">重新开始</button>
+              <span class="deck-hint" id="deck-hint">Shuffle, then choose a card.</span>
+              <button class="ghost-button" id="reset-draw" style="padding:9px 13px;font-size:10px;">Start over</button>
             </div>
           </section>
 
@@ -2528,9 +2555,9 @@
         <header class="workspace-header">
           <div>
             <div class="workspace-kicker">Ritual 02 / Natal chart</div>
-            <h1>从出生坐标，看见你的内在气候。</h1>
+            <h1>See your inner climate through your birth coordinates.</h1>
           </div>
-          <p>星盘提供一种理解自己的语言。这里的行星位置用于交互与设计演示，不替代专业天文或医疗建议。</p>
+          <p>A chart offers a language for understanding yourself. These positions are an interaction and design demo, not professional astronomy or medical advice.</p>
         </header>
 
         <div class="chart-workspace">
@@ -2538,33 +2565,33 @@
             <div class="panel-label">Birth coordinates</div>
             <form id="birth-form" novalidate>
               <label class="field">
-                <span>你的名字</span>
+                <span>Your name</span>
                 <input id="birth-name" value="Lin" autocomplete="name">
               </label>
               <label class="field">
-                <span>出生日期</span>
+                <span>Birth date</span>
                 <input id="birth-date" type="date" value="1998-08-16">
               </label>
               <label class="field">
-                <span>出生时间（可留空）</span>
+                <span>Birth time (optional)</span>
                 <input id="birth-time" type="time" value="21:40">
               </label>
               <label class="field">
-                <span>出生城市</span>
+                <span>Birth city</span>
                 <input id="birth-city" value="Seoul" autocomplete="address-level2">
               </label>
-              <button class="primary-button wide-button" type="submit">生成星盘&nbsp; ◎</button>
+              <button class="primary-button wide-button" type="submit">Generate chart&nbsp; ◎</button>
               <div id="birth-error"></div>
             </form>
-            <p class="tiny-note">没有出生时间时，日月位置仍会保留，上升星座改为区间提示。城市只用于演示当地时间。</p>
+            <p class="tiny-note">Without a birth time, the Sun and Moon remain available while the Rising sign becomes an interval estimate. City only approximates local time.</p>
           </aside>
 
           <section class="panel chart-stage">
             <div class="chart-stage-head">
               <div class="person-coordinate" id="chart-coordinate">Lin · 1998.08.16 · 21:40</div>
               <div class="chart-tools">
-                <button class="micro-button active" id="aspect-toggle">主要相位</button>
-                <button class="micro-button" id="label-toggle">符号说明</button>
+                <button class="micro-button active" id="aspect-toggle">Major aspects</button>
+                <button class="micro-button" id="label-toggle">Symbol labels</button>
               </div>
             </div>
             <div class="chart-holder" id="chart-holder"></div>
@@ -2579,9 +2606,9 @@
         <header class="workspace-header">
           <div>
             <div class="workspace-kicker">Ritual 03 / Relationship synastry</div>
-            <h1>看见两个人之间的引力与摩擦。</h1>
+            <h1>See the gravity and friction between two people.</h1>
           </div>
-          <p>合盘不判断“是不是对的人”。它把两个人的表达方式、情感节奏和关系过程放在一起，寻找可以协商的位置。</p>
+          <p>Synastry does not decide whether someone is “the right person.” It places two communication styles, emotional rhythms and relationship processes side by side to find what can be negotiated.</p>
         </header>
 
         <div class="synastry-workspace">
@@ -2589,22 +2616,22 @@
             <div class="panel-label">Two coordinates</div>
             <form id="synastry-form" novalidate>
               <div class="relationship-person">
-                <div class="person-heading"><span>A</span><strong>你的坐标</strong></div>
+                <div class="person-heading"><span>A</span><strong>Your coordinates</strong></div>
                 <div class="person-fields">
                   <label class="field">
-                    <span>名字</span>
+                    <span>Name</span>
                     <input id="syn-a-name" value="Lin" autocomplete="name">
                   </label>
                   <label class="field">
-                    <span>出生日期</span>
+                    <span>Birth date</span>
                     <input id="syn-a-date" type="date" value="1998-08-16">
                   </label>
                   <label class="field">
-                    <span>出生时间</span>
+                    <span>Birth time</span>
                     <input id="syn-a-time" type="time" value="21:40">
                   </label>
                   <label class="field">
-                    <span>出生城市</span>
+                    <span>Birth city</span>
                     <input id="syn-a-city" value="Seoul">
                   </label>
                 </div>
@@ -2613,35 +2640,35 @@
               <div class="relationship-link"><span>⊗</span></div>
 
               <div class="relationship-person">
-                <div class="person-heading"><span>B</span><strong>对方坐标</strong></div>
+                <div class="person-heading"><span>B</span><strong>Partner coordinates</strong></div>
                 <div class="person-fields">
                   <label class="field">
-                    <span>名字</span>
+                    <span>Name</span>
                     <input id="syn-b-name" value="Mira" autocomplete="off">
                   </label>
                   <label class="field">
-                    <span>出生日期</span>
+                    <span>Birth date</span>
                     <input id="syn-b-date" type="date" value="1997-03-02">
                   </label>
                   <label class="field">
-                    <span>出生时间</span>
+                    <span>Birth time</span>
                     <input id="syn-b-time" type="time" value="08:20">
                   </label>
                   <label class="field">
-                    <span>出生城市</span>
+                    <span>Birth city</span>
                     <input id="syn-b-city" value="Busan">
                   </label>
                 </div>
               </div>
 
               <label class="field relationship-question">
-                <span>你最想理解这段关系的什么？</span>
-                <textarea id="synastry-question">我们怎样才能更好地理解彼此，而不是反复陷入同一种争执？</textarea>
+                <span>What do you most want to understand about this relationship?</span>
+                <textarea id="synastry-question">How can we understand each other better instead of repeating the same argument?</textarea>
               </label>
-              <button class="primary-button wide-button" type="submit">生成双人合盘&nbsp; ⊚</button>
+              <button class="primary-button wide-button" type="submit">Generate synastry&nbsp; ⊚</button>
               <div id="synastry-error"></div>
             </form>
-            <p class="tiny-note">请仅在双方知情并同意的情况下输入信息。出生时间缺失时仍可比较日月，但上升与宫位仅作区间参考。</p>
+            <p class="tiny-note">Enter information only with both people's knowledge and consent. Without birth times, the Sun and Moon can still be compared, but Rising signs and houses are only interval estimates.</p>
           </aside>
 
           <section class="panel compatibility-stage">
@@ -2664,68 +2691,68 @@
         <header class="workspace-header">
           <div>
             <div class="workspace-kicker">Final project / Design spec</div>
-            <h1>一个小而完整的设计命题。</h1>
+            <h1>A small, complete design proposition.</h1>
           </div>
-          <p>界面是可交互原型。评分重点是产品定义、流程与取舍，不是占卜本身的真实性。</p>
+          <p>This interface is an interactive prototype. The design is evaluated on product definition, flow and tradeoffs, not the factual truth of divination.</p>
         </header>
 
         <div class="method-workspace">
           <div class="method-intro">
-            <h2>把“算命”重做成一次有边界、可回看的自我整理。</h2>
+            <h2>Reframe “fortune telling” as a bounded, reviewable act of self-organization.</h2>
             <p>
-              Asteria 面向不确定时期的年轻成年人。它把塔罗与出生星盘放在同一个探索界面里，
-              用鱼眼放大帮助用户靠近一条线索，再用 AI 将象征翻译成可执行的反思问题。
+              Asteria is designed for young adults moving through uncertainty. It places tarot, birth charts and relationship synastry
+              inside one exploratory interface, using fisheye magnification to approach a clue and AI to translate symbols into actionable reflection.
             </p>
           </div>
 
           <div class="spec-grid">
             <article class="spec-block">
               <span class="spec-number">01 / IDEA</span>
-              <h3>产品一句话</h3>
-              <p><strong>输入一个真实问题，选择塔罗、星盘或双人合盘，得到可回看的反思型解读。</strong> 目标用户是 18–35 岁、正在面对关系或职业不确定性的年轻人。</p>
+              <h3>Product statement</h3>
+              <p><strong>Enter one real question, choose tarot, a birth chart or a two-person synastry, and receive a reflective reading you can revisit.</strong> The target audience is people aged 18–35 facing uncertainty in relationships, work or identity.</p>
             </article>
             <article class="spec-block">
               <span class="spec-number">02 / EXAMPLE</span>
-              <h3>具体输入与输出</h3>
-              <p>输入“我该不该换工作？”并抽到 <strong>隐者 · 正位</strong>。输出会指出信息过载，建议先进行 7 天低干扰观察，并给出一个可回答的反思问题。</p>
+              <h3>Concrete input and output</h3>
+              <p>Enter “Should I change jobs?” and draw <strong>The Hermit · Upright</strong>. The output identifies information overload, suggests a seven-day low-noise review and gives one answerable reflection question.</p>
             </article>
             <article class="spec-block">
               <span class="spec-number">03 / SCREEN</span>
-              <h3>主屏幕</h3>
-              <p>左侧设定意图，中间是鱼眼牌阵或星盘，右侧解释随选择变化。靠近元素时放大，点击后固定细节。</p>
+              <h3>Main screen</h3>
+              <p>Set intention on the left, explore the fisheye spread or chart in the center, and read the explanation on the right. Elements enlarge on approach and lock into focus on click.</p>
             </article>
             <article class="spec-block">
               <span class="spec-number">04 / FLOW</span>
-              <h3>用户流程</h3>
+              <h3>User flow</h3>
               <div class="spec-flow">
-                <span>打开</span><i>→</i><span>选仪式</span><i>→</i><span>输入问题</span><i>→</i><span>洗牌/生成</span><i>→</i><span>探索</span><i>→</i><span>保存</span>
+                <span>Open</span><i>→</i><span>Choose ritual</span><i>→</i><span>Enter question</span><i>→</i><span>Draw/Generate</span><i>→</i><span>Explore</span><i>→</i><span>Keep</span>
               </div>
-              <p style="margin-top:10px;">边界情况：日期为空时阻止生成；出生时间缺失时显示“上升星座为区间估计”；无法生成解读时回退到本地牌义与反思问题。</p>
+              <p style="margin-top:10px;">Edge cases: block generation when dates are empty; label Rising signs as estimates when birth time is missing; fall back to local card meanings when the model is unavailable.</p>
             </article>
             <article class="spec-block">
               <span class="spec-number">05 / DATA</span>
-              <h3>数据与许可</h3>
-              <p>22 张大阿卡纳的名称与关键词随项目打包。<strong>不使用受版权保护的牌面图片。</strong> 出生坐标仅用于演示，不写入数据库；后续接入 NASA/JPL 可公开数据时需注明来源。</p>
+              <h3>Data and licenses</h3>
+              <p>The 22 Major Arcana names and interpretations ship with the project. <strong>No copyrighted card artwork is used.</strong> Birth coordinates stay in the browser and are not stored. Any future NASA/JPL data must be attributed.</p>
             </article>
             <article class="spec-block">
               <span class="spec-number">06 / AI</span>
-              <h3>模型与提示词</h3>
-              <p>首选本地开源 <strong>Qwen2.5-3B-Instruct</strong>。提示词要求：引用用户问题、区分象征与事实、输出“观察 / 张力 / 行动 / 反思”，禁止做确定性预测。</p>
+              <h3>Model and prompts</h3>
+              <p>The preferred optional model is local open-source <strong>Qwen2.5-3B-Instruct</strong>. The prompt requires a reference to the user's question, a distinction between symbol and fact, an output of “Observation / Tension / Action / Reflection,” and no fixed predictions.</p>
             </article>
             <article class="spec-block">
               <span class="spec-number">07 / SYSTEM</span>
-              <h3>系统结构</h3>
-              <p>GitHub 保存代码与资料；Streamlit Cloud 运行界面；浏览器 JavaScript 负责鱼眼与动画；离线模板保证无模型时仍有输出；Colab/Hugging Face 是可选的本地模型环境。</p>
+              <h3>System structure</h3>
+              <p>GitHub stores code and data; Streamlit Cloud runs the interface; browser JavaScript handles fisheye and animation; offline templates guarantee output without a model; Colab and Hugging Face are optional environments for local models.</p>
             </article>
             <article class="spec-block">
               <span class="spec-number">08 / RISK</span>
-              <h3>风险与边界</h3>
-              <p>不预测死亡、疾病、投资结果或他人隐私；不替代心理咨询与医疗。对不确定计算明确标注。所有解读保留“你可以不同意”的退出空间。</p>
+              <h3>Risks and limits</h3>
+              <p>Asteria does not predict death, illness, financial outcomes or another person's private thoughts. It does not replace therapy or medical care. Uncertain calculations are labeled, and every reading leaves room to disagree.</p>
             </article>
             <article class="spec-block">
               <span class="spec-number">09 / COST</span>
-              <h3>零付费方案</h3>
-              <p>演示模式使用离线模板，Streamlit Community Cloud 免费托管。只有在用户主动启用时，才连接自托管的开源模型，因此不依赖付费 API。</p>
+              <h3>Zero-cost plan</h3>
+              <p>Demo mode uses offline templates and Streamlit Community Cloud hosts the app for free. A self-hosted open-source model is optional, so no paid API is required.</p>
             </article>
           </div>
         </div>
@@ -2750,84 +2777,84 @@
 
       const tarotCards = JSON.parse(document.getElementById("tarot-data").textContent);
       const signs = [
-        { name: "白羊", symbol: "♈", element: "火", mode: "开创" },
-        { name: "金牛", symbol: "♉", element: "土", mode: "固定" },
-        { name: "双子", symbol: "♊", element: "风", mode: "变动" },
-        { name: "巨蟹", symbol: "♋", element: "水", mode: "开创" },
-        { name: "狮子", symbol: "♌", element: "火", mode: "固定" },
-        { name: "处女", symbol: "♍", element: "土", mode: "变动" },
-        { name: "天秤", symbol: "♎", element: "风", mode: "开创" },
-        { name: "天蝎", symbol: "♏", element: "水", mode: "固定" },
-        { name: "射手", symbol: "♐", element: "火", mode: "变动" },
-        { name: "摩羯", symbol: "♑", element: "土", mode: "开创" },
-        { name: "水瓶", symbol: "♒", element: "风", mode: "固定" },
-        { name: "双鱼", symbol: "♓", element: "水", mode: "变动" }
+        { name: "Aries", symbol: "♈", element: "Fire", mode: "Cardinal" },
+        { name: "Taurus", symbol: "♉", element: "Earth", mode: "Fixed" },
+        { name: "Gemini", symbol: "♊", element: "Air", mode: "Mutable" },
+        { name: "Cancer", symbol: "♋", element: "Water", mode: "Cardinal" },
+        { name: "Leo", symbol: "♌", element: "Fire", mode: "Fixed" },
+        { name: "Virgo", symbol: "♍", element: "Earth", mode: "Mutable" },
+        { name: "Libra", symbol: "♎", element: "Air", mode: "Cardinal" },
+        { name: "Scorpio", symbol: "♏", element: "Water", mode: "Fixed" },
+        { name: "Sagittarius", symbol: "♐", element: "Fire", mode: "Mutable" },
+        { name: "Capricorn", symbol: "♑", element: "Earth", mode: "Cardinal" },
+        { name: "Aquarius", symbol: "♒", element: "Air", mode: "Fixed" },
+        { name: "Pisces", symbol: "♓", element: "Water", mode: "Mutable" }
       ];
 
       const signCopy = {
-        "白羊": "直接、行动先行。你依靠速度和勇气确认方向，也需要为反应留出缓冲。",
-        "金牛": "稳定、感官敏锐。你用持续性和可触摸的成果建立安全感，但改变时需要更长的适应期。",
-        "双子": "好奇、语言灵活。你通过提问与交换信息理解世界，容易同时被太多方向吸引。",
-        "巨蟹": "敏感、重视归属。你会先感受气氛再做判断，保护重要关系是行动的核心。",
-        "狮子": "坦白、需要被看见。你愿意为热爱投入，也容易把自我价值与外界回应绑在一起。",
-        "处女": "细致、善于校准。你通过改善细节获得掌控感，需要警惕把修正变成持续自我批评。",
-        "天秤": "重视关系与比例。你能看见多方立场，但决定前需要分清公平与讨好。",
-        "天蝎": "投入、洞察深。你愿意靠近复杂与真实，信任一旦建立就会投入全部注意力。",
-        "射手": "向外、追求意义。你需要空间与远景来保持动力，但也要让愿景落到具体步骤。",
-        "摩羯": "长期、结构导向。你通过承担与积累建立信任，需要允许自己不以成果衡量全部价值。",
-        "水瓶": "独立、系统思考。你习惯从更大的图景看问题，也可能用理性隔开真实的情绪需要。",
-        "双鱼": "共情、想象力强。你能吸收环境里的微妙信息，边界与日常节奏会保护你的敏感。"
+        "Aries": "Direct and action-led. You confirm direction through speed and courage, while needing a buffer before reaction becomes response.",
+        "Taurus": "Steady and sensory. You build safety through continuity and tangible results, but change asks for a longer adjustment period.",
+        "Gemini": "Curious and verbally agile. You understand the world through questions and exchange, and can be drawn toward too many directions at once.",
+        "Cancer": "Sensitive and attentive to belonging. You read the emotional atmosphere before deciding, and protecting close bonds is central to action.",
+        "Leo": "Open and visible. You invest generously in what you love, while learning not to tie all self-worth to external response.",
+        "Virgo": "Precise and calibrating. You gain agency by improving details, while needing to keep correction from becoming chronic self-criticism.",
+        "Libra": "Relationship-aware and proportional. You can hold multiple perspectives, but decisions require separating fairness from appeasement.",
+        "Scorpio": "Committed and perceptive. You move toward complexity and truth, giving deep attention once trust is established.",
+        "Sagittarius": "Outward and meaning-seeking. Space and a larger horizon sustain your momentum, while vision still needs concrete steps.",
+        "Capricorn": "Long-term and structure-oriented. You build trust through responsibility and accumulation, while allowing value beyond output.",
+        "Aquarius": "Independent and systemic. You see the larger pattern, and may use reason to create distance from live emotional needs.",
+        "Pisces": "Empathic and imaginative. You absorb subtle environmental information, and boundaries plus daily rhythm protect your sensitivity."
       };
 
       const planetMeta = [
-        { key: "sun", name: "太阳", symbol: "☉", color: "#ffd38d", role: "核心动力" },
-        { key: "moon", name: "月亮", symbol: "☽", color: "#c9c8e2", role: "情绪需要" },
-        { key: "mercury", name: "水星", symbol: "☿", color: "#b4cbe4", role: "思考与表达" },
-        { key: "venus", name: "金星", symbol: "♀", color: "#d9abb9", role: "关系与偏好" },
-        { key: "mars", name: "火星", symbol: "♂", color: "#d77f76", role: "行动与冲突" },
-        { key: "jupiter", name: "木星", symbol: "♃", color: "#e4b875", role: "扩张与信念" },
-        { key: "saturn", name: "土星", symbol: "♄", color: "#c7bca1", role: "结构与责任" },
-        { key: "uranus", name: "天王星", symbol: "♅", color: "#95c8c4", role: "变化与独立" },
-        { key: "neptune", name: "海王星", symbol: "♆", color: "#95a7dd", role: "想象与边界" },
-        { key: "pluto", name: "冥王星", symbol: "♇", color: "#9b819e", role: "深层转化" }
+        { key: "sun", name: "Sun", symbol: "☉", color: "#ffd38d", role: "core drive" },
+        { key: "moon", name: "Moon", symbol: "☽", color: "#c9c8e2", role: "emotional need" },
+        { key: "mercury", name: "Mercury", symbol: "☿", color: "#b4cbe4", role: "thinking and expression" },
+        { key: "venus", name: "Venus", symbol: "♀", color: "#d9abb9", role: "relationship and preference" },
+        { key: "mars", name: "Mars", symbol: "♂", color: "#d77f76", role: "action and conflict" },
+        { key: "jupiter", name: "Jupiter", symbol: "♃", color: "#e4b875", role: "growth and belief" },
+        { key: "saturn", name: "Saturn", symbol: "♄", color: "#c7bca1", role: "structure and responsibility" },
+        { key: "uranus", name: "Uranus", symbol: "♅", color: "#95c8c4", role: "change and independence" },
+        { key: "neptune", name: "Neptune", symbol: "♆", color: "#95a7dd", role: "imagination and boundaries" },
+        { key: "pluto", name: "Pluto", symbol: "♇", color: "#9b819e", role: "deep transformation" }
       ];
 
       const aspectTypes = [
-        { angle: 0, name: "合相", color: "#e8be7a", text: "集中与放大" },
-        { angle: 60, name: "六分", color: "#9fc9b3", text: "可调用的机会" },
-        { angle: 90, name: "四分", color: "#d58f88", text: "需要协调的张力" },
-        { angle: 120, name: "三分", color: "#9bb9dc", text: "自然流动的才能" },
-        { angle: 180, name: "对分", color: "#c5a7cf", text: "需要平衡的两端" }
+        { angle: 0, name: "Conjunction", color: "#e8be7a", text: "focus and amplification" },
+        { angle: 60, name: "Sextile", color: "#9fc9b3", text: "an available opportunity" },
+        { angle: 90, name: "Square", color: "#d58f88", text: "tension that needs coordination" },
+        { angle: 120, name: "Trine", color: "#9bb9dc", text: "naturally flowing ability" },
+        { angle: 180, name: "Opposition", color: "#c5a7cf", text: "two ends that need balance" }
       ];
 
       const fractalProcesses = {
-        fool: { phase: "圆外", process: "存在本身", note: "作为背景，不急于归入任何阶段" },
-        magician: { phase: "水", process: "内在孕育", note: "让尚未表达的材料先在内部成形" },
-        "high-priestess": { phase: "水", process: "内在孕育", note: "通过静默与观察确认真正的意图" },
-        empress: { phase: "水", process: "内在孕育", note: "让感受与创造力获得生长的条件" },
-        emperor: { phase: "水", process: "内在孕育", note: "先在内部建立边界与结构" },
-        hierophant: { phase: "水", process: "内在孕育", note: "从共同信念中寻找可继承的框架" },
-        lovers: { phase: "土", process: "向外成形", note: "把价值选择转化为可见的关系行动" },
-        chariot: { phase: "土", process: "向外成形", note: "让分散的动力形成明确方向" },
-        justice: { phase: "土", process: "向外成形", note: "把事实、责任和边界放回可检验的位置" },
-        hermit: { phase: "土", process: "向外成形", note: "离开噪音后，形成自己的判断" },
-        wheel: { phase: "土", process: "向外成形", note: "接受周期变化，并调整参与方式" },
-        strength: { phase: "中轴", process: "悬置与整合", note: "在两个极端之间保持有意识的停顿" },
-        "hanged-man": { phase: "火", process: "已存在的内容", note: "现有关系模式已经成为需要重新观察的事实" },
-        death: { phase: "火", process: "已存在的内容", note: "旧阶段结束，开始为新的结构腾出空间" },
-        temperance: { phase: "火", process: "已存在的内容", note: "让不同节奏产生新的配比" },
-        devil: { phase: "火", process: "已存在的内容", note: "辨认依赖、欲望与隐含代价" },
-        tower: { phase: "火", process: "已存在的内容", note: "不稳固的结构被暴露，需要重建" },
-        star: { phase: "风", process: "内容回流", note: "让新的反馈进入关系愿景" },
-        moon: { phase: "风", process: "内容回流", note: "在模糊感受中区分事实与投射" },
-        sun: { phase: "风", process: "内容回流", note: "让真实表达被看见并被确认" },
-        judgement: { phase: "风", process: "内容回流", note: "回看旧经验，并作出新的回应" },
-        world: { phase: "风", process: "内容回流", note: "整合一个周期，再进入下一轮关系" }
+        fool: { phase: "Outside the circle", process: "Existence itself", note: "A background state that does not need to be assigned to a stage" },
+        magician: { phase: "Water", process: "Inner incubation", note: "Let unexpressed material take shape internally" },
+        "high-priestess": { phase: "Water", process: "Inner incubation", note: "Confirm real intent through silence and observation" },
+        empress: { phase: "Water", process: "Inner incubation", note: "Give feeling and creativity conditions in which to grow" },
+        emperor: { phase: "Water", process: "Inner incubation", note: "Establish boundaries and structure before acting outward" },
+        hierophant: { phase: "Water", process: "Inner incubation", note: "Find an inheritable framework in shared belief" },
+        lovers: { phase: "Earth", process: "Outward formation", note: "Turn a value choice into visible relational action" },
+        chariot: { phase: "Earth", process: "Outward formation", note: "Give scattered momentum a clear direction" },
+        justice: { phase: "Earth", process: "Outward formation", note: "Return facts, responsibility and boundaries to a testable place" },
+        hermit: { phase: "Earth", process: "Outward formation", note: "Move away from noise and form your own judgment" },
+        wheel: { phase: "Earth", process: "Outward formation", note: "Accept a changing cycle and adjust how you participate" },
+        strength: { phase: "Axis", process: "Suspension and integration", note: "Hold a conscious pause between two extremes" },
+        "hanged-man": { phase: "Fire", process: "What already exists", note: "An existing relationship pattern is now a fact to observe" },
+        death: { phase: "Fire", process: "What already exists", note: "An old stage ends to make space for a new structure" },
+        temperance: { phase: "Fire", process: "What already exists", note: "Let different rhythms form a new proportion" },
+        devil: { phase: "Fire", process: "What already exists", note: "Recognize attachment, desire and hidden cost" },
+        tower: { phase: "Fire", process: "What already exists", note: "An unstable structure is exposed and needs rebuilding" },
+        star: { phase: "Air", process: "Feedback return", note: "Let new feedback enter the relationship vision" },
+        moon: { phase: "Air", process: "Feedback return", note: "Separate fact from projection inside ambiguous feeling" },
+        sun: { phase: "Air", process: "Feedback return", note: "Let honest expression be seen and confirmed" },
+        judgement: { phase: "Air", process: "Feedback return", note: "Review old experience and form a new response" },
+        world: { phase: "Air", process: "Feedback return", note: "Integrate a cycle before entering the next relationship phase" }
       };
 
       const spreadLabels = {
-        one: ["此刻"],
-        three: ["过去", "此刻", "下一步"]
+        one: ["Now"],
+        three: ["Past", "Now", "Next step"]
       };
 
       const state = {
@@ -3343,7 +3370,7 @@
             <button
               class="tarot-card${drawn ? " drawn" : ""}"
               data-card-index="${index}"
-              aria-label="牌堆中的第 ${index + 1} 张牌"
+              aria-label="Card ${index + 1} in the deck"
               style="--angle:${angle}deg;--lift:${lifted}px;--shuffle-x:${angle * 2.1}px;--shuffle-r:${angle * 0.7}deg;z-index:${index};"
             >
               <span class="card-back-ring"></span>
@@ -3353,8 +3380,8 @@
         deckElement.style.transform = state.tarot.spread === "three" ? "scale(.9)" : "";
         $("#draw-count").textContent = `${state.tarot.drawn.length} / ${count}`;
         $("#deck-hint").textContent = state.tarot.shuffled
-          ? (state.tarot.drawn.length < count ? "把指针移到牌上，点击感应最强的一张。" : "牌已选定。右侧是这次解读。")
-          : "先洗牌，再点击一张牌。";
+          ? (state.tarot.drawn.length < count ? "Move closer and choose the card that draws your attention." : "The spread is complete. Your reading is on the right.")
+          : "Shuffle first, then choose a card.";
         $$(".tarot-card", deckElement).forEach((card) => {
           card.addEventListener("click", () => drawTarotCard(Number(card.dataset.cardIndex)));
         });
@@ -3376,18 +3403,18 @@
           state.tarot.shuffled = true;
           renderTarotDeck();
           renderTarotReading();
-          showToast("牌序已经落定，选一张你被吸引的牌。");
+          showToast("The deck is set. Choose the card that draws you.");
         }, 760);
       }
 
       function drawTarotCard(index) {
         if (!state.tarot.shuffled) {
-          showToast("先洗牌，给问题一个重新排列的机会。");
+          showToast("Shuffle first and let the question rearrange.");
           return;
         }
         const limit = state.tarot.spread === "one" ? 1 : 3;
         if (state.tarot.drawn.length >= limit) {
-          showToast("这个牌阵已经完成。可以重新开始。");
+          showToast("This spread is complete. Start over when you are ready.");
           return;
         }
         if (state.tarot.drawn.some((item) => item.index === index)) {
@@ -3397,7 +3424,7 @@
         renderTarotDeck();
         renderTarotReading();
         if (state.tarot.drawn.length === limit) {
-          showToast("牌阵完成。先读 Overall，再逐张靠近。");
+          showToast("Spread complete. Read the overall signal, then move through each card.");
         }
       }
 
@@ -3423,8 +3450,8 @@
             <div class="reading-empty">
               <div>
                 <div class="reading-empty-symbol">${hasShuffled ? "✦" : "☾"}</div>
-                <h3>${hasShuffled ? "牌已经准备好" : "意图先于牌面"}</h3>
-                <p>${hasShuffled ? "点击左侧牌堆中的牌。右侧会先给出整体指向，再展开每一张的细节。" : "写下一个真实、具体的问题，然后洗牌。越清楚的问题，越容易照亮下一步。"}</p>
+                <h3>${hasShuffled ? "The deck is ready" : "Intention comes before the card"}</h3>
+                <p>${hasShuffled ? "Choose a card from the deck. The right panel will first describe the overall signal, then unfold each card." : "Write one real, specific question, then shuffle. A clearer question gives the next step more light."}</p>
               </div>
             </div>
           `;
@@ -3432,12 +3459,12 @@
         }
 
         const labels = spreadLabels[state.tarot.spread];
-        const question = $("#tarot-question").value.trim() || "此刻最重要的事";
+        const question = $("#tarot-question").value.trim() || "what matters most right now";
         const cardsMarkup = state.tarot.drawn.map((entry, index) => `
           <div class="drawn-card">
             <span class="drawn-card-symbol">${entry.card.symbol}</span>
             <span>
-              <strong>${entry.card.name} · ${entry.reversed ? "逆位" : "正位"}</strong>
+              <strong>${entry.card.name} · ${entry.reversed ? "Reversed" : "Upright"}</strong>
               <small>${entry.card.keywords.join(" / ")}</small>
             </span>
             <span class="position-tag">${labels[index]}</span>
@@ -3455,9 +3482,9 @@
         const last = state.tarot.drawn[state.tarot.drawn.length - 1];
         let synthesis;
         if (state.tarot.drawn.length === 1) {
-          synthesis = `关于“${question}”，${first.card.name}把焦点放回${first.card.theme}。${tarotMeaning(first)} 这不代表事情只能这样发生，而是一个值得观察的侧面。`;
+          synthesis = `In relation to “${question},” ${first.card.name} returns attention to ${first.card.theme}. ${tarotMeaning(first)} This is not the only possible outcome, but it is a side of the situation worth observing.`;
         } else {
-          synthesis = `从${first.card.name}到${last.card.name}，牌阵没有给出“是或否”，而是把“${question}”重新描述成一段可参与的转变。先允许旧状态结束，再为下一步选择一个小而具体的动作。`;
+          synthesis = `From ${first.card.name} to ${last.card.name}, the spread does not answer “yes or no.” It reframes “${question}” as a transition you can actively participate in. Let the old state loosen before choosing one small, concrete next action.`;
         }
 
         const reflection = state.tarot.drawn.length === 1
@@ -3466,7 +3493,7 @@
 
         reading.innerHTML = `
           <div class="reading-title">
-            <h2>你的解读</h2>
+            <h2>Your reading</h2>
             <span class="demo-badge">OFFLINE AI</span>
           </div>
           <div class="drawn-card-list">${cardsMarkup}</div>
@@ -3479,7 +3506,7 @@
             <span>ONE QUESTION TO KEEP</span>
             <p>${reflection}</p>
           </div>
-          <p class="disclaimer">塔罗在这里是一种反思工具。它不预测确定结果，也不替你承担决定。</p>
+          <p class="disclaimer">Tarot is used here as a reflection tool. It does not predict a fixed outcome or take responsibility for your decision.</p>
         `;
       }
 
@@ -3599,10 +3626,10 @@
         }));
         planets.push({
           key: "ascendant",
-          name: "上升",
+          name: "Rising",
           symbol: "AC",
           color: "#f0d39f",
-          role: "外在节奏",
+          role: "outer rhythm",
           longitude: ascendant,
           signIndex: Math.floor(ascendant / 30),
           degree: ascendant % 30
@@ -3673,7 +3700,7 @@
         }).join("") : "";
 
         return `
-          <svg viewBox="0 0 500 500" role="img" aria-label="出生星盘图">
+          <svg viewBox="0 0 500 500" role="img" aria-label="Birth chart">
             <defs>
               <radialGradient id="wheelCenter" cx="45%" cy="38%" r="65%">
                 <stop offset="0%" stop-color="#1d1a31" stop-opacity=".88"></stop>
@@ -3712,7 +3739,7 @@
               class="planet-node${state.chart.selectedPlanet === planet.key ? " selected" : ""}"
               data-planet="${planet.key}"
               data-label="${label}"
-              aria-label="${planet.name}，${signs[planet.signIndex].name}座"
+              aria-label="${planet.name} in ${signs[planet.signIndex].name}"
               style="left:${left}%;top:${top}%;--node-color:${planet.color};"
             >${planet.symbol}</button>
           `;
@@ -3731,16 +3758,16 @@
           ${renderPlanetNodes(chart)}
           <div class="chart-center">
             <div>
-              <strong>${chart.birth.name || "你"}</strong>
+              <strong>${chart.birth.name || "You"}</strong>
               <span>${signs[sun.signIndex].symbol} SUN<br>${signs[asc.signIndex].symbol} RISING</span>
             </div>
           </div>
         `;
-        $("#chart-coordinate").textContent = `${chart.birth.name || "未命名"} · ${formatDate(chart.birth.date)} · ${chart.birth.time || "时间未知"} · ${chart.birth.city || "地点未知"}`;
+        $("#chart-coordinate").textContent = `${chart.birth.name || "Unnamed"} · ${formatDate(chart.birth.date)} · ${chart.birth.time || "Time unknown"} · ${chart.birth.city || "Place unknown"}`;
         const warning = !chart.birth.time
-          ? `<div class="chart-warning">出生时间缺失：上升星座按中午 12:00 推算，仅显示为区间提示。</div>`
+          ? `<div class="chart-warning">Birth time missing: Rising sign is estimated from 12:00 noon and should be treated as an interval only.</div>`
           : !chart.birth.city
-            ? `<div class="chart-warning">未填写出生城市：暂按 UTC+9 与首尔经度近似。</div>`
+            ? `<div class="chart-warning">Birth city missing: approximating with UTC+9 and Seoul longitude.</div>`
             : "";
         $("#chart-warning").innerHTML = warning;
         $$(".planet-node", holder).forEach((node) => {
@@ -3782,7 +3809,7 @@
 
       function describePlanet(planet) {
         const sign = signs[planet.signIndex];
-        return `${planet.name}落在${sign.name}座。${signCopy[sign.name]} 在星盘里，这更像是一种${planet.role}的表达方式。`;
+        return `${planet.name} is in ${sign.name}. ${signCopy[sign.name]} In your chart, this describes one way your ${planet.role} expresses itself.`;
       }
 
       function renderChartReading() {
@@ -3807,12 +3834,12 @@
                 <strong>${aspect.a.name} · ${aspect.b.name}</strong>
               </div>
             `).join("")
-          : `<div class="aspect-row"><span>松散</span><span class="aspect-orbit"></span><strong>主要行星之间没有紧密相位</strong></div>`;
+          : `<div class="aspect-row"><span>Wide</span><span class="aspect-orbit"></span><strong>No close aspect between the major planets</strong></div>`;
 
-        const summary = `你的太阳在${sunSign.name}，月亮在${moonSign.name}，上升在${ascSign.name}。这条组合把“${sunSign.mode}的行动感”与“${moonSign.element}元素的感受方式”放在一起。你不需要用同一种速度处理所有事。`;
+        const summary = `Your Sun is in ${sunSign.name}, your Moon is in ${moonSign.name}, and your Rising sign is ${ascSign.name}. This combination pairs a ${sunSign.mode.toLowerCase()} sense of action with a ${moonSign.element.toLowerCase()}-element way of feeling. You do not need to process everything at the same speed.`;
         $("#chart-reading").innerHTML = `
           <div class="reading-title">
-            <h2>星盘解读</h2>
+            <h2>Chart reading</h2>
             <span class="demo-badge">AI DEMO</span>
           </div>
           <p class="ai-summary">${summary}</p>
@@ -3825,14 +3852,14 @@
             <h3>Focus · ${selected.name}</h3>
             <p>${describePlanet(selected)}</p>
             <div class="focus-chip-row">
-              <span class="focus-chip">${selectedSign.element}元素</span>
-              <span class="focus-chip">${selectedSign.mode}模式</span>
+              <span class="focus-chip">${selectedSign.element} element</span>
+              <span class="focus-chip">${selectedSign.mode} mode</span>
               <span class="focus-chip">${Math.floor(selected.degree)}° ${selectedSign.name}</span>
             </div>
           </section>
           <section class="analysis-section">
             <h3>Natural rhythm</h3>
-            <p>你最容易自然调用的能量偏向<strong style="color:var(--ink);font-weight:400">${dominantElement}元素</strong>。它既是资源，也可能成为默认反应。遇到卡顿时，试着从相反元素借一个动作：火用直接表达，土用具体步骤，风用新视角，水用慢一点感受。</p>
+            <p>Your most available energy leans toward the <strong style="color:var(--ink);font-weight:400">${dominantElement} element</strong>. It is both a resource and a possible default reaction. When stuck, borrow one move from another element: Fire speaks directly, Earth takes a concrete step, Air finds a new perspective, and Water slows down enough to feel.</p>
           </section>
           <section class="analysis-section">
             <h3>Main aspects</h3>
@@ -3840,9 +3867,9 @@
           </section>
           <section class="analysis-section">
             <h3>A grounded next step</h3>
-            <p>把这个星盘当作一面镜子，而不是一张说明书。选一个你最近反复遇到的场景，记录当时的反应，再问自己：这是${selectedSign.element}元素的自然表达，还是我唯一会用的方式？</p>
+            <p>Treat this chart as a mirror, not an instruction manual. Choose a situation that keeps recurring, record your response, and ask: is this a natural expression of the ${selectedSign.element} element, or the only way I know how to respond?</p>
           </section>
-          <p class="disclaimer">星盘计算与 AI 文案为设计演示。请勿将内容用于医疗、法律、投资或重大人生决策。</p>
+          <p class="disclaimer">Chart calculations and AI copy are design demonstrations. Do not use them for medical, legal, financial or major life decisions.</p>
         `;
       }
 
@@ -3882,10 +3909,10 @@
       function elementAffinity(first, second) {
         if (first === second) return 10;
         const complementary =
-          (first === "火" && second === "风") ||
-          (first === "风" && second === "火") ||
-          (first === "土" && second === "水") ||
-          (first === "水" && second === "土");
+          (first === "Fire" && second === "Air") ||
+          (first === "Air" && second === "Fire") ||
+          (first === "Earth" && second === "Water") ||
+          (first === "Water" && second === "Earth");
         if (complementary) return 14;
         return 5;
       }
@@ -3959,7 +3986,7 @@
         );
         const repair = clampScore(
           57 +
-          ([moonSignA, moonSignB, ascSignA, ascSignB].filter((sign) => sign.element === "水").length * 5) +
+          ([moonSignA, moonSignB, ascSignA, ascSignB].filter((sign) => sign.element === "Water").length * 5) +
           (moonSignA.mode === moonSignB.mode ? 5 : 2)
         );
 
@@ -3977,49 +4004,49 @@
 
         const sameMoonElement = moonSignA.element === moonSignB.element;
         const sameSunMode = signA.mode === signB.mode;
-        const nameA = birthA.name || "你";
-        const nameB = birthB.name || "对方";
+        const nameA = birthA.name || "You";
+        const nameB = birthB.name || "Partner";
         const scoreLabel =
-          score >= 85 ? "高共鸣，也需保留差异" :
-          score >= 73 ? "互补与张力并存" :
-          score >= 61 ? "需要主动协商节奏" :
-          "差异明显，边界尤其重要";
+          score >= 85 ? "High resonance with space for difference" :
+          score >= 73 ? "Complementarity and tension coexist" :
+          score >= 61 ? "Rhythm needs active negotiation" :
+          "Differences are visible; boundaries matter";
 
         const strengths = [
-          `${signA.name} × ${signB.name} 提供不同的行动语言`,
+          `${signA.name} × ${signB.name} offers two distinct languages of action`,
           sameMoonElement
-            ? `月亮同在${moonSignA.element}元素，情绪线索较容易被辨认`
-            : `月亮分属${moonSignA.element}与${moonSignB.element}元素，能互相补足感受盲区`,
+            ? `Both Moons share the ${moonSignA.element} element, making emotional cues easier to recognize`
+            : `The Moons fall in ${moonSignA.element} and ${moonSignB.element}, offering each person a blind spot the other can illuminate`,
           venusAspect.score > .55
-            ? "金星的相位支持偏好与亲密表达产生连接"
-            : "亲密表达需要更明确的询问而不是自动猜测"
+            ? "The Venus aspect supports connection between preferences and intimate expression"
+            : "Intimacy needs clearer questions rather than automatic assumptions"
         ];
 
         const challenges = [
           sameSunMode
-            ? "两人可能同时坚持同一种节奏，争执时缺少自然的刹车"
-            : "行动节奏不同，一方可能把另一方的慢或快理解成不在意",
+            ? "Both people may hold the same rhythm, leaving fewer natural brakes during conflict"
+            : "Different action rhythms can make one person read the other's pace as indifference",
           moonAspect.score < .55
-            ? "情绪需要不容易被即时接收到，容易用推理替代确认"
-            : "情绪连接较强，也更容易互相感染压力",
+            ? "Emotional needs may not be received immediately, making reasoning replace direct confirmation"
+            : "The emotional connection is strong and pressure can pass between you more easily",
           cards[2].structure.process === cards[3].structure.process
-            ? "关系现状与下一步处在相近过程，改变需要被刻意启动"
-            : "关系正在从一个过程转向另一个过程，旧规则需要重新协商"
+            ? "The present pattern and next step occupy a similar process, so change needs deliberate initiation"
+            : "The relationship is moving between processes, and old rules need renegotiation"
         ];
 
         const advice = [];
         if (emotional < 72) {
-          advice.push(`安排一次没有任务和手机的 20 分钟对话。${nameA}先复述听到的内容，再由${nameB}确认或修正。`);
+          advice.push(`Set aside a 20-minute conversation with no tasks or phones. ${nameA} reflects back what they heard, then ${nameB} confirms or corrects it.`);
         }
         if (trust < 74) {
-          advice.push("把“你应该懂我”改写成一个可以回答的请求，例如“我希望今晚你能先听我说完，再给建议”。");
+          advice.push("Turn “you should know what I need” into an answerable request, such as “Tonight I would like you to listen before offering advice.”");
         }
         if (rhythm < 72 || sameSunMode) {
-          advice.push("约定争执暂停词和恢复时间。先处理情绪安全，再讨论谁对谁错。");
+          advice.push("Agree on a pause phrase and a time to return to the conversation. Restore emotional safety before debating who is right.");
         }
-        advice.push(`把「${cards[3].card.name}」的主题放进下一次对话：${cards[3].card.reflection}`);
+        advice.push(`Bring the theme of ${cards[3].card.name} into your next conversation: ${cards[3].card.reflection}`);
         while (advice.length < 3) {
-          advice.push("每周各说一个“最近被对方照顾到的时刻”，让关系不只围绕问题运转。");
+          advice.push("Once a week, each person names one recent moment when the other offered care. Let the relationship exist beyond the problem.");
         }
 
         return {
@@ -4032,15 +4059,15 @@
           score,
           scoreLabel,
           components: [
-            { label: "情绪回应", value: emotional },
-            { label: "生活节奏", value: rhythm },
-            { label: "信任表达", value: trust },
-            { label: "修复空间", value: repair }
+            { label: "Emotional", value: emotional },
+            { label: "Pace", value: rhythm },
+            { label: "Trust", value: trust },
+            { label: "Repair", value: repair }
           ],
           strengths,
           challenges,
           advice: advice.slice(0, 3),
-          summary: `${nameA}的太阳在${signA.name}，${nameB}的太阳在${signB.name}；月亮分别在${moonSignA.name}与${moonSignB.name}。这段关系更像两种过程之间的协商，而不是固定匹配等级。`
+          summary: `${nameA}'s Sun is in ${signA.name}; ${nameB}'s Sun is in ${signB.name}. Their Moons fall in ${moonSignA.name} and ${moonSignB.name}. This relationship reads as a negotiation between two processes, not a fixed compatibility grade.`
         };
       }
 
@@ -4051,7 +4078,7 @@
           const point = pairPoint(planet.longitude, key === "ascendant" ? 103 : 119);
           const left = point.x / 290 * 100;
           const top = point.y / 290 * 100;
-          const label = planet.name === "上升" ? "上升" : `${planet.name} ${signs[planet.signIndex].name}`;
+          const label = planet.name === "Rising" ? "Rising" : `${planet.name} ${signs[planet.signIndex].name}`;
           return `
             <span
               class="pair-dot"
@@ -4065,7 +4092,7 @@
         const asc = chart.planetsByKey.ascendant;
         return `
           <div class="pair-orbit person-${side}" style="--counter-rotate:${-rotation}deg;">
-            <span class="pair-orbit-name">${side.toUpperCase()} / ${name || "未命名"}</span>
+            <span class="pair-orbit-name">${side.toUpperCase()} / ${name || "Unnamed"}</span>
             <div class="pair-orbit-center">
               <span class="orbit-sun">${signs[sun.signIndex].symbol} ${signs[sun.signIndex].name}</span>
               <small>☽ ${signs[moon.signIndex].name} · AC ${signs[asc.signIndex].name}</small>
@@ -4076,8 +4103,8 @@
       }
 
       function renderSynastryVisual(data) {
-        const nameA = data.birthA.name || "你";
-        const nameB = data.birthB.name || "对方";
+        const nameA = data.birthA.name || "You";
+        const nameB = data.birthB.name || "Partner";
         $("#synastry-pair-title").textContent = `${nameA} × ${nameB}`;
         $("#synastry-visual").innerHTML = `
           <div class="pair-orbits">
@@ -4086,12 +4113,12 @@
             <div class="relationship-score-core" style="--score:${data.score};">
               <div>
                 <strong>${data.score}</strong>
-                <span>关系共鸣</span>
+                <span>RELATIONAL RESONANCE</span>
               </div>
             </div>
           </div>
         `;
-        const labels = ["你带来的过程", "对方带来的过程", "关系的此刻", "可尝试的下一步"];
+        const labels = ["Your process", "Partner's process", "The relationship now", "A possible next step"];
         $("#synastry-cards").innerHTML = data.cards.map((entry, index) => `
           <article class="relationship-card">
             <div class="relationship-card-top">
@@ -4099,21 +4126,21 @@
               <span>${labels[index]}</span>
             </div>
             <span class="relationship-card-symbol">${entry.card.symbol}</span>
-            <strong>${entry.card.name} · ${entry.reversed ? "逆位" : "正位"}</strong>
+            <strong>${entry.card.name} · ${entry.reversed ? "Reversed" : "Upright"}</strong>
             <small>${entry.structure.phase} / ${entry.structure.process}</small>
           </article>
         `).join("");
       }
 
       function renderSynastryReading(data) {
-        const nameA = data.birthA.name || "你";
-        const nameB = data.birthB.name || "对方";
+        const nameA = data.birthA.name || "You";
+        const nameB = data.birthB.name || "Partner";
         const cardLines = data.cards.slice(0, 3).map((entry, index) => {
-          const direction = entry.reversed ? "向内收束" : "向外表达";
+          const direction = entry.reversed ? "turning inward" : "moving outward";
           return `
             <section class="analysis-section">
-              <h3>${["A · " + nameA, "B · " + nameB, "NOW · 关系结构"][index]} / ${entry.structure.phase}</h3>
-              <p>${entry.card.name}把${entry.structure.process}带进这段关系，${direction}。${entry.reversed ? entry.card.reversed : entry.card.upright}</p>
+              <h3>${["A · " + nameA, "B · " + nameB, "NOW · RELATIONSHIP"][index]} / ${entry.structure.phase}</h3>
+              <p>${entry.card.name} brings ${entry.structure.process.toLowerCase()} into the relationship, ${direction}. ${entry.reversed ? entry.card.reversed : entry.card.upright}</p>
             </section>
           `;
         }).join("");
@@ -4126,7 +4153,7 @@
         `).join("");
         $("#synastry-reading").innerHTML = `
           <div class="reading-title">
-            <h2>双人关系解读</h2>
+            <h2>Relationship reading</h2>
             <span class="demo-badge">AI DEMO</span>
           </div>
           <p class="ai-summary">${data.summary}</p>
@@ -4153,8 +4180,8 @@
               ${data.advice.map((item, index) => `<li><span>0${index + 1}</span><p>${item}</p></li>`).join("")}
             </ol>
           </section>
-          <p class="disclaimer">“共鸣指数”只用于比较本次输入，不代表关系价值、未来结果或对方的真实想法。请勿在未经同意时分析他人隐私。</p>
-          <span class="structure-source">解读结构参考 <a href="https://github.com/yihao-sun/fractal-tarot-prompt" target="_blank" rel="noreferrer">息观塔罗 · 分形结构语法</a>，CC BY-NC-SA 4.0。</span>
+          <p class="disclaimer">“Relational resonance” compares only this input. It does not measure relationship worth, predict the future or reveal the other person's private thoughts. Do not analyze someone without consent.</p>
+          <span class="structure-source">Reading structure adapted from <a href="https://github.com/yihao-sun/fractal-tarot-prompt" target="_blank" rel="noreferrer">Fractal Tarot Prompt</a>, CC BY-NC-SA 4.0.</span>
         `;
       }
 
@@ -4179,13 +4206,13 @@
           city: $("#syn-b-city").value.trim()
         };
         if (!birthA.date || !birthB.date) {
-          $("#synastry-error").innerHTML = '<div class="error-box">请填写双方出生日期。日期是生成合盘所需的最少信息。</div>';
+          $("#synastry-error").innerHTML = '<div class="error-box">Enter both birth dates. They are the minimum information required for synastry.</div>';
           return;
         }
         $("#synastry-error").innerHTML = "";
         const question = $("#synastry-question").value.trim();
         renderSynastry(buildSynastry(birthA, birthB, question));
-        showToast("双人合盘已生成。匹配度由结构指标计算，不是关系判决。");
+        showToast("Synastry generated. The score comes from structural indicators, not a verdict on the relationship.");
       }
 
       function initSynastry() {
@@ -4195,7 +4222,7 @@
         renderSynastry(buildSynastry(
           birthA,
           birthB,
-          "我们怎样才能更好地理解彼此，而不是反复陷入同一种争执？"
+          "How can we understand each other better instead of repeating the same argument?"
         ));
       }
 
@@ -4208,7 +4235,7 @@
           city: $("#birth-city").value.trim()
         };
         if (!birth.date) {
-          $("#birth-error").innerHTML = '<div class="error-box">请先填写出生日期。日期是生成星盘所需的最少信息。</div>';
+          $("#birth-error").innerHTML = '<div class="error-box">Enter a birth date first. It is the minimum information required to generate a chart.</div>';
           return;
         }
         $("#birth-error").innerHTML = "";
@@ -4216,7 +4243,7 @@
         state.chart.data = calculateChart(birth);
         state.chart.selectedPlanet = "sun";
         renderChart();
-        showToast("星盘已重新排列。靠近行星会放大细节。");
+        showToast("Chart recalculated. Move closer to the planets to enlarge their detail.");
       }
 
       function initChart() {
