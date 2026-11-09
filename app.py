@@ -4,7 +4,6 @@ import json
 from pathlib import Path
 
 import streamlit as st
-import streamlit.components.v1 as components
 
 
 ROOT = Path(__file__).resolve().parent
@@ -64,4 +63,8 @@ def build_ui() -> str:
     return html.replace("__TAROT_DATA__", payload)
 
 
-components.html(build_ui(), height=1180, scrolling=True)
+st.iframe(
+    build_ui(),
+    height=1180,
+    alt="Asteria tarot and natal chart interactive prototype",
+)
