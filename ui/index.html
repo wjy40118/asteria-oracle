@@ -87,6 +87,7 @@
 
     .app {
       position: relative;
+      z-index: 2;
       width: min(100%, 1600px);
       min-height: 100vh;
       margin: 0 auto;
@@ -1713,8 +1714,31 @@
       transition: opacity .6s ease;
     }
 
+    .ambient-particles {
+      position: fixed;
+      inset: 0;
+      z-index: 1;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      mix-blend-mode: screen;
+      opacity: .82;
+    }
+
     .star-trail.idle {
       opacity: 0;
+    }
+
+    html.has-star-cursor,
+    html.has-star-cursor body,
+    html.has-star-cursor button,
+    html.has-star-cursor [role="button"] {
+      cursor: none !important;
+    }
+
+    html.has-star-cursor input,
+    html.has-star-cursor textarea {
+      cursor: text !important;
     }
 
     @media (max-width: 1180px) {
@@ -2148,6 +2172,7 @@
   </div>
 
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <canvas class="ambient-particles" id="ambient-particles" aria-hidden="true"></canvas>
   <canvas class="star-trail idle" id="star-trail" aria-hidden="true"></canvas>
 
   <script id="tarot-data" type="application/json">__TAROT_DATA__</script>
@@ -2239,6 +2264,186 @@
       const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
       const mod = (value, divisor) => ((value % divisor) + divisor) % divisor;
 
+      function initAmbientParticles() {
+        const canvas = $("#ambient-particles");
+        if (!canvas) return;
+
+        const context = canvas.getContext("2d");
+        const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        const pointer = { x: 0, y: 0, active: false };
+        const palette = [
+          [247, 211, 147],
+          [255, 247, 226],
+          [153, 199, 232],
+          [232, 190, 122]
+        ];
+        let width = 0;
+        let height = 0;
+        let pixelRatio = 1;
+        let particles = [];
+        let animationFrame = 0;
+        let last = 0;
+        let time = 0;
+
+        function particleCount() {
+          const area = width * height;
+          return Math.max(52, Math.min(150, Math.round(area / 9200)));
+        }
+
+        function makeParticles() {
+          const count = particleCount();
+          particles = Array.from({ length: count }, () => {
+            const color = palette[Math.floor(Math.random() * palette.length)];
+            return {
+              x: Math.random() * width,
+              y: Math.random() * height,
+              depth: .34 + Math.random() * 1.12,
+              radius: .65 + Math.random() * 1.65,
+              phase: Math.random() * Math.PI * 2,
+              drift: .06 + Math.random() * .2,
+              direction: Math.random() * Math.PI * 2,
+              color,
+              sparkle: Math.random() > .72,
+              spine: Math.random() * Math.PI
+            };
+          });
+        }
+
+        function resize() {
+          width = window.innerWidth;
+          height = window.innerHeight;
+          pixelRatio = Math.min(window.devicePixelRatio || 1, 2);
+          canvas.width = Math.round(width * pixelRatio);
+          canvas.height = Math.round(height * pixelRatio);
+          canvas.style.width = `${width}px`;
+          canvas.style.height = `${height}px`;
+          context.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
+          makeParticles();
+        }
+
+        function drawParticle(particle, x, y, alpha, scale = 1) {
+          const radius = particle.radius * particle.depth * scale;
+          const [red, green, blue] = particle.color;
+          context.save();
+          context.translate(x, y);
+          context.rotate(particle.spine + time * .00008);
+          context.fillStyle = `rgba(${red}, ${green}, ${blue}, ${alpha})`;
+          context.shadowColor = `rgba(${red}, ${green}, ${blue}, ${alpha * .8})`;
+          context.shadowBlur = Math.max(7, 13 * particle.depth);
+
+          if (particle.sparkle) {
+            const reach = radius * 4.6;
+            context.beginPath();
+            context.moveTo(0, -reach);
+            context.quadraticCurveTo(radius * .7, -radius * .7, reach, 0);
+            context.quadraticCurveTo(radius * .7, radius * .7, 0, reach);
+            context.quadraticCurveTo(-radius * .7, radius * .7, -reach, 0);
+            context.quadraticCurveTo(-radius * .7, -radius * .7, 0, -reach);
+            context.fill();
+            context.beginPath();
+            context.arc(0, 0, Math.max(.8, radius * .55), 0, Math.PI * 2);
+            context.fillStyle = `rgba(255, 250, 235, ${Math.min(1, alpha * 1.2)})`;
+            context.fill();
+          } else {
+            context.beginPath();
+            context.arc(0, 0, Math.max(.75, radius), 0, Math.PI * 2);
+            context.fill();
+          }
+          context.restore();
+        }
+
+        function frame(now) {
+          const delta = Math.min(32, now - (last || now));
+          const step = delta / 16.67;
+          last = now;
+          time += delta;
+          context.clearRect(0, 0, width, height);
+
+          const display = particles.map((particle) => {
+            if (!reducedMotion) {
+              particle.x += Math.cos(particle.direction) * particle.drift * step;
+              particle.y += Math.sin(particle.direction) * particle.drift * step * .62;
+              if (particle.x < -20) particle.x = width + 20;
+              if (particle.x > width + 20) particle.x = -20;
+              if (particle.y < -20) particle.y = height + 20;
+              if (particle.y > height + 20) particle.y = -20;
+            }
+
+            let x = particle.x;
+            let y = particle.y + Math.sin(time * .0006 + particle.phase) * 5 * particle.depth;
+            let proximity = 0;
+            if (pointer.active) {
+              const dx = x - pointer.x;
+              const dy = y - pointer.y;
+              const distance = Math.hypot(dx, dy);
+              const influence = Math.max(0, 1 - distance / 190);
+              proximity = influence * influence;
+              if (distance > .01) {
+                const push = proximity * 44 * particle.depth;
+                x += dx / distance * push;
+                y += dy / distance * push;
+              }
+            }
+            return { particle, x, y, proximity };
+          });
+
+          const connectionDistance = width < 700 ? 72 : 106;
+          context.save();
+          context.lineWidth = .72;
+          let linksDrawn = 0;
+          for (let i = 0; i < display.length && linksDrawn < 360; i += 1) {
+            for (let j = i + 1; j < display.length; j += 1) {
+              const a = display[i];
+              const b = display[j];
+              const dx = a.x - b.x;
+              const dy = a.y - b.y;
+              const distance = Math.hypot(dx, dy);
+              if (distance > connectionDistance) continue;
+              const focus = Math.max(a.proximity, b.proximity);
+              const alpha = (1 - distance / connectionDistance) * (.08 + focus * .32);
+              context.strokeStyle = `rgba(207, 224, 239, ${alpha})`;
+              context.beginPath();
+              context.moveTo(a.x, a.y);
+              context.lineTo(b.x, b.y);
+              context.stroke();
+              linksDrawn += 1;
+              if (linksDrawn >= 360) break;
+            }
+          }
+          context.restore();
+
+          display.forEach(({ particle, x, y, proximity }) => {
+            const pulse = .54 + Math.sin(time * .0018 + particle.phase) * .27;
+            const alpha = (.28 + pulse * .48) * (.7 + particle.depth * .3);
+            drawParticle(particle, x, y, Math.min(.95, alpha + proximity * .35), 1 + proximity * .28);
+          });
+
+          animationFrame = requestAnimationFrame(frame);
+        }
+
+        window.addEventListener("resize", resize, { passive: true });
+        window.addEventListener("pointermove", (event) => {
+          pointer.x = event.clientX;
+          pointer.y = event.clientY;
+          pointer.active = true;
+        }, { passive: true });
+        document.documentElement.addEventListener("mouseleave", () => {
+          pointer.active = false;
+        });
+
+        resize();
+        if (reducedMotion) {
+          frame(performance.now());
+          cancelAnimationFrame(animationFrame);
+        } else {
+          animationFrame = requestAnimationFrame(frame);
+        }
+
+        window.addEventListener("pagehide", () => {
+          cancelAnimationFrame(animationFrame);
+        }, { once: true });
+      }
+
       function initStarTrail() {
         const canvas = $("#star-trail");
         if (!canvas) return;
@@ -2249,16 +2454,17 @@
           canvas.remove();
           return;
         }
+        document.documentElement.classList.add("has-star-cursor");
 
         const context = canvas.getContext("2d");
         const pointer = { x: 0, y: 0, previousX: 0, previousY: 0, active: false };
-        const starCount = 16;
+        const starCount = 22;
         const trail = Array.from({ length: starCount }, (_, index) => ({
           x: 0,
           y: 0,
           vx: 0,
           vy: 0,
-          size: 0.8 + Math.random() * 1.7,
+          size: 1.15 + Math.random() * 2.1,
           phase: Math.random() * Math.PI * 2,
           warmth: Math.random()
         }));
@@ -2337,22 +2543,33 @@
               0,
               pointer.x,
               pointer.y,
-              44
+              74
             );
-            halo.addColorStop(0, "rgba(255, 226, 174, .13)");
-            halo.addColorStop(0.38, "rgba(232, 190, 122, .06)");
+            halo.addColorStop(0, "rgba(255, 238, 201, .3)");
+            halo.addColorStop(0.24, "rgba(245, 201, 126, .15)");
+            halo.addColorStop(0.62, "rgba(126, 174, 217, .07)");
             halo.addColorStop(1, "rgba(232, 190, 122, 0)");
             context.fillStyle = halo;
             context.beginPath();
-            context.arc(pointer.x, pointer.y, 44, 0, Math.PI * 2);
+            context.arc(pointer.x, pointer.y, 74, 0, Math.PI * 2);
             context.fill();
+
+            context.save();
+            context.beginPath();
+            context.arc(pointer.x, pointer.y, 19, 0, Math.PI * 2);
+            context.strokeStyle = "rgba(255, 221, 158, .34)";
+            context.lineWidth = 0.8;
+            context.setLineDash([2, 5]);
+            context.lineDashOffset = -time * 0.012;
+            context.stroke();
+            context.restore();
           }
 
           let anchorX = pointer.x;
           let anchorY = pointer.y;
           const step = delta / 16.67;
           trail.forEach((star, index) => {
-            const pull = index === 0 ? 0.34 : 0.2 - index * 0.004;
+            const pull = index === 0 ? 0.4 : 0.23 - index * 0.003;
             const targetX = index === 0 ? pointer.x : anchorX;
             const targetY = index === 0 ? pointer.y : anchorY;
             star.vx += (targetX - star.x) * pull * step;
@@ -2366,11 +2583,13 @@
           });
 
           context.save();
-          context.lineWidth = 0.7;
+          context.lineWidth = 0.9;
           for (let index = 1; index < trail.length - 1; index += 1) {
-            if (index % 3 === 0) continue;
-            const alpha = Math.max(0, 0.12 - index * 0.006);
-            context.strokeStyle = `rgba(232, 205, 157, ${alpha})`;
+            if (index % 4 === 0) continue;
+            const alpha = Math.max(0, 0.26 - index * 0.008);
+            context.strokeStyle = index % 7 === 0
+              ? `rgba(158, 198, 230, ${alpha * 0.8})`
+              : `rgba(246, 211, 147, ${alpha})`;
             context.beginPath();
             context.moveTo(trail[index - 1].x, trail[index - 1].y);
             context.lineTo(trail[index].x, trail[index].y);
@@ -2380,8 +2599,8 @@
 
           trail.forEach((star, index) => {
             const twinkle = 0.62 + Math.sin(time * 0.0035 + star.phase) * 0.28;
-            const alpha = pointer.active ? Math.max(0, (0.78 - index * 0.038) * twinkle) : 0;
-            const radius = star.size * (1 + Math.max(0, 1 - index / 7) * 0.55);
+            const alpha = pointer.active ? Math.max(0, (1 - index * 0.032) * twinkle) : 0;
+            const radius = star.size * (1 + Math.max(0, 1 - index / 8) * 0.75);
             const color = star.warmth > 0.28 ? "232, 190, 122" : "196, 207, 235";
             drawStar(
               star.x,
@@ -2392,6 +2611,17 @@
               color
             );
           });
+
+          if (pointer.active) {
+            drawStar(pointer.x, pointer.y, 7.2, 1, time * 0.0012, "255, 224, 157");
+            context.beginPath();
+            context.arc(pointer.x, pointer.y, 2.2, 0, Math.PI * 2);
+            context.fillStyle = "rgba(255, 251, 238, .95)";
+            context.shadowColor = "rgba(255, 226, 164, .9)";
+            context.shadowBlur = 18;
+            context.fill();
+            context.shadowBlur = 0;
+          }
 
           for (let index = dust.length - 1; index >= 0; index -= 1) {
             const particle = dust[index];
@@ -2429,6 +2659,17 @@
           pointer.previousY = event.clientY;
           if (!pointer.active || distance > 90) {
             placeTrailAt(event.clientX, event.clientY);
+          }
+          if (pointer.active && distance > 9 && Math.random() > 0.48) {
+            const angle = Math.random() * Math.PI * 2;
+            dust.push({
+              x: event.clientX + Math.cos(angle) * 11,
+              y: event.clientY + Math.sin(angle) * 11,
+              vx: Math.cos(angle) * (0.12 + Math.random() * 0.18),
+              vy: Math.sin(angle) * (0.12 + Math.random() * 0.18),
+              life: 0.64 + Math.random() * 0.25,
+              size: 0.7 + Math.random() * 1.4
+            });
           }
           pointer.active = true;
           canvas.classList.remove("idle");
@@ -3074,6 +3315,7 @@
       initTarotDeck();
       initChart();
       bindGatewayFisheye();
+      initAmbientParticles();
       initStarTrail();
     })();
   </script>
